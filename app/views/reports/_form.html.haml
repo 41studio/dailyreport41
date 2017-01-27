@@ -29,13 +29,10 @@
         = link_to_add_association 'add task', f, :tasks
   .field
     = f.label :reported_at
-    = f.datetime_select :reported_at, default: Time.now.to_datetime, order: [:day, :month, :year, :hour, :minute]
+    = f.date_select :reported_at, default: Time.now, order: [:day, :month, :year]
   .field
     = f.label :note
     = f.text_area :note
-  .field
-    = f.check_box :resend
-    = f.label :resend
   .actions
     = f.submit 'Save'
 
