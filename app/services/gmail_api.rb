@@ -10,7 +10,6 @@ class GmailApi
   # Ensure valid credentials
   def initialize(user)
     @gmail = Gmail.connect(:xoauth2, user.email, user.fresh_token)
-    return 'disconnected' unless @gmail.signed_in?
   end
 
   ##
@@ -57,6 +56,8 @@ class GmailApi
       end
     end
     email.message_id
+  ensure
+    return puts 'Gmail API: disconnected' unless @gmail.signed_in?
   end
 
   ##
