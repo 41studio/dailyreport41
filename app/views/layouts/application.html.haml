@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+
+    %title Dailyreport41
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    %p#notice= notice
+    %p#alert= alert
+
+    - if user_signed_in?
+      Welcome, #{current_user.full_name}
+      %br
+      = link_to "Home", root_path
+      = link_to "Logout", destroy_user_session_path, method: :delete
+
+
+    = yield
+    = yield :javascript

@@ -1,0 +1,6 @@
+en:
+  enumerize:
+    task:
+      status:
+        on_progress: On Progress
+        completed: Completed

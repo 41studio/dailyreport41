@@ -1,0 +1,43 @@
+= form_for @report do |f|
+  - if @report.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+      %ul
+        - @report.errors.full_messages.each do |msg|
+          %li= msg
+  .field
+    = f.label :project_id
+    = f.select :project_id, options_from_collection_for_select(@projects, 'id', 'name', @report.project_id), include_blank: 'Select project'
+  .field
+    = f.label :email_to, "To"
+    = f.text_field :email_to
+  .field
+    = f.label :email_cc, "Cc"
+    = f.text_field :email_cc
+  .field
+    = f.label :email_bcc, "Bcc"
+    = f.text_field :email_bcc
+  .field
+    = f.label :body
+    = f.text_area :body
+  .field
+    %h3 Tasks
+    #tasks
+      = f.fields_for :tasks do |task|
+        = render 'task_fields', f: task
+      .links
+        = link_to_add_association 'add task', f, :tasks
+  .field
+    = f.label :reported_at
+    = f.datetime_select :reported_at, default: Time.now.to_datetime, order: [:day, :month, :year, :hour, :minute]
+  .field
+    = f.label :note
+    = f.text_area :note
+  .field
+    = f.check_box :resend
+    = f.label :resend
+  .actions
+    = f.submit 'Save'
+
+- content_for :javascript do
+  = javascript_include_tag 'reports', 'data-turbolinks-track' => true

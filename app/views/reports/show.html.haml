@@ -1,0 +1,40 @@
+%p
+  %b Project:
+  = @report.project_name
+%p
+  %b Body:
+  = @report.body
+%p
+  %b Email to:
+  = @report.email_to
+%p
+  %b Email cc:
+  = @report.email_cc
+%p
+  %b Email bcc:
+  = @report.email_bcc
+
+%h2 Tasks
+- if @report.tasks.completed.present?
+  %strong Completed
+  %ol
+    - @report.tasks.completed.each do |task|
+      %li= task.title
+
+- if @report.tasks.on_progress.present?
+  %strong On Progress
+  %ol
+    - @report.tasks.on_progress.each do |task|
+      %li= task.title
+%p
+  %b Reported at:
+  = formated_date(@report.reported_at)
+
+- if @report.note.present?
+  %p
+    %b Note:
+    = @report.note
+
+= link_to 'Edit', edit_report_path(@report)
+\|
+= link_to 'Back', reports_path

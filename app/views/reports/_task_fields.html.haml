@@ -1,0 +1,11 @@
+.nested-fields
+  .field
+    = f.label :title
+    %br
+    = f.text_field :title
+  .field
+    = f.radio_button :status, "on_progress"
+    = f.label :status, "On Progress", value: "on_progress"
+    = f.radio_button :status, "completed"
+    = f.label :status, "Completed", value: "completed"
+  = link_to_remove_association "remove task", f
