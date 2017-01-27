@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
 
   # find by omniauth
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+    user = where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
       user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
@@ -50,6 +50,13 @@ class User < ActiveRecord::Base
       user.refresh_token = auth.credentials.refresh_token
       user.expires_at = Time.at(auth.credentials.expires_at).to_datetime
     end
+
+    if user.refresh_token.blank?
+      user.refresh_token = auth.credentials.refresh_token
+      user.save
+    end
+
+    user
   end
 
   # Makes a http POST request to the Google API OAuth 2.0 authorization endpoint
