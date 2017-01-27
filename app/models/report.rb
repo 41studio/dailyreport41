@@ -48,7 +48,6 @@ class Report < ActiveRecord::Base
   # callbacks
   after_initialize :set_default_message_body
   before_create :set_subject
-  after_create  :send_report
   after_update  :ensure_resend_report
 
   ##
@@ -62,7 +61,8 @@ class Report < ActiveRecord::Base
   ##
   # formated subject
   def subject_text
-    "[#{project_name}] Daily Report #{reported_at.strftime('%B %d, %Y')}"
+    formated_date = reported_at.strftime("%B #{reported_at.day.ordinalize}, %Y")
+    "[#{project_name}] Daily Report #{formated_date}"
   end
 
   ##
@@ -106,10 +106,10 @@ class Report < ActiveRecord::Base
     ##
     # close greeting
     html += "<br>"
-    html += "Thank you"
+    html += "Please let me know if have any feedback."
     html += "<br>"
     html += "<br>"
-    html += "Regards,"
+    html += "Best Regards,"
     html += "<br>"
     html += user.full_name
     html
