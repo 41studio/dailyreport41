@@ -12,7 +12,7 @@
     %p#alert= alert
 
     - if user_signed_in?
-      Welcome, #{current_user.full_name}
+      Welcome, #{current_user.full_name} (#{current_user.email})
       %br
       = link_to "Home", root_path
       = link_to "Logout", destroy_user_session_path, method: :delete
