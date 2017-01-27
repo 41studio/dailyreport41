@@ -46,16 +46,15 @@ class User < ActiveRecord::Base
       user.full_name = auth.info.name
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
+    end
+
+    # set fresh token
+    if auth.credentials.token.present? and auth.credentials.refresh_token.present?
       user.access_token = auth.credentials.token
       user.refresh_token = auth.credentials.refresh_token
       user.expires_at = Time.at(auth.credentials.expires_at).to_datetime
-    end
-
-    if user.refresh_token.blank?
-      user.refresh_token = auth.credentials.refresh_token
       user.save
     end
-
     user
   end
 
