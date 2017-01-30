@@ -52,11 +52,7 @@
                     %button.navbar-toggle{:type => "button"}
                       %img.profile-img{:src => image_path("profile.png")}/
                 %ul.nav.navbar-nav.navbar-left
-                  %li.navbar-title
-                    - if current_page?('/')
-                      Dashboard
-                    - else
-                      = controller_name.titleize
+                  %li.navbar-title= navbar_title
                   %li.navbar-search.hidden-sm
                     %input#search{:placeholder => "Search..", :type => "text"}/
                     %button.btn-search
@@ -72,8 +68,7 @@
 
                       %ul.action
                         %li
-                          %a{:href => "/"}
-                            Profile (#{current_user.email})
+                          = link_to "Profile", profile_user_path
                         %li
                           = link_to "Logout", destroy_user_session_path, method: :delete
 

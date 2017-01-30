@@ -1,0 +1,9 @@
+.row
+  .col-lg-12
+    .card
+      .card-body.app-heading
+        %img.profile-img{:src => image_path("profile.png")}/
+        .app-title
+          .title
+            %span.highlight= @user.full_name
+          .description= @user.email
