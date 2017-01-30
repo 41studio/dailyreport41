@@ -7,7 +7,7 @@ class ReportTemplate < Mustache
   end
 
   def greeting
-    "Hi #{@report.try(:user).try(:first_name)},"
+    "Hi #{@report.try(:project).try(:client_first_name)},"
   end
 
   def body

@@ -37,4 +37,8 @@ class Project < ActiveRecord::Base
     emails << email_project_manager unless email_client.eql?(email_project_manager)
     emails.join(', ')
   end
+
+  def client_first_name
+    client_name.try(:split).try(:first)
+  end
 end
