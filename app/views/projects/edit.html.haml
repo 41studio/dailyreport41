@@ -1,7 +1,9 @@
-%h1 Editing project
+.row
+  .col-xs-12
+    .card
+      .card-header
+        Editing Project
 
-= render 'form'
-
-= link_to 'Show', @project
-\|
-= link_to 'Back', projects_path
+      .card-body
+        = render 'form'
+        = link_to 'Show', @project, class: "btn btn-link"

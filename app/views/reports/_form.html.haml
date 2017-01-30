@@ -1,40 +1,57 @@
-= form_for @report do |f|
+= form_for @report, html: {class: "form form-horizontal"} do |f|
   - if @report.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+    .alert.alert-danger.alert-dismissible.fade.in{:role => "alert"}
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+      %h4{:id => "oh-snap!-you-got-an-error!"}
+        = "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
       %ul
         - @report.errors.full_messages.each do |msg|
           %li= msg
-  .field
-    = f.label :project_id
-    = f.select :project_id, options_from_collection_for_select(@projects, 'id', 'name', @report.project_id), include_blank: 'Select project'
-  .field
-    = f.label :email_to, "To"
-    = f.text_field :email_to
-  .field
-    = f.label :email_cc, "Cc"
-    = f.text_field :email_cc
-  .field
-    = f.label :email_bcc, "Bcc"
-    = f.text_field :email_bcc
-  .field
-    = f.label :body
-    = f.text_area :body
-  .field
-    %h3 Tasks
-    #tasks
+  .section
+    .section-title Information
+    .section-body
+      .form-group
+        = f.label :project_id, class: "col-md-3 control-label"
+        .col-md-9
+          = f.select :project_id, options_from_collection_for_select(@projects, 'id', 'name', @report.project_id), {include_blank: 'Select project'}, {class: "select2"}
+      .form-group
+        = f.label :email_to, "To", class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :email_to, class: "form-control"
+      .form-group
+        = f.label :email_cc, "Cc", class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :email_cc, class: "form-control"
+      .form-group
+        = f.label :email_bcc, "Bcc", class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :email_bcc, class: "form-control"
+      .form-group
+        = f.label :reported_at, class: "col-md-3 control-label"
+        .col-md-9
+          = f.date_select :reported_at, default: Time.now, order: [:day, :month, :year], class: "form-control"
+  .section
+    .section-title Tasks
+    .section-body#tasks
       = f.fields_for :tasks do |task|
-        = render 'task_fields', f: task
+        = render 'task_form-groups', f: task
       .links
-        = link_to_add_association 'add task', f, :tasks
-  .field
-    = f.label :reported_at
-    = f.date_select :reported_at, default: Time.now, order: [:day, :month, :year]
-  .field
-    = f.label :note
-    = f.text_area :note
-  .actions
-    = f.submit 'Save'
+        = link_to_add_association f, :tasks do
+          %i.fa.fa-plus-circle.fa-2x
+
+  .section
+    .section-title Note
+    .section-body
+      .form-group
+        = f.label :note, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_area :note, class: "form-control", id: "text-editor"
+  .form-footer
+    .form-group
+      .col-md-9.col-md-offset-3
+        = f.submit 'Save', class: "btn btn-primary"
+        = link_to 'Cancel', reports_path, class: "btn btn-default"
 
 - content_for :javascript do
   = javascript_include_tag 'reports', 'data-turbolinks-track' => true

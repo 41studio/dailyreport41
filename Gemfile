@@ -62,6 +62,12 @@ gem 'cocoon'
 # Brings Rails named routes to javascript
 gem 'js-routes'
 
+# This is Bootstrap 3
+gem 'bootstrap-sass'
+
+# Font Awesome
+gem 'font-awesome-rails'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

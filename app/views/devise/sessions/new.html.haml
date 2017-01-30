@@ -1,10 +1,24 @@
-%h2 Log in
--#= link_to "Sign in with #{OmniAuth::Utils.camelize(:google_auth2)}", user_google_oauth2_omniauth_authorize_path
-.auth
-  %button{:onclick => "window.location='#{user_google_oauth2_omniauth_authorize_path}';", :style => "border-radius: 4px; padding: 8px; background-color: #fff"}
-    %div{:style => "display: inline-block; line-height: 0;"}
-      %span{:style => "float: left; font: bold 13px/16px arial,sans-serif; margin-right: 4px; margin-top: 7px;"} Sign In
-      %span{:style => "float: left; font: 13px/16px arial,sans-serif; margin-right: 11px; margin-top: 7px;"} with
-      %div{:style => "float: left;"}
-        %img{:height => "32", :src => image_path('g-normal.png'), :style => "border: 0;", :width => "32"}/
-      %div{:style => "clear: both;"}
+.app-container.app-login
+  .flex-center
+    .app-header
+    .app-body
+      .loader-container.text-center
+        .icon
+          .sk-folding-cube
+            .sk-cube1.sk-cube
+            .sk-cube2.sk-cube
+            .sk-cube4.sk-cube
+            .sk-cube3.sk-cube
+        .title Logging in...
+      .app-block
+        .app-form
+          .form-header
+            .app-brand
+              %span.highlight DailyReport41
+              Login
+          .form-footer
+            = link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-default btn-sm btn-social __google" do
+              .info
+                %i.icon.fa.fa-google{"aria-hidden" => "true"}
+                %span.title Login with Google
+    .app-footer

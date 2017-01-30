@@ -1,26 +1,27 @@
-%h1 Listing reports
+.row
+  .col-xs-12
+    .card
+      .card-header
+        .row
+          .col-xs-4
+            Reports
+          .col-xs-8
+            = link_to 'New Report', new_report_path, class: "btn btn-success"
 
-%table
-  %thead
-    %tr
-      %th Project
-      %th Email to
-      %th Reported at
-      %th Note
-      %th
-      %th
-      %th
-
-  %tbody
-    - @reports.each do |report|
-      %tr
-        %td= report.project_name
-        %td= report.email_to
-        %td= formated_date(report.reported_at)
-        %td= link_to 'Show', report
-        %td= link_to 'Edit', edit_report_path(report)
-        %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Report', new_report_path
+      .card-body.no-padding
+        %table.table.table-striped.table-hover
+          %thead
+            %tr{:role => "row"}
+              %th Project
+              %th Email To
+              %th Reported at
+              %th.text-center{:colspan => "3"} Actions
+          %tbody
+            - @reports.each_with_index do |report, index|
+              %tr{:class => cycle('odd', 'even'), :role => "row"}
+                %td= report.project_name
+                %td= report.email_to
+                %td= formated_date(report.reported_at)
+                %td.text-center= link_to 'Show', report
+                %td.text-center= link_to 'Edit', edit_report_path(report)
+                %td.text-center= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }

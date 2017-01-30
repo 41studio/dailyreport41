@@ -1,16 +1,23 @@
-%p
-  %b Name:
-  = @project.name
-%p
-  %b Description:
-  = @project.description
-%p
-  %b Email client:
-  = @project.email_client
-%p
-  %b Email project manager:
-  = @project.email_project_manager
+.row
+  .col-xs-12
+    .card
+      .card-header
+        Detail Project
 
-= link_to 'Edit', edit_project_path(@project)
-\|
-= link_to 'Back', projects_path
+      .card-body
+        %p
+          %b Name:
+          = @project.name
+        %p
+          %b Description:
+          = @project.description
+        %p
+          %b Email client:
+          = @project.email_client
+        %p
+          %b Email project manager:
+          = @project.email_project_manager
+
+        = link_to 'Edit', edit_project_path(@project)
+        \|
+        = link_to 'Back', projects_path

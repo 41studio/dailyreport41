@@ -1,34 +1,57 @@
-= form_for @project do |f|
+= form_for @project, html: {class: "form form-horizontal"} do |f|
   - if @project.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
+    .alert.alert-danger.alert-dismissible.fade.in{:role => "alert"}
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+      %h4{:id => "oh-snap!-you-got-an-error!"}
+        = "#{pluralize(@project.errors.count, "error")} prohibited this project from being saved:"
       %ul
         - @project.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :description
-    = f.text_area :description
-  .field
-    = f.label :client_name
-    = f.text_field :client_name
-  .field
-    = f.label :email_client
-    = f.email_field :email_client
-  .field
-    = f.label :project_manager_name
-    = f.text_field :project_manager_name
-  .field
-    = f.label :email_project_manager
-    = f.email_field :email_project_manager
-  .field
-    = f.label :email_cc
-    = f.email_field :email_cc
-  .field
-    = f.label :email_bcc
-    = f.email_field :email_bcc
-  .actions
-    = f.submit 'Save'
+  .section
+    .section-title Information
+    .section-body
+      .form-group
+        = f.label :name, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :name, placeholder: "Name", class: "form-control"
+      .form-group
+        .col-md-3
+          = f.label :description, class: "control-label"
+          %p.control-label-help ( short detail of projects , 500 max words )
+        .col-md-9
+          = f.text_area :description, class: "form-control", id: "text-editor"
+
+    .section-title Contacts
+    .section-body
+      .form-group
+        = f.label :client_name, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :client_name, class: "form-control"
+      .form-group
+        = f.label :email_client, class: "col-md-3 control-label"
+        .col-md-9
+          = f.email_field :email_client, class: "form-control"
+      .form-group
+        = f.label :project_manager_name, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :project_manager_name, class: "form-control"
+      .form-group
+        = f.label :email_project_manager, class: "col-md-3 control-label"
+        .col-md-9
+          = f.email_field :email_project_manager, class: "form-control"
+      .form-group
+        = f.label :email_cc, class: "col-md-3 control-label"
+        .col-md-9
+          = f.email_field :email_cc, class: "form-control"
+      .form-group
+        = f.label :email_bcc, class: "col-md-3 control-label"
+        .col-md-9
+          = f.email_field :email_bcc, class: "form-control"
+
+  .form-footer
+    .form-group
+      .col-md-9.col-md-offset-3
+        = f.submit 'Save', class: "btn btn-primary"
+        = link_to 'Cancel', projects_path, class: "btn btn-default"

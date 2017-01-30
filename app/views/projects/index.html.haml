@@ -1,27 +1,27 @@
-%h1 Listing projects
+.row
+  .col-xs-12
+    .card
+      .card-header
+        .row
+          .col-md-6
+            Projects
+          .col-md-6
+            = link_to 'New Project', new_project_path, class: "btn btn-success"
 
-%table
-  %thead
-    %tr
-      %th Name
-      %th Description
-      %th Email client
-      %th Email project manager
-      %th
-      %th
-      %th
-
-  %tbody
-    - @projects.each do |project|
-      %tr
-        %td= project.name
-        %td= project.description
-        %td= project.email_client
-        %td= project.email_project_manager
-        %td= link_to 'Show', project
-        %td= link_to 'Edit', edit_project_path(project)
-        %td= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Project', new_project_path
+      .card-body.no-padding
+        %table.table.table-striped.table-hover
+          %thead
+            %tr{:role => "row"}
+              %th Name
+              %th Email Client
+              %th Email Project Manager
+              %th.text-center{:colspan => "3"} Actions
+          %tbody
+            - @projects.each_with_index do |project, index|
+              %tr{:class => cycle('odd', 'even'), :role => "row"}
+                %td= project.name
+                %td= project.email_client
+                %td= project.email_project_manager
+                %td.text-center= link_to 'Show', project
+                %td.text-center= link_to 'Edit', edit_project_path(project)
+                %td.text-center= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }

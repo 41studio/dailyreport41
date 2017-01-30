@@ -1,7 +1,9 @@
-%h1 Editing report
+.row
+  .col-xs-12
+    .card
+      .card-header
+        Editing Report
 
-= render 'form'
-
-= link_to 'Show', @report
-\|
-= link_to 'Back', reports_path
+      .card-body
+        = render 'form'
+        = link_to 'Show', @report, class: "btn btn-link"

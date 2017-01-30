@@ -1,3 +1,20 @@
-%ul
-  %li= link_to "Projects (#{@project_count})", projects_path
-  %li= link_to "Reports (#{@report_count})", reports_path
+.row
+  .col-lg-4.col-md-6.col-sm-6.col-xs-12
+    %a.card.card-banner.card-green-light
+      .card-body
+        %i.icon.fa.fa-cubes.fa-4x
+        .content
+          .title Projects
+          .value
+            %span.sign>
+            = @project_count
+
+  .col-lg-4.col-md-6.col-sm-6.col-xs-12
+    %a.card.card-banner.card-blue-light
+      .card-body
+        %i.icon.fa.fa-clipboard.fa-4x
+        .content
+          .title Reports
+          .value
+            %span.sign>
+            = @report_count

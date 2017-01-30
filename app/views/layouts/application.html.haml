@@ -2,21 +2,96 @@
 %html
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
 
     %title Dailyreport41
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+
   %body
-    %p#notice= notice
-    %p#alert= alert
-
     - if user_signed_in?
-      Welcome, #{current_user.full_name} (#{current_user.email})
-      %br
-      = link_to "Home", root_path
-      = link_to "Logout", destroy_user_session_path, method: :delete
+      .app.app-default
+        %aside#sidebar.app-sidebar
+          .sidebar-header
+            %a.sidebar-brand{:href => root_path}
+              DailyReport41
+            %button.sidebar-toggle{:type => "button"}
+              %i.fa.fa-times
+          .sidebar-menu
+            %ul.sidebar-nav
+              %li.active
+                %a{:href => root_path}
+                  .icon
+                    %i.fa.fa-tasks{"aria-hidden" => "true"}
+                  .title Dashboard
+              %li{:class => "@@menu.messaging"}
+                %a{:href => projects_path}
+                  .icon
+                    %i.fa.fa-cubes{"aria-hidden" => "true"}
+                  .title Projects
+
+              %li{:class => "@@menu.messaging"}
+                %a{:href => reports_path}
+                  .icon
+                    %i.fa.fa-clipboard{"aria-hidden" => "true"}
+                  .title Reports
+
+        .app-container
+          %nav#navbar.navbar.navbar-default
+            .container-fluid
+              .navbar-collapse.collapse.in
+                %ul.nav.navbar-nav.navbar-mobile
+                  %li
+                    %button.sidebar-toggle{:type => "button"}
+                      %i.fa.fa-bars
+                  %li.logo
+                    %a.navbar-brand{:href => "#"}
+                      DailyReport41
+                  %li
+                    %button.navbar-toggle{:type => "button"}
+                      %img.profile-img{:src => image_path("profile.png")}/
+                %ul.nav.navbar-nav.navbar-left
+                  %li.navbar-title
+                    - if current_page?('/')
+                      Dashboard
+                    - else
+                      = controller_name.titleize
+                  %li.navbar-search.hidden-sm
+                    %input#search{:placeholder => "Search..", :type => "text"}/
+                    %button.btn-search
+                      %i.fa.fa-search
+                %ul.nav.navbar-nav.navbar-right
+                  %li.dropdown.profile
+                    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "/"}
+                      %img.profile-img{:src => image_path("profile.png")}/
+                      .title Profile
+                    .dropdown-menu
+                      .profile-info
+                        %h4.username= current_user.full_name
+
+                      %ul.action
+                        %li
+                          %a{:href => "/"}
+                            Profile (#{current_user.email})
+                        %li
+                          = link_to "Logout", destroy_user_session_path, method: :delete
 
 
-    = yield
-    = yield :javascript
+          = yield
+
+          %footer.app-footer
+            .row
+              .col-xs-12
+                .footer-copyright
+                  Copyright © 2016 Company Co,Ltd.
+
+      = javascript_include_tag 'flat-admin/vendor', 'data-turbolinks-track' => true
+      = javascript_include_tag 'flat-admin/app', 'data-turbolinks-track' => true
+      = yield :javascript
+
+    - else
+      .app.app-default
+        = yield
+
+
