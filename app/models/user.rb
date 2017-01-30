@@ -93,4 +93,8 @@ class User < ActiveRecord::Base
     refresh! if token_expired?
     access_token
   end
+
+  def first_name
+    full_name.try(:split).try(:first)
+  end
 end

@@ -54,7 +54,8 @@ class Report < ActiveRecord::Base
   # sending report with Gmail API
   def send_report
     gmail = GmailApi.new(user)
-    message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, message_body, format: 'html')
+    body_template = ReportTemplate.new(self)
+    message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, body_template.render, format: 'html')
     self.update_column("message_id", message_id)
   end
 

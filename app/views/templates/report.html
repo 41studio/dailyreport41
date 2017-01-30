@@ -1,0 +1,43 @@
+{{ greeting }}
+
+<br>
+<br>
+
+{{ body }}
+<br>
+<br>
+
+{{# completed_tasks}}
+  <strong>Completed:</strong>
+  <ol>
+    {{# completed_tasks}}
+    <li>{{title}}</li>
+    {{/ completed_tasks}}
+  </ol>
+{{/ completed_tasks}}
+
+
+{{# on_progress_tasks}}
+  <strong>On Progress:</strong>
+  <ol>
+    {{# on_progress_tasks}}
+    <li>{{title}}</li>
+    {{/ on_progress_tasks}}
+  </ol>
+{{/ on_progress_tasks}}
+
+{{# note}}
+  <br>
+  Note:
+  <br>
+  {{note}}
+{{/ note}}
+
+<br>
+<br>
+Please let me know if have any feedback.
+<br>
+<br>
+Best Regards,
+<br>
+{{user_full_name}}
