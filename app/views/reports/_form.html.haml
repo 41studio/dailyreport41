@@ -35,7 +35,7 @@
     .section-title Tasks
     .section-body#tasks
       = f.fields_for :tasks do |task|
-        = render 'task_form-groups', f: task
+        = render 'task_fields', f: task
       .links
         = link_to_add_association f, :tasks do
           %i.fa.fa-plus-circle.fa-2x
