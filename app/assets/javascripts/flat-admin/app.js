@@ -10491,5 +10491,5 @@ $('[data-toggle="toggle"]').bind("click", function () {
 
 
 if(document.getElementById("text-editor")){
-	var simplemde = new SimpleMDE({ element: document.getElementById("text-editor"), hideIcons: ["side-by-side", "fullscreen"] });
+	var simplemde = new SimpleMDE({ element: document.getElementById("text-editor"), hideIcons: ["side-by-side", "fullscreen"], spellChecker: false });
 }

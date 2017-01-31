@@ -39,7 +39,6 @@ class Report < ActiveRecord::Base
   ##
   # validations
   validates :project_id, :body, :email_to, :reported_at, presence: true
-  validate :ensure_format_date
 
   ##
   # delegate class method
@@ -48,15 +47,14 @@ class Report < ActiveRecord::Base
   ##
   # callbacks
   after_initialize :set_default_message_body
-  before_create :set_subject, :set_default_reported_at
+  before_create :set_subject
   after_update  :ensure_resend_report
 
   ##
   # sending report with Gmail API
-  def send_report
+  def send!
     gmail = GmailApi.new(user)
-    body_template = ReportTemplate.new(self)
-    message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, body_template.render, format: 'html')
+    message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, template, format: 'html')
     self.update_column("message_id", message_id)
   end
 
@@ -65,6 +63,10 @@ class Report < ActiveRecord::Base
   def subject_text
     formated_date = reported_at.strftime("%B #{reported_at.day.ordinalize}, %Y")
     "[#{project_name}] Daily Report #{formated_date}"
+  end
+
+  def template
+    ReportTemplate.new(self).render
   end
 
   private
@@ -78,14 +80,7 @@ class Report < ActiveRecord::Base
       self.body = "Today I have worked on this following tasks,"
     end
 
-    def set_default_reported_at
-      self.reported_at = Date.today
-    end
-
     def ensure_resend_report
       send_report if self.resend
-    end
-
-    def ensure_format_date
     end
 end

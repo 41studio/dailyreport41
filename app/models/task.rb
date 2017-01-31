@@ -19,6 +19,8 @@ class Task < ActiveRecord::Base
 
   enumerize :status, in: [:on_progress, :completed], predicates: true, scope: true
 
+  serialize :completed, JSON
+
   # relations
   belongs_to :user
   belongs_to :report

@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = current_user.reports.new
+    @report = current_user.reports.new(reported_at: Date.today)
     @report.tasks.build
   end
 
@@ -31,7 +31,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
-        @report.send_report
+        send_report
         format.html { redirect_to @report, notice: 'Report was successfully created.' }
         format.json { render :show, status: :created, location: @report }
       else
@@ -46,6 +46,7 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
+        send_report
         format.html { redirect_to @report, notice: 'Report was successfully updated.' }
         format.json { render :show, status: :ok, location: @report }
       else
@@ -78,5 +79,9 @@ class ReportsController < ApplicationController
 
     def set_projects
       @projects = current_user.projects
+    end
+
+    def send_report
+      @report.send! if params[:commit].eql?("Save & Send")
     end
 end

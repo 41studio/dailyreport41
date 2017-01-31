@@ -12,25 +12,29 @@
     .section-title Information
     .section-body
       .form-group
+        = f.label :reported_at, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :reported_at, class: "form-control", value: formated_date(@report.reported_at)
+      .form-group
         = f.label :project_id, class: "col-md-3 control-label"
         .col-md-9
           = f.select :project_id, options_from_collection_for_select(@projects, 'id', 'name', @report.project_id), {include_blank: 'Select project'}, {class: "select2"}
       .form-group
-        = f.label :email_to, "To", class: "col-md-3 control-label"
-        .col-md-9
-          = f.text_field :email_to, class: "form-control"
-      .form-group
-        = f.label :email_cc, "Cc", class: "col-md-3 control-label"
-        .col-md-9
-          = f.text_field :email_cc, class: "form-control"
-      .form-group
-        = f.label :email_bcc, "Bcc", class: "col-md-3 control-label"
-        .col-md-9
-          = f.text_field :email_bcc, class: "form-control"
-      .form-group
-        = f.label :reported_at, class: "col-md-3 control-label"
-        .col-md-9
-          = f.text_field :reported_at, class: "form-control", value: formated_date(@report.reported_at)
+        .col-md-9.col-md-offset-3
+          %a#toggle-email-receiver.btn.btn-xs.btn-success Email Receiver
+      #email-receiver{:style => "display: none;"}
+        .form-group
+          = f.label :email_to, "To", class: "col-md-3 control-label"
+          .col-md-9
+            = f.text_field :email_to, class: "form-control"
+        .form-group
+          = f.label :email_cc, "Cc", class: "col-md-3 control-label"
+          .col-md-9
+            = f.text_field :email_cc, class: "form-control"
+        .form-group
+          = f.label :email_bcc, "Bcc", class: "col-md-3 control-label"
+          .col-md-9
+            = f.text_field :email_bcc, class: "form-control"
 
   .section
     .section-title Tasks
@@ -45,13 +49,13 @@
     .section-title Note
     .section-body
       .form-group
-        = f.label :note, class: "col-md-3 control-label"
-        .col-md-9
+        .col-md-12
           = f.text_area :note, class: "form-control", id: "text-editor"
   .form-footer
     .form-group
-      .col-md-9.col-md-offset-3
-        = f.submit 'Save', class: "btn btn-primary"
+      .col-md-12
+        = f.submit 'Save & Send', class: "btn btn-primary"
+        = f.submit 'Save', class: "btn btn-info"
         = link_to 'Cancel', reports_path, class: "btn btn-default"
 
 - content_for :javascript do
