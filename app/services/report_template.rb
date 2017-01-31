@@ -23,7 +23,7 @@ class ReportTemplate < Mustache
   end
 
   def note
-    @report.note
+    Markdown.new(@report.note).to_html
   end
 
   def user_full_name

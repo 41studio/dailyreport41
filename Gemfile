@@ -80,6 +80,12 @@ gem 'font-awesome-rails'
 # Use for views template
 gem 'mustache'
 
+# User for handle markdown
+gem 'redcarpet'
+
+# User for pagination
+gem 'kaminari'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

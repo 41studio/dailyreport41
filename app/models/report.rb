@@ -39,6 +39,7 @@ class Report < ActiveRecord::Base
   ##
   # validations
   validates :project_id, :body, :email_to, :reported_at, presence: true
+  validate :ensure_format_date
 
   ##
   # delegate class method
@@ -47,7 +48,7 @@ class Report < ActiveRecord::Base
   ##
   # callbacks
   after_initialize :set_default_message_body
-  before_create :set_subject
+  before_create :set_subject, :set_default_reported_at
   after_update  :ensure_resend_report
 
   ##
@@ -66,56 +67,6 @@ class Report < ActiveRecord::Base
     "[#{project_name}] Daily Report #{formated_date}"
   end
 
-  ##
-  # formated message body
-  def message_body
-    ##
-    # greeting
-    html = "Hi #{project_client_name},"
-    html += "<br>"
-    html += simple_format(body)
-    html += "<br>"
-
-    ##
-    # tasks
-    if tasks.completed.present?
-      html += "<strong>Completed:</strong>"
-      html += "<ol>"
-      tasks.completed.each do |task|
-        html += "<li>#{task.title}</li>"
-      end
-      html += "</ol>"
-    end
-
-    if tasks.on_progress.present?
-      html += "<strong>On Progress:</strong>"
-      html += "<ol>"
-      tasks.on_progress.each do |task|
-        html += "<li>#{task.title}</li>"
-      end
-      html += "</ol>"
-    end
-
-    ##
-    # notes
-    if note.present?
-      html += "<br>"
-      html += "Note:"
-      html += simple_format(note)
-    end
-
-    ##
-    # close greeting
-    html += "<br>"
-    html += "Please let me know if have any feedback."
-    html += "<br>"
-    html += "<br>"
-    html += "Best Regards,"
-    html += "<br>"
-    html += user.full_name
-    html
-  end
-
   private
     ##
     # set default subject
@@ -127,7 +78,14 @@ class Report < ActiveRecord::Base
       self.body = "Today I have worked on this following tasks,"
     end
 
+    def set_default_reported_at
+      self.reported_at = Date.today
+    end
+
     def ensure_resend_report
       send_report if self.resend
+    end
+
+    def ensure_format_date
     end
 end

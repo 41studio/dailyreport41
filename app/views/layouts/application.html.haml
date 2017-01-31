@@ -79,12 +79,10 @@
             .row
               .col-xs-12
                 .footer-copyright
-                  Copyright © 2016 Company Co,Ltd.
-
+                  Copyright © #{Time.now.year} DailyReport41
       = javascript_include_tag 'flat-admin/vendor', 'data-turbolinks-track' => true
       = javascript_include_tag 'flat-admin/app', 'data-turbolinks-track' => true
       = yield :javascript
-
     - else
       .app.app-default
         = yield

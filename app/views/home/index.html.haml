@@ -2,6 +2,16 @@
   .col-lg-4.col-md-6.col-sm-6.col-xs-12
     %a.card.card-banner.card-green-light
       .card-body
+        %i.icon.fa.fa-calendar-o.fa-4x
+        .content
+          .title Today
+          .value
+            %span.sign> #{Date.today.strftime("%B")}
+            = Date.today.strftime("%d")
+
+  .col-lg-4.col-md-6.col-sm-6.col-xs-12
+    %a.card.card-banner.card-yellow-light
+      .card-body
         %i.icon.fa.fa-cubes.fa-4x
         .content
           .title Projects

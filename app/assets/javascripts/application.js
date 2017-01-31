@@ -16,4 +16,4 @@
 //= require turbolinks
 //= require cocoon
 //= require js-routes
-//= require simplemde.min
+//= require vendor/simplemde.min

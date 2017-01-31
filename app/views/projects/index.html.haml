@@ -2,26 +2,28 @@
   .col-xs-12
     .card
       .card-header
-        .row
-          .col-md-6
-            Projects
-          .col-md-6
-            = link_to 'New Project', new_project_path, class: "btn btn-success"
+        Projects
 
       .card-body.no-padding
-        %table.table.table-striped.table-hover
-          %thead
-            %tr{:role => "row"}
-              %th Name
-              %th Email Client
-              %th Email Project Manager
-              %th.text-center{:colspan => "3"} Actions
-          %tbody
-            - @projects.each_with_index do |project, index|
-              %tr{:class => cycle('odd', 'even'), :role => "row"}
-                %td= project.name
-                %td= project.email_client
-                %td= project.email_project_manager
-                %td.text-center= link_to 'Show', project
-                %td.text-center= link_to 'Edit', edit_project_path(project)
-                %td.text-center= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        .dataTables_wrapper
+          .top= link_to 'New Project', new_project_path, class: "btn btn-success"
+
+          %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
+            %thead
+              %tr{:role => "row"}
+                %th Name
+                %th Email Client
+                %th Email Project Manager
+                %th.text-center{:colspan => "3"} Actions
+            %tbody
+              - @projects.each_with_index do |project, index|
+                %tr{:class => cycle('odd', 'even'), :role => "row"}
+                  %td= project.name
+                  %td= project.email_client
+                  %td= project.email_project_manager
+                  %td.text-center= link_to 'Show', project
+                  %td.text-center= link_to 'Edit', edit_project_path(project)
+                  %td.text-center= link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+          .bottom.text-center
+            = paginate @projects

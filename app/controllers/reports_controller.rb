@@ -5,17 +5,19 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = current_user.reports.all
+    @reports = current_user.reports.all.page(params[:page]).per(30)
   end
 
   # GET /reports/1
   # GET /reports/1.json
   def show
+    @body_template = ReportTemplate.new(@report).render
   end
 
   # GET /reports/new
   def new
     @report = current_user.reports.new
+    @report.tasks.build
   end
 
   # GET /reports/1/edit

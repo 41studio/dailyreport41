@@ -30,7 +30,8 @@
       .form-group
         = f.label :reported_at, class: "col-md-3 control-label"
         .col-md-9
-          = f.date_select :reported_at, default: Time.now, order: [:day, :month, :year], class: "form-control"
+          = f.text_field :reported_at, class: "form-control", value: formated_date(@report.reported_at)
+
   .section
     .section-title Tasks
     .section-body#tasks
@@ -54,4 +55,6 @@
         = link_to 'Cancel', reports_path, class: "btn btn-default"
 
 - content_for :javascript do
+  = javascript_include_tag 'vendor/bootstrap-datepicker', 'data-turbolinks-track' => true
   = javascript_include_tag 'reports', 'data-turbolinks-track' => true
+
