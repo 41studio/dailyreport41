@@ -1947,7 +1947,7 @@ a:hover {
 
 .navbar {
   height: 90px;
-  z-index: 100008;
+  z-index: 10000;
   background-color: transparent;
   border-bottom: 0 solid transparent;
   border-top: 0;

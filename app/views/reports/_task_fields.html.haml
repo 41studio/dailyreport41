@@ -1,8 +1,8 @@
 .nested-fields
   .form-group
     .col-md-1
-      = link_to_remove_association f do
-        %i.fa.fa-minus-circle.fa-2x
+      = link_to_remove_association f, title: "Remove task" do
+        %i.fa.fa-times-circle.fa-2x{:style => "color: #d73727;"}
     .col-md-11
       = f.text_field :title, class: "form-control", placeholder: "Your task..."
   .form-group

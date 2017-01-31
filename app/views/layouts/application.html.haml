@@ -20,18 +20,18 @@
               %i.fa.fa-times
           .sidebar-menu
             %ul.sidebar-nav
-              %li.active
+              %li{:class => is_active_dashboard?}
                 %a{:href => root_path}
                   .icon
                     %i.fa.fa-tasks{"aria-hidden" => "true"}
                   .title Dashboard
-              %li{:class => "@@menu.messaging"}
+              %li{:class => is_active_projects?}
                 %a{:href => projects_path}
                   .icon
                     %i.fa.fa-cubes{"aria-hidden" => "true"}
                   .title Projects
 
-              %li{:class => "@@menu.messaging"}
+              %li{:class => is_active_reports?}
                 %a{:href => reports_path}
                   .icon
                     %i.fa.fa-clipboard{"aria-hidden" => "true"}

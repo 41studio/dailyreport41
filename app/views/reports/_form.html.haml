@@ -42,8 +42,8 @@
       = f.fields_for :tasks do |task|
         = render 'task_fields', f: task
       .links
-        = link_to_add_association f, :tasks do
-          %i.fa.fa-plus-circle.fa-2x
+        = link_to_add_association f, :tasks, title: "Add task" do
+          %i.fa.fa-plus-circle.fa-2x{:style => "color: #20a3b9;"}
 
   .section
     .section-title Note
@@ -59,6 +59,7 @@
         = link_to 'Cancel', reports_path, class: "btn btn-default"
 
 - content_for :javascript do
-  = javascript_include_tag 'vendor/bootstrap-datepicker', 'data-turbolinks-track' => true
+  = javascript_include_tag 'vendor/picker', 'data-turbolinks-track' => true
+  = javascript_include_tag 'vendor/picker.date', 'data-turbolinks-track' => true
   = javascript_include_tag 'reports', 'data-turbolinks-track' => true
 

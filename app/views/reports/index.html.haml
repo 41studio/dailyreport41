@@ -2,28 +2,27 @@
   .col-xs-12
     .card
       .card-header
-        Reports
+        = link_to 'New Report', new_report_path, class: "btn btn-success"
 
       .card-body.no-padding
         .dataTables_wrapper
-          .top= link_to 'New Report', new_report_path, class: "btn btn-success"
-
           %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
             %thead
               %tr{:role => "row"}
                 %th Project
                 %th Email To
                 %th Reported at
-                %th.text-center{:colspan => "3"} Actions
+                %th
             %tbody
               - @reports.each_with_index do |report, index|
-                %tr{:class => cycle('odd', 'even'), :role => "row"}
+                %tr
                   %td= report.project_name
                   %td= report.email_to
                   %td= formated_date(report.reported_at)
-                  %td.text-center= link_to 'Show', report
-                  %td.text-center= link_to 'Edit', edit_report_path(report)
-                  %td.text-center= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
+                  %td.text-right
+                    = link_to 'Show', report, class: "btn btn-xs btn-primary"
+                    = link_to 'Edit', edit_report_path(report), class: "btn btn-xs btn-info"
+                    = link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-xs btn-danger"
 
           .bottom.text-center
             = paginate @reports

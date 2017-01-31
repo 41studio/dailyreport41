@@ -29,6 +29,10 @@ toggleEmailReceiver = ->
   $('#toggle-email-receiver').on 'click', ->
     $('#email-receiver').slideToggle()
 
+pickerDate = ->
+  $('#report_reported_at').pickadate format: "d mmmm yyyy"
+  return
+
 selectProject()
 toggleEmailReceiver()
-$('#report_reported_at').datepicker format: "d MM yyyy"
+pickerDate()
