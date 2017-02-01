@@ -34,8 +34,15 @@ pickerDate = ->
   $('#report_reported_at').pickadate format: "d mmmm yyyy"
   return
 
+markdownEditor = ->
+  if $("#text-editor").length
+    simplemde = new SimpleMDE element: $("#text-editor")[0], hideIcons: ["side-by-side", "fullscreen"], spellChecker: false
+  return
+
+
 $(document).on 'turbolinks:load', ->
   selectProject()
   toggleEmailReceiver()
   pickerDate()
+  markdownEditor()
   return
