@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = current_user.reports.all.page(params[:page]).per(30)
+    @reports = current_user.reports.includes(:project).order("reported_at DESC").page(params[:page]).per(30)
   end
 
   # GET /reports/1
