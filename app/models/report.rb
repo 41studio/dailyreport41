@@ -60,7 +60,7 @@ class Report < ActiveRecord::Base
   def send!
     gmail = GmailApi.new(user)
     message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, template, format: 'html')
-    self.update_column("message_id", message_id)
+    self.update_attributes(message_id: message_id)
   end
 
   ##
@@ -81,7 +81,7 @@ class Report < ActiveRecord::Base
   end
 
   def should_generate_new_friendly_id?
-    reported_at_changed? || project_id_changed?
+    reported_at_changed? || project_id_changed? || super
   end
 
   private
@@ -96,6 +96,6 @@ class Report < ActiveRecord::Base
     end
 
     def ensure_resend_report
-      send_report if self.resend
+      send_report if resend
     end
 end
