@@ -33,7 +33,7 @@ class Project < ActiveRecord::Base
   # validations
   validates :name, :client_name, :project_manager_name, presence: true, length: { maximum: 200 }
   validates :description, presence: true, length: { maximum: 500 }
-  validates :email_client, :email_project_manager, presence: true, format: { with: Devise.email_regexp }, length: { maximum: 200 }
+  validates :email_client, :email_project_manager, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, length: { maximum: 200 }
   validates :email_cc, :email_bcc, length: { maximum: 200 }
 
   def email_to

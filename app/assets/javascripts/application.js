@@ -17,7 +17,8 @@
 //= require cocoon
 //= require js-routes
 //= require vendor/simplemde.min
-//= require vendor/select2.min
+//= require vendor/select2.full
 //= require vendor/picker
 //= require vendor/picker.date
+//= require vendor/bootstrap-tokenfield
 //= require reports

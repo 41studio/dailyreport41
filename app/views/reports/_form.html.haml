@@ -23,18 +23,18 @@
         .col-md-9.col-md-offset-3
           %a#toggle-email-receiver.btn.btn-xs.btn-success Email Receiver
       #email-receiver{:style => "display: none;"}
-        .form-group
+        .form-group{:style => "margin-bottom: 15px;"}
           = f.label :email_to, "To", class: "col-md-3 control-label"
           .col-md-9
-            = f.text_field :email_to, class: "form-control"
-        .form-group
+            = f.text_field :email_to, class: "form-control tagging-email"
+        .form-group{:style => "margin-bottom: 15px;"}
           = f.label :email_cc, "Cc", class: "col-md-3 control-label"
           .col-md-9
-            = f.text_field :email_cc, class: "form-control"
-        .form-group
+            = f.text_field :email_cc, class: "form-control tagging-email"
+        .form-group{:style => "margin-bottom: 15px;"}
           = f.label :email_bcc, "Bcc", class: "col-md-3 control-label"
           .col-md-9
-            = f.text_field :email_bcc, class: "form-control"
+            = f.text_field :email_bcc, class: "form-control tagging-email"
 
   .section
     .section-title Tasks

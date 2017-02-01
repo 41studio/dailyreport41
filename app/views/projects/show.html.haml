@@ -25,3 +25,9 @@
             .fa-ul
               = content_tag(:li, fa_icon("user li", text: @project.project_manager_name))
               = content_tag(:li, fa_icon("envelope li", text: @project.email_project_manager))
+        .section
+          .section-title Additional information
+          .section-body
+            %ul
+              = content_tag(:li, "Cc: #{@project.email_cc}")
+              = content_tag(:li, "Bcc: #{@project.email_bcc}")

@@ -1,3 +1,24 @@
 .CodeMirror, .CodeMirror-scroll {
   min-height: 160px;
 }
+
+.select2-container--default {
+  .select2-selection--multiple {
+    border-radius: 2px;
+    padding: 5px 15px;
+    height: auto;
+    font-size: 1em;
+    line-height: auto;
+    border: 1px solid #c8d1d3;
+    background-color: transparent;
+    box-shadow: none;
+
+    .select2-selection__rendered {
+      padding: 0;
+    }
+  }
+}
+
+.select2-hidden {
+  display:none !important;
+}

@@ -74,6 +74,18 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :email_client, :email_project_manager, :client_name, :project_manager_name)
+      check_emails
+      params.require(:project).permit(:name, :description, :email_client, :email_project_manager, :client_name, :project_manager_name, :email_cc, :email_bcc)
+
+    end
+
+    def check_emails
+      email_cc = params[:project][:email_cc].to_s.split(',').select{|email| Validator.is_email?(email)}
+      params[:project][:email_cc] = email_cc.join(",")
+
+      email_bcc = params[:project][:email_bcc].to_s.split(',').select{|email| Validator.is_email?(email)}
+      params[:project][:email_bcc] = email_bcc.join(",")
+
+      params
     end
 end
