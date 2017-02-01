@@ -8,4 +8,28 @@
         .dataTables_wrapper
           .top
             = link_to 'Edit', edit_report_path(@report), class: "btn btn-success"
-        = @body_template.html_safe
+
+        .section
+          .section-title Reported at
+          .section-body
+            = formated_date(@report.reported_at)
+        .section
+          .section-title Email Receiver
+          .section-body
+            %p
+              To: #{@report.email_to}
+            - if @report.email_cc.present?
+              %p
+                Cc: #{@report.email_cc}
+            - if @report.email_bcc.present?
+              %p
+                Bcc: #{@report.email_bcc}
+
+        .section
+          .section-title Subject
+          .section-body
+            = @report.subject_text
+        .section
+          .section-title Message
+          .section-body
+            = @body_template.html_safe
