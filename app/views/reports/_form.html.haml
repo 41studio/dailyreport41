@@ -57,9 +57,3 @@
         = f.submit 'Save & Send', class: "btn btn-primary"
         = f.submit 'Save', class: "btn btn-info"
         = link_to 'Cancel', reports_path, class: "btn btn-default"
-
-- content_for :javascript do
-  = javascript_include_tag 'vendor/picker', 'data-turbolinks-track' => true
-  = javascript_include_tag 'vendor/picker.date', 'data-turbolinks-track' => true
-  = javascript_include_tag 'reports', 'data-turbolinks-track' => true
-

@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 selectProject = ->
+  $('select#report_project_id').select2();
   $('select#report_project_id').on 'select2:select', ->
     # console.log $(@).val()
     projectId = $(@).val()
@@ -33,6 +34,8 @@ pickerDate = ->
   $('#report_reported_at').pickadate format: "d mmmm yyyy"
   return
 
-selectProject()
-toggleEmailReceiver()
-pickerDate()
+$(document).on 'turbolinks:load', ->
+  selectProject()
+  toggleEmailReceiver()
+  pickerDate()
+  return
