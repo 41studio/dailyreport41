@@ -5,8 +5,11 @@
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
 
     %title DailyReport41
-    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    - if user_signed_in?
+      = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+      = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    - else
+      = stylesheet_link_tag    'login', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
 
   %body
