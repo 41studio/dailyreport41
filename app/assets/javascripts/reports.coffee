@@ -14,9 +14,13 @@ selectProject = ->
         dataType: 'json'
         success: (data) ->
           # console.log data
-          $('input#report_email_to').tokenfield('setTokens', data.email_to)
-          $('input#report_email_cc').tokenfield('setTokens', data.email_cc)
-          $('input#report_email_bcc').tokenfield('setTokens', data.email_bcc)
+          # $('input#report_email_to').tokenfield('setTokens', data.email_to)
+          # $('input#report_email_cc').tokenfield('setTokens', data.email_cc)
+          # $('input#report_email_bcc').tokenfield('setTokens', data.email_bcc)
+
+          $('input#report_email_to').val(data.email_to)
+          $('input#report_email_cc').val(data.email_cc)
+          $('input#report_email_bcc').val(data.email_bcc)
           return
     else
       $('input#report_email_to').val('')
@@ -66,5 +70,5 @@ $(document).on 'turbolinks:load', ->
   toggleEmailReceiver()
   pickerDate()
   markdownEditor()
-  taggingEmail()
+  # taggingEmail()
   return
