@@ -17,6 +17,8 @@
               %span.highlight DailyReport41
               Login
           .form-footer
+            -# have offline access
+            -#= link_to user_google_oauth2_omniauth_authorize_path(prompt: "consent"), class: "btn btn-default btn-sm btn-social __google" do
             = link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-default btn-sm btn-social __google" do
               .info
                 %i.icon.fa.fa-google{"aria-hidden" => "true"}

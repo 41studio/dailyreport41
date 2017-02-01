@@ -16,15 +16,20 @@
 #  user_id     :integer
 #  message_id  :string(255)
 #  resend      :boolean          default("0")
+#  slug        :string(255)
 #
 # Indexes
 #
 #  index_reports_on_project_id  (project_id)
+#  index_reports_on_slug        (slug) UNIQUE
 #  index_reports_on_user_id     (user_id)
 #
 
 class Report < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
+  extend FriendlyId
+
+  friendly_id :slug_candidates, use: [:slugged, :finders, :scoped], scope: [:project]
 
   ##
   # relations
@@ -67,6 +72,16 @@ class Report < ActiveRecord::Base
 
   def template
     ReportTemplate.new(self).render
+  end
+
+  def slug_candidates
+    [
+      [project_name, reported_at.strftime('%d %B %Y')]
+    ]
+  end
+
+  def should_generate_new_friendly_id?
+    reported_at_changed? || project_id_changed?
   end
 
   private

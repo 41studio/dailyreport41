@@ -86,6 +86,9 @@ gem 'redcarpet'
 # User for pagination
 gem 'kaminari'
 
+# Use for slugging and permalink
+gem 'friendly_id'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
