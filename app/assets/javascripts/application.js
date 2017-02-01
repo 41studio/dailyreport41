@@ -20,5 +20,6 @@
 //= require vendor/select2.full
 //= require vendor/picker
 //= require vendor/picker.date
-//= require vendor/bootstrap-tokenfield
+//= require vendor/jquery-ui.min
+//= require vendor/tag-it
 //= require reports

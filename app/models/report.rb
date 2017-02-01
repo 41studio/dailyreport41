@@ -59,6 +59,10 @@ class Report < ActiveRecord::Base
   # sending report with Gmail API
   def send!
     gmail = GmailApi.new(user)
+    cc_recipients = []
+    cc_recipients << email_project_manager
+    cc_recipients << email_cc
+    email_cc = cc_recipients.join(",")
     message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, template, format: 'html')
     self.update_attributes(message_id: message_id)
   end

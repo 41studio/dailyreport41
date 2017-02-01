@@ -36,12 +36,12 @@ class Project < ActiveRecord::Base
   validates :email_client, :email_project_manager, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, length: { maximum: 200 }
   validates :email_cc, :email_bcc, length: { maximum: 200 }
 
-  def email_to
-    emails = []
-    emails << email_client
-    emails << email_project_manager unless email_client.eql?(email_project_manager)
-    emails.join(', ')
-  end
+  # def email_to
+  #   emails = []
+  #   emails << email_client
+  #   emails << email_project_manager unless email_client.eql?(email_project_manager)
+  #   emails.join(',')
+  # end
 
   def client_first_name
     client_name.try(:split).try(:first)

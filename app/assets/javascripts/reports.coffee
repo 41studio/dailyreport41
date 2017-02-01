@@ -14,10 +14,6 @@ selectProject = ->
         dataType: 'json'
         success: (data) ->
           # console.log data
-          # $('input#report_email_to').tokenfield('setTokens', data.email_to)
-          # $('input#report_email_cc').tokenfield('setTokens', data.email_cc)
-          # $('input#report_email_bcc').tokenfield('setTokens', data.email_bcc)
-
           $('input#report_email_to').val(data.email_to)
           $('input#report_email_cc').val(data.email_cc)
           $('input#report_email_bcc').val(data.email_bcc)
@@ -44,25 +40,7 @@ markdownEditor = ->
   return
 
 taggingEmail = ->
-  $('.tagging-email').on('tokenfield:createtoken', (e) ->
-    data = e.attrs.value.split('|')
-    e.attrs.value = data[1] or data[0]
-    e.attrs.label = if data[1] then data[0] + ' (' + data[1] + ')' else data[0]
-    return
-  ).on('tokenfield:createdtoken', (e) ->
-    # Über-simplistic e-mail validation
-    re = /\S+@\S+\.\S+/
-    valid = re.test(e.attrs.value)
-    if !valid
-      $(e.relatedTarget).addClass 'invalid'
-    return
-  ).on('tokenfield:edittoken', (e) ->
-    if e.attrs.label != e.attrs.value
-      label = e.attrs.label.split(' (')
-      e.attrs.value = label[0] + '|' + e.attrs.value
-    return
-  ).tokenfield()
-
+  $('.tagging-email').tagit()
   return
 
 $(document).on 'turbolinks:load', ->
@@ -70,5 +48,5 @@ $(document).on 'turbolinks:load', ->
   toggleEmailReceiver()
   pickerDate()
   markdownEditor()
-  # taggingEmail()
+  taggingEmail()
   return
