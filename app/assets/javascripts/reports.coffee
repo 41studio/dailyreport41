@@ -45,4 +45,5 @@ $(document).on 'turbolinks:load', ->
   toggleEmailReceiver()
   pickerDate()
   markdownEditor()
+  $('[data-toggle="tooltip"]').tooltip();
   return

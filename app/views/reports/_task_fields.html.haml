@@ -4,12 +4,20 @@
       = link_to_remove_association f, title: "Remove task" do
         %i.fa.fa-times-circle.fa-2x{:style => "color: #d73727;"}
     .col-md-11
-      = f.text_field :title, class: "form-control", placeholder: "Your task..."
+      = f.text_field :title, class: "form-control", placeholder: "Your task...", style: "margin-bottom: 0;"
   .form-group
     .col-md-12.col-md-offset-1
       .radio.radio-inline
         = f.radio_button :status, "on_progress"
-        = f.label :status, "On Progress", value: "on_progress"
+        = f.label :status, value: "on_progress" do
+          %span.badge.badge-warning.badge-icon
+            %i.fa.fa-clock-o{"aria-hidden" => "true"}
+            %span On Progress
+
       .radio.radio-inline
         = f.radio_button :status, "completed"
-        = f.label :status, "Completed", value: "completed"
+        = f.label :status, value: "completed" do
+          %span.badge.badge-success.badge-icon
+            %i.fa.fa-check{"aria-hidden" => "true"}
+            %span Complete
+
