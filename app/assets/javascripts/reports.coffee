@@ -31,7 +31,11 @@ toggleEmailReceiver = ->
     $('#email-receiver').slideToggle()
 
 pickerDate = ->
-  $('#report_reported_at').pickadate format: "d mmmm yyyy"
+  $('#report_reported_at').pickadate
+    firstDay: 1
+    format: "d mmmm yyyy"
+    min: -1
+    max: true
   return
 
 markdownEditor = ->
