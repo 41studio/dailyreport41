@@ -227,6 +227,7 @@ GEM
     pry-rails (0.3.4)
       pry (>= 0.9.10)
     public_suffix (2.0.5)
+    puma (3.7.0)
     rack (1.6.5)
     rack-mini-profiler (0.10.1)
       rack (>= 1.2.0)
@@ -378,6 +379,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   pg
   pry-rails
+  puma
   rack-mini-profiler
   rails (= 4.2.6)
   rails_best_practices

@@ -115,5 +115,8 @@ group :development do
   gem 'bullet'
   gem 'rubocop', require: false
   gem 'rack-mini-profiler', require: false
+
+  # webserver
+  gem 'puma'
 end
 
