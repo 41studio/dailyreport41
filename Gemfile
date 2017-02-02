@@ -89,6 +89,9 @@ gem 'kaminari'
 # Use for slugging and permalink
 gem 'friendly_id'
 
+# for sending notifications when errors occur
+gem 'exception_notification'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -105,5 +108,12 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'pry-rails'
+
+  # for code optimization
+  gem 'rubycritic', require: false
+  gem 'rails_best_practices'
+  gem 'bullet'
+  gem 'rubocop', require: false
+  gem 'rack-mini-profiler', require: false
 end
 
