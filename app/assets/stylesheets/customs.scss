@@ -31,8 +31,12 @@
   border-bottom: 2px solid #e9aa3a;
 }
 
+.checkbox {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
 .task-list {
-  // border-bottom: 1px solid silver;
   float: left;
   width: 100%;
   .checkbox {
@@ -49,9 +53,5 @@
 .task-remove {
   float: right;
   position: relative;
-  top: -40px;
-  // .btn-remove {
-  //   position: relative;
-  //   top: -40px;
-  // }
+  top: -36px;
 }

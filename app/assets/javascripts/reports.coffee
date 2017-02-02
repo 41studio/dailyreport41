@@ -56,6 +56,20 @@ styleTaskList = ->
     window.taskTitle = $(@)
     $('.task-list').css("border", "none")
     $(@).parent().closest('.task-list').css("border-top", "1px solid silver").css("border-bottom", "1px solid silver")
+    $(@).parent().closest('.task-list').next().show()
+    return
+  # TODO
+  # show hide button remove on focus and hover the task
+  # $("body").on "blur", "input.task-title", ->
+  #   $('.task-list').css("border", "none")
+  #   $('.task-remove').hide()
+  #   return
+
+  # $(".task-list").on "hover", ->
+  #   window.taskList = $(@)
+  #   console.log('hover')
+  #   $(@).parent().closest('.task-list').next().show()
+  #   return
   return
 
 $(document).on 'turbolinks:load', ->

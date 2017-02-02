@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = current_user.reports.includes(:project).order("reported_at DESC").page(params[:page]).per(30)
+    @reports = current_user.reports.includes(:project).order("created_at DESC").page(params[:page]).per(30)
   end
 
   # GET /reports/1
@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
   def new
     @report = current_user.reports.new(reported_at: Date.today, project_id: @project.try(:id))
     @report.email_to = @project.try(:email_client)
-    @report.email_cc = @project.try(:email_cc)
+    @report.email_cc = @project.try(:email_cc_text)
     @report.email_bcc = @project.try(:email_bcc)
     @report.tasks.build
   end

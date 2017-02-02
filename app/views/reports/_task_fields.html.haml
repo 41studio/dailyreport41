@@ -1,33 +1,14 @@
 .nested-fields#task-list
   .form-group
-    .col-md-12{:style => "height: 50px;"}
+    .col-md-12{:style => "height: 42px;"}
       .task-list
         .checkbox
           = f.check_box :status, {checked: true}, "completed", "on_progress"
           = f.label :status, class: "task-label" do
             = f.text_field :title, class: "task-label task-title", placeholder: "List task"
       .task-remove
+        -# TODO
+        -# show hide button remove on focus and hover the task
+        -#{:style => "display: none;"}
         = link_to_remove_association f, title: "Remove task", class: "btn-remove" do
           %i.fa.fa-times-circle.fa-2x{:style => "color: #d73727;"}
-
-  /   .col-md-1
-  /     = link_to_remove_association f, title: "Remove task" do
-  /       %i.fa.fa-times-circle.fa-2x{:style => "color: #d73727;"}
-  /   .col-md-11
-  /     = f.text_field :title, class: "form-control", placeholder: "Your task...", style: "margin-bottom: 0;"
-  / .form-group
-  /   .col-md-12.col-md-offset-1
-  /     .radio.radio-inline
-  /       = f.radio_button :status, "on_progress"
-  /       = f.label :status, value: "on_progress" do
-  /         %span.badge.badge-warning.badge-icon
-  /           %i.fa.fa-clock-o{"aria-hidden" => "true"}
-  /           %span On Progress
-
-  /     .radio.radio-inline
-  /       = f.radio_button :status, "completed"
-  /       = f.label :status, value: "completed" do
-  /         %span.badge.badge-success.badge-icon
-  /           %i.fa.fa-check{"aria-hidden" => "true"}
-  /           %span Complete
-
