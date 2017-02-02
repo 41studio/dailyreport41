@@ -51,7 +51,7 @@ taggingEmail = ->
   return
 
 styleTaskList = ->
-  $("input.task-title").focus ->
+  $("body").on "focus", "input.task-title", ->
     console.log('task')
     window.taskTitle = $(@)
     $('.task-list').css("border", "none")
@@ -64,10 +64,7 @@ $(document).on 'turbolinks:load', ->
   pickerDate()
   markdownEditor()
   taggingEmail()
-  # styleTaskList()
-  # $('body').on 'cocoon:after-insert', '#task-list', (e, insertedItem) ->
-  #   styleTaskList()
-  #   return
+  styleTaskList()
   return
 
 
