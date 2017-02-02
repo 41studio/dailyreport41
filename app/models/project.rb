@@ -36,12 +36,8 @@ class Project < ActiveRecord::Base
   validates :email_client, :email_project_manager, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, length: { maximum: 200 }
   validates :email_cc, :email_bcc, length: { maximum: 200 }
 
-  # def email_to
-  #   emails = []
-  #   emails << email_client
-  #   emails << email_project_manager unless email_client.eql?(email_project_manager)
-  #   emails.join(',')
-  # end
+  # scope
+  scope :latest, -> { order(created_at: :desc) }
 
   def client_first_name
     client_name.try(:split).try(:first)
@@ -49,5 +45,15 @@ class Project < ActiveRecord::Base
 
   def should_generate_new_friendly_id?
     name_changed? || super
+  end
+
+  def email_cc_text
+    texts = []
+    texts << email_project_manager
+    texts << email_cc if email_cc.present? and not email_cc.eql?(email_client)
+    text = texts.join(",")
+  end
+
+  def ensure_email_cc
   end
 end

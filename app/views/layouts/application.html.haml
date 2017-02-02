@@ -33,47 +33,57 @@
                   .icon
                     %i.fa.fa-cubes{"aria-hidden" => "true"}
                   .title Projects
-
               %li{:class => is_active_reports?}
                 %a{:href => reports_path}
                   .icon
                     %i.fa.fa-clipboard{"aria-hidden" => "true"}
                   .title Reports
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "/"}
+                  .icon
+                    %i.fa.fa-user{"aria-hidden" => "true"}
+                  .title Profile
+                .dropdown-menu
+                  %ul
+                    %li
+                      = link_to "Profile", profile_user_path
+                    %li
+                      = link_to "Logout", destroy_user_session_path, method: :delete
 
         .app-container
-          %nav#navbar.navbar.navbar-default
-            .container-fluid
-              .navbar-collapse.collapse.in
-                %ul.nav.navbar-nav.navbar-mobile
-                  %li
-                    %button.sidebar-toggle{:type => "button"}
-                      %i.fa.fa-bars
-                  %li.logo
-                    %a.navbar-brand{:href => "#"}
-                      DailyReport41
-                  %li
-                    %button.navbar-toggle{:type => "button"}
-                      %img.profile-img{:src => image_path("profile.png")}/
-                %ul.nav.navbar-nav.navbar-left
-                  %li.navbar-title= navbar_title
-                  %li.navbar-search.hidden-sm
-                    %input#search{:placeholder => "Search..", :type => "text"}/
-                    %button.btn-search
-                      %i.fa.fa-search
-                %ul.nav.navbar-nav.navbar-right
-                  %li.dropdown.profile
-                    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "/"}
-                      %img.profile-img{:src => image_path("profile.png")}/
-                      .title Profile
-                    .dropdown-menu
-                      .profile-info
-                        %h4.username= current_user.full_name
+          / %nav#navbar.navbar.navbar-default
+          /   .container-fluid
+          /     .navbar-collapse.collapse.in
+          /       %ul.nav.navbar-nav.navbar-mobile
+          /         %li
+          /           %button.sidebar-toggle{:type => "button"}
+          /             %i.fa.fa-bars
+          /         %li.logo
+          /           %a.navbar-brand{:href => "#"}
+          /             DailyReport41
+          /         %li
+          /           %button.navbar-toggle{:type => "button"}
+          /             %img.profile-img{:src => image_path("profile.png")}/
+          /       %ul.nav.navbar-nav.navbar-left
+          /         %li.navbar-title= navbar_title
+          /         %li.navbar-search.hidden-sm
+          /           %input#search{:placeholder => "Search..", :type => "text"}/
+          /           %button.btn-search
+          /             %i.fa.fa-search
+          /       %ul.nav.navbar-nav.navbar-right
+          /         %li.dropdown.profile
+          /           %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "/"}
+          /             %img.profile-img{:src => image_path("profile.png")}/
+          /             .title Profile
+          /           .dropdown-menu
+          /             .profile-info
+          /               %h4.username= current_user.full_name
 
-                      %ul.action
-                        %li
-                          = link_to "Profile", profile_user_path
-                        %li
-                          = link_to "Logout", destroy_user_session_path, method: :delete
+          /             %ul.action
+          /               %li
+          /                 = link_to "Profile", profile_user_path
+          /               %li
+          /                 = link_to "Logout", destroy_user_session_path, method: :delete
 
 
           = yield

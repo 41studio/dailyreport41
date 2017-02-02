@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @project_count = current_user.projects.size
-    @report_count = current_user.reports.size
+    @projects = current_user.projects.latest.page(params[:page]).per(10)
   end
 end

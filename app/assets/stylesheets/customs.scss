@@ -22,3 +22,36 @@
 .select2-hidden {
   display:none !important;
 }
+
+.checkbox input + label::after {
+  content: '\f10c';
+  color: #FFF;
+  background-color: #FFC153;
+  border: 1px solid #FFC153;
+  border-bottom: 2px solid #e9aa3a;
+}
+
+.task-list {
+  // border-bottom: 1px solid silver;
+  float: left;
+  width: 100%;
+  .checkbox {
+    .task-label {
+      border: none;
+      width: 97%;
+      input {
+        width: 97%;
+      }
+    }
+  }
+}
+
+.task-remove {
+  float: right;
+  position: relative;
+  top: -40px;
+  // .btn-remove {
+  //   position: relative;
+  //   top: -40px;
+  // }
+}

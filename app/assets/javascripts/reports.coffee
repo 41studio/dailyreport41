@@ -14,11 +14,14 @@ selectProject = ->
         dataType: 'json'
         success: (data) ->
           # console.log data
+          $('.tagging-email').tagit()
           $('input#report_email_to').val(data.email_to)
           $('input#report_email_cc').val(data.email_cc)
           $('input#report_email_bcc').val(data.email_bcc)
+          $('.tagging-email').tagit()
           return
     else
+      $('.tagging-email').tagit('removeAll')
       $('input#report_email_to').val('')
       $('input#report_email_cc').val('')
       $('input#report_email_bcc').val('')
@@ -47,10 +50,24 @@ taggingEmail = ->
   $('.tagging-email').tagit()
   return
 
+styleTaskList = ->
+  $("input.task-title").focus ->
+    console.log('task')
+    window.taskTitle = $(@)
+    $('.task-list').css("border", "none")
+    $(@).parent().closest('.task-list').css("border-top", "1px solid silver").css("border-bottom", "1px solid silver")
+  return
+
 $(document).on 'turbolinks:load', ->
   selectProject()
   toggleEmailReceiver()
   pickerDate()
   markdownEditor()
   taggingEmail()
+  # styleTaskList()
+  # $('body').on 'cocoon:after-insert', '#task-list', (e, insertedItem) ->
+  #   styleTaskList()
+  #   return
   return
+
+

@@ -15,11 +15,11 @@
       .form-group
         = f.label :name, class: "col-md-3 control-label"
         .col-md-9
-          = f.text_field :name, placeholder: "Name", class: "form-control"
+          = f.text_field :name, placeholder: "Project Name", class: "form-control"
       .form-group
         .col-md-3
           = f.label :description, class: "control-label"
-          %p.control-label-help ( short detail of projects , 500 max words )
+          %p.control-label-help (short detail of projects , 500 max words)
         .col-md-9
           = f.text_area :description, class: "form-control", id: "text-editor"
 

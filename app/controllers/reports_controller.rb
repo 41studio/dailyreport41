@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :edit, :update, :destroy]
-  before_action :set_projects, only: [:new, :edit, :create, :update]
+  before_action :set_project, only: [:new, :edit, :create, :update]
 
   # GET /reports
   # GET /reports.json
@@ -16,7 +16,10 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = current_user.reports.new(reported_at: Date.today)
+    @report = current_user.reports.new(reported_at: Date.today, project_id: @project.try(:id))
+    @report.email_to = @project.try(:email_client)
+    @report.email_cc = @project.try(:email_cc)
+    @report.email_bcc = @project.try(:email_bcc)
     @report.tasks.build
   end
 
@@ -97,5 +100,9 @@ class ReportsController < ApplicationController
       params[:report][:email_bcc] = email_bcc.join(",")
 
       params
+    end
+
+    def set_project
+      @project = current_user.projects.find_by_slug(params[:project_id])
     end
 end

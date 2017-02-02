@@ -16,3 +16,4 @@
 .env
 config/database.yml
 public/assets/
+rails_best_practices_output.html

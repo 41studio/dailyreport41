@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'home#index'
   resources :reports
   resources :projects do
+    resources :reports
     member do
       get 'show_email'
     end
