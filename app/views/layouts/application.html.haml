@@ -10,6 +10,8 @@
       = javascript_include_tag 'application', 'data-turbolinks-track' => true
     - else
       = stylesheet_link_tag    'login', media: 'all', 'data-turbolinks-track' => true
+    - if Rails.env.development?
+      = javascript_include_tag 'miniprofiler_turbolinks'
     = csrf_meta_tags
 
   %body
