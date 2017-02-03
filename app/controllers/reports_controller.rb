@@ -20,7 +20,7 @@ class ReportsController < ApplicationController
     @report.email_to = @project.try(:email_client)
     @report.email_cc = @project.try(:email_cc_text)
     @report.email_bcc = @project.try(:email_bcc)
-    @report.tasks.build
+    @report.tasks.build(status: "completed")
   end
 
   # GET /reports/1/edit

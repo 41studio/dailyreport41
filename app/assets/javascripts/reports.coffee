@@ -87,6 +87,9 @@ $(document).on 'turbolinks:load', ->
   taggingEmail()
   styleTaskList()
   disbaleSubmitOnEnter()
+  # $('body').on 'cocoon:after-insert', '#tasks', (e, taskItem) ->
+  #   window.taskItem = taskItem
+  #   console.log taskItem
   return
 
 

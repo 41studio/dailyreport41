@@ -3,7 +3,7 @@
     .col-md-12{:style => "height: 42px;"}
       .task-list
         .checkbox
-          = f.check_box :status, {checked: true}, "completed", "on_progress"
+          = f.check_box :status, {}, "completed", "on_progress"
           = f.label :status, class: "task-label" do
             = f.text_field :title, class: "task-label task-title", placeholder: "List task"
       .task-remove
