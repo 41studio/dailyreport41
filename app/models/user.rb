@@ -58,6 +58,12 @@ class User < ActiveRecord::Base
     user
   end
 
+  # @return [Boolean] user should be remembered when he logs in (with cookie)
+  #   so he won't be asked to login again
+  def remember_me
+    true
+  end
+
   # Makes a http POST request to the Google API OAuth 2.0 authorization endpoint
   # using parameters from above. Google returns JSON data that includes an access
   # token good for another 60 minutes.
