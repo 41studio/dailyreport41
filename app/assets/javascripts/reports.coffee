@@ -36,14 +36,14 @@ toggleEmailReceiver = ->
 pickerDate = ->
   $('#report_reported_at').pickadate
     firstDay: 1
-    format: "d mmmm yyyy"
+    format: 'd mmmm yyyy'
     min: -1
     max: true
   return
 
 markdownEditor = ->
-  if $("#text-editor").length
-    simplemde = new SimpleMDE element: $("#text-editor")[0], hideIcons: ["side-by-side", "fullscreen"], spellChecker: false
+  if $('#text-editor').length
+    simplemde = new SimpleMDE element: $('#text-editor')[0], hideIcons: ['side-by-side', 'fullscreen'], spellChecker: false
   return
 
 taggingEmail = ->
@@ -51,26 +51,33 @@ taggingEmail = ->
   return
 
 styleTaskList = ->
-  $("body").on "focus", "input.task-title", ->
+  $('body').on 'focus', 'input.task-title', ->
     console.log('task')
     window.taskTitle = $(@)
-    $('.task-list').css("border", "none")
-    $(@).parent().closest('.task-list').css("border-top", "1px solid silver").css("border-bottom", "1px solid silver")
+    $('.task-list').css('border', 'none')
+    $(@).parent().closest('.task-list').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
     $(@).parent().closest('.task-list').next().show()
+    $(@).on 'keypress', (e) ->
+      window.addField = $('a.add_fields') if e.keyCode == 13
     return
+
   # TODO
   # show hide button remove on focus and hover the task
-  # $("body").on "blur", "input.task-title", ->
-  #   $('.task-list').css("border", "none")
+  # $('body').on 'blur', 'input.task-title', ->
+  #   $('.task-list').css('border', 'none')
   #   $('.task-remove').hide()
   #   return
 
-  # $(".task-list").on "hover", ->
+  # $('.task-list').on 'hover', ->
   #   window.taskList = $(@)
   #   console.log('hover')
   #   $(@).parent().closest('.task-list').next().show()
   #   return
   return
+
+disbaleSubmitOnEnter = ->
+  $('.form-report').on 'keypress', (e) ->
+    return false if e.keyCode == 13
 
 $(document).on 'turbolinks:load', ->
   selectProject()
@@ -79,6 +86,7 @@ $(document).on 'turbolinks:load', ->
   markdownEditor()
   taggingEmail()
   styleTaskList()
+  disbaleSubmitOnEnter()
   return
 
 
