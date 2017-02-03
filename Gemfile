@@ -92,6 +92,14 @@ gem 'friendly_id'
 # for sending notifications when errors occur
 gem 'exception_notification'
 
+# Use for background processing
+gem 'sidekiq'
+gem 'sinatra', require: false
+# gem 'sidekiq-status'
+
+# webserver
+gem 'puma'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -115,8 +123,5 @@ group :development do
   gem 'bullet'
   gem 'rubocop', require: false
   gem 'rack-mini-profiler', require: false
-
-  # webserver
-  gem 'puma'
 end
 

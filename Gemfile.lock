@@ -81,6 +81,7 @@ GEM
     coffee-script-source (1.12.2)
     colorize (0.7.7)
     concurrent-ruby (1.0.4)
+    connection_pool (2.2.1)
     debug_inspector (0.0.2)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
@@ -231,6 +232,8 @@ GEM
     rack (1.6.5)
     rack-mini-profiler (0.10.1)
       rack (>= 1.2.0)
+    rack-protection (1.5.3)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.6)
@@ -269,6 +272,7 @@ GEM
     rake (12.0.0)
     rdoc (4.3.0)
     redcarpet (3.4.0)
+    redis (3.3.0)
     reek (4.0.2)
       codeclimate-engine-rb (~> 0.3.1)
       parser (~> 2.3, >= 2.3.0.6)
@@ -308,11 +312,19 @@ GEM
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
     sexp_processor (4.7.0)
+    sidekiq (4.1.2)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
       jwt (~> 1.5)
       multi_json (~> 1.10)
+    sinatra (1.4.7)
+      rack (~> 1.5)
+      rack-protection (~> 1.4)
+      tilt (>= 1.3, < 3)
     slop (3.6.0)
     spring (2.0.1)
       activesupport (>= 4.2)
@@ -388,6 +400,8 @@ DEPENDENCIES
   rubycritic
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  sidekiq
+  sinatra
   spring
   turbolinks
   uglifier (>= 1.3.0)

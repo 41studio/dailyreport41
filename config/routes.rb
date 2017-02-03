@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   resources :tasks
   root 'home#index'
@@ -12,6 +14,12 @@ Rails.application.routes.draw do
   get 'profile', to: 'users#show', as: :profile_user
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
+
+  Sidekiq::Web.use Rack::Auth::Basic do |user, password|
+    [user, password] == [ ENV["SIDEKIQ_USERNAME"], ENV["SIDEKIQ_PASSWORD"] ]
+  end unless Rails.env.development?
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
