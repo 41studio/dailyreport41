@@ -86,10 +86,10 @@ class ReportsController < ApplicationController
     end
 
     def send_report
-      @report.send! if params[:commit].eql?("Save & Send")
+      # @report.send! if params[:commit].eql?("Save & Send")
       # TODO
       # activate worker sidekiq on heroku
-      # SendReportWorker.perform_async(@report.id) if params[:commit].eql?("Save & Send")
+      SendReportWorker.perform_async(@report.id) if params[:commit].eql?("Save & Send")
     end
 
     def check_emails
