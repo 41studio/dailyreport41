@@ -57,8 +57,8 @@ styleTaskList = ->
     $('.task-list').css('border', 'none')
     $(@).parent().closest('.task-list').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
     $(@).parent().closest('.task-list').next().show()
-    $(@).on 'keypress', (e) ->
-      window.addField = $('a.add_fields') if e.keyCode == 13
+    $(@).on 'keyup', (e) ->
+      $('a.add_fields').trigger('click') if e.keyCode == 13
     return
 
   # TODO
