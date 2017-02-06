@@ -10,6 +10,7 @@ class GmailApi
   # Ensure valid credentials
   def initialize(user)
     @gmail = Gmail.connect(:xoauth2, user.email, user.fresh_token)
+    @user_full_name = user.full_name
   end
 
   ##
@@ -26,7 +27,9 @@ class GmailApi
   ##
   # deliver email directly
   def deliver(email_to, email_cc, email_bcc, subject, message_body, options={}, attachments=nil)
+    email_from = "#{@user_full_name} <#{@gmail.username}>"
     email = @gmail.deliver do
+      from email_from
       to email_to
       cc email_cc if email_cc.present?
       bcc email_bcc if email_bcc.present?
@@ -55,7 +58,7 @@ class GmailApi
         end
       end
     end
-    email.message_id
+    email.message_id if email
   ensure
     return puts 'Gmail API: disconnected' unless @gmail.signed_in?
   end

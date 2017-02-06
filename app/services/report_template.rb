@@ -4,6 +4,7 @@ class ReportTemplate < Mustache
 
   def initialize(report)
     @report = report
+    @tasks = report.tasks
   end
 
   def greeting
@@ -15,11 +16,11 @@ class ReportTemplate < Mustache
   end
 
   def on_progress_tasks
-    @report.tasks.on_progress.as_json
+    @tasks.select{|task| task.status.eql?('on_progress') }.as_json
   end
 
   def completed_tasks
-    @report.tasks.completed.as_json
+    @tasks.select{|task| task.status.eql?('completed') }.as_json
   end
 
   def note
@@ -31,11 +32,11 @@ class ReportTemplate < Mustache
   end
 
   def is_on_progress_tasks?
-    @report.tasks.on_progress.present?
+    @tasks.select{|task| task.status.eql?('on_progress') }.present?
   end
 
   def is_completed_tasks?
-    @report.tasks.completed.present?
+    @tasks.select{|task| task.status.eql?('completed') }.present?
   end
 
   def note?

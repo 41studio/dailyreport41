@@ -60,7 +60,11 @@ class Report < ActiveRecord::Base
   def send!
     gmail = GmailApi.new(user)
     message_id = gmail.deliver(email_to, email_cc, email_bcc, subject_text, template, format: 'html')
-    self.update_attributes(message_id: message_id)
+    self.update_attributes(message_id: message_id) if message_id
+  end
+
+  def send_async!
+    SendReportWorker.perform_async(id)
   end
 
   ##
