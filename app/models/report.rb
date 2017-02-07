@@ -81,7 +81,7 @@ class Report < ActiveRecord::Base
   def slug_candidates
     [
       [project_name, reported_at.strftime('%d %B %Y')],
-      [project_name, reported_at.strftime('%d %B %Y'), id]
+      [project_name, reported_at.strftime('%d %B %Y'), SecureRandom.random_number(10)]
     ]
   end
 
