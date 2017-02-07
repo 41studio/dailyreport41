@@ -60,8 +60,8 @@ styleTaskList = ->
     return
 
   $('body').on 'keyup', 'input.task-title', (e) ->
-    console.log e.keyCode
-    window.nestedField = $(@).parent().closest('.nested-fields')
+    # console.log e.keyCode
+    nestedField = $(@).parent().closest('.nested-fields')
     switch e.keyCode
       # enter
       when 13
@@ -92,10 +92,6 @@ styleTaskList = ->
           nestedField.prevAll().closest('.nested-fields').last().find('input.task-title').focus()
           nestedField.remove()
     return
-
-  $('body').on 'cocoon:after-insert', '#tasks', (e, taskItem) ->
-    window.taskItem = taskItem
-    console.log taskItem
   return
 
 disbaleSubmitOnEnter = ->
@@ -111,6 +107,4 @@ $(document).on 'turbolinks:load', ->
   styleTaskList()
   disbaleSubmitOnEnter()
   return
-
-# styleTaskList()
 
