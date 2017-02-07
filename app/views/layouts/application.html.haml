@@ -13,6 +13,24 @@
     - if Rails.env.development?
       -#= javascript_include_tag 'miniprofiler_turbolinks'
     = csrf_meta_tags
+    %script{:async => "async", :src => "https://cdn.onesignal.com/sdks/OneSignalSDK.js"}
+    :javascript
+      var OneSignal = window.OneSignal || [];
+      OneSignal.push(["init", {
+        appId: "db9b3e0d-1476-4ea1-ac1f-d08afe5ac582",
+        autoRegister: false, /* Set to true to automatically prompt visitors */
+        subdomainName: 'dailyreport41',
+        /*
+        subdomainName: Use the value you entered in step 1.4: http://imgur.com/a/f6hqN
+        */
+        httpPermissionRequest: {
+          enable: true
+        },
+        notifyButton: {
+          enable: true /* Set to false to hide */
+        }
+      }]);
+
 
   %body
     - if user_signed_in?
