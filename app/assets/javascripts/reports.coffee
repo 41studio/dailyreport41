@@ -51,28 +51,51 @@ taggingEmail = ->
   return
 
 styleTaskList = ->
+  $('input.task-title').focus()
+
   $('body').on 'focus', 'input.task-title', ->
-    console.log('task')
-    window.taskTitle = $(@)
     $('.task-list').css('border', 'none')
     $(@).parent().closest('.task-list').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
     $(@).parent().closest('.task-list').next().show()
-    $(@).on 'keyup', (e) ->
-      $('a.add_fields').trigger('click') if e.keyCode == 13
     return
 
-  # TODO
-  # show hide button remove on focus and hover the task
-  # $('body').on 'blur', 'input.task-title', ->
-  #   $('.task-list').css('border', 'none')
-  #   $('.task-remove').hide()
-  #   return
+  $('body').on 'keyup', 'input.task-title', (e) ->
+    console.log e.keyCode
+    window.nestedField = $(@).parent().closest('.nested-fields')
+    switch e.keyCode
+      # enter
+      when 13
+        date = new Date
+        template = $('a.add_fields').data('association-insertion-template')
+        new_task = template.replace(/new_tasks/g, date.getTime())
+        $(new_task).insertBefore('#add-task')
+        $(@).parent().closest('.nested-fields').nextAll().first().find('input.task-title').focus()
+      # down
+      when 40
+        element = nestedField.nextAll().closest('.nested-fields').first().find('input.task-title').get(0)
+        if element
+          valueLength = element.value.length
+          if valueLength > 0
+            element.selectionStart = valueLength
+            element.selectionEnd = valueLength
+          element.focus()
+      # up
+      when 38
+        element = nestedField.prevAll().closest('.nested-fields').last().find('input.task-title').get(0)
+        if element
+          element.selectionStart = 0
+          element.selectionEnd = 0
+          element.focus()
+      # backspace
+      when 8
+        unless nestedField.find('input.task-title').val()
+          nestedField.prevAll().closest('.nested-fields').last().find('input.task-title').focus()
+          nestedField.remove()
+    return
 
-  # $('.task-list').on 'hover', ->
-  #   window.taskList = $(@)
-  #   console.log('hover')
-  #   $(@).parent().closest('.task-list').next().show()
-  #   return
+  $('body').on 'cocoon:after-insert', '#tasks', (e, taskItem) ->
+    window.taskItem = taskItem
+    console.log taskItem
   return
 
 disbaleSubmitOnEnter = ->
@@ -87,9 +110,7 @@ $(document).on 'turbolinks:load', ->
   taggingEmail()
   styleTaskList()
   disbaleSubmitOnEnter()
-  # $('body').on 'cocoon:after-insert', '#tasks', (e, taskItem) ->
-  #   window.taskItem = taskItem
-  #   console.log taskItem
   return
 
+# styleTaskList()
 

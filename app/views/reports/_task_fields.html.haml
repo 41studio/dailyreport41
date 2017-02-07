@@ -1,11 +1,11 @@
-.nested-fields#task-list
+.nested-fields
   .form-group
     .col-md-12{:style => "height: 42px;"}
       .task-list
         .checkbox
           = f.check_box :status, {}, "completed", "on_progress"
           = f.label :status, class: "task-label" do
-            = f.text_field :title, class: "task-label task-title", placeholder: "List task"
+            = f.text_field :title, class: "task-label task-title", placeholder: "List task", autocomplete: "off"
       .task-remove
         -# TODO
         -# show hide button remove on focus and hover the task
