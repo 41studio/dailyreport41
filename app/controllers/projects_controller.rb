@@ -62,8 +62,7 @@ class ProjectsController < ApplicationController
   end
 
   def show_email
-    project = current_user.projects.find(params[:id])
-    render json: {email_to: project.email_client, email_cc: project.email_cc_text, email_bcc: project.email_bcc}
+    @project = current_user.projects.select(:email_client, :email_project_manager, :email_cc, :email_bcc).find(params[:id])
   end
 
   private

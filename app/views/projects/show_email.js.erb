@@ -1,0 +1,2 @@
+$('#js-email-recipients').html("<%=j render partial: 'reports/email_recipients', locals: { email_to: @project.email_client, email_cc: @project.email_cc_text, email_bcc: @project.email_bcc } %>");
+$('.tagging-email').tagit();

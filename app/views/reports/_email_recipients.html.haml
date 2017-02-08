@@ -1,0 +1,12 @@
+.form-group{:style => "margin-bottom: 15px;"}
+  = label_tag :email_to, "To", class: "col-md-3 control-label"
+  .col-md-9
+    = text_field_tag "report[email_to]", email_to, class: "form-control tagging-email"
+.form-group{:style => "margin-bottom: 15px;"}
+  = label_tag :email_cc, "Cc", class: "col-md-3 control-label"
+  .col-md-9
+    = text_field_tag "report[email_cc]", email_cc, class: "form-control tagging-email"
+.form-group{:style => "margin-bottom: 15px;"}
+  = label_tag :email_bcc, "Bcc", class: "col-md-3 control-label"
+  .col-md-9
+    = text_field_tag "report[email_bcc]", email_bcc, class: "form-control tagging-email"

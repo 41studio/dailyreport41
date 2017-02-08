@@ -11,15 +11,7 @@ selectProject = ->
       $.ajax
         url: Routes.show_email_project_path(projectId)
         method: 'GET'
-        dataType: 'json'
-        success: (data) ->
-          # console.log data
-          $('.tagging-email').tagit()
-          $('input#report_email_to').val(data.email_to)
-          $('input#report_email_cc').val(data.email_cc)
-          $('input#report_email_bcc').val(data.email_bcc)
-          $('.tagging-email').tagit()
-          return
+        dataType: 'script'
     else
       $('.tagging-email').tagit('removeAll')
       $('input#report_email_to').val('')
@@ -29,9 +21,9 @@ selectProject = ->
 
   return
 
-toggleEmailReceiver = ->
-  $('#toggle-email-receiver').on 'click', ->
-    $('#email-receiver').slideToggle()
+toggleEmailRecipients = ->
+  $('#toggle-email-recipients').on 'click', ->
+    $('#js-email-recipients').slideToggle('fast')
 
 pickerDate = ->
   $('#report_reported_at').pickadate
@@ -100,7 +92,7 @@ disbaleSubmitOnEnter = ->
 
 $(document).on 'turbolinks:load', ->
   selectProject()
-  toggleEmailReceiver()
+  toggleEmailRecipients()
   pickerDate()
   markdownEditor()
   taggingEmail()
