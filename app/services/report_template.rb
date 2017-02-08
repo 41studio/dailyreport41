@@ -4,7 +4,7 @@ class ReportTemplate < Mustache
 
   def initialize(report)
     @report = report
-    @tasks = report.tasks
+    @tasks = report.tasks.order(:id)
   end
 
   def greeting
