@@ -49,8 +49,8 @@ class Project < ActiveRecord::Base
 
   def email_cc_text
     texts = []
-    texts << email_project_manager
-    texts << email_cc if email_cc.present? and !email_client.eql?(email_project_manager)
+    texts << email_project_manager unless email_client.eql?(email_project_manager)
+    texts << email_cc if email_cc.present?
     text = texts.join(",")
   end
 
