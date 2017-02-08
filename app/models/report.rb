@@ -15,7 +15,7 @@
 #  project_id  :integer
 #  user_id     :integer
 #  message_id  :string(255)
-#  resend      :boolean          default("0")
+#  resend      :boolean          default(FALSE)
 #  slug        :string(255)
 #
 # Indexes
@@ -80,8 +80,8 @@ class Report < ActiveRecord::Base
 
   def slug_candidates
     [
-      [project_name, reported_at.strftime('%d %B %Y')],
-      [project_name, reported_at.strftime('%d %B %Y'), SecureRandom.random_number(10)]
+      [user.full_name.parameterize, project_name, reported_at.strftime('%d %B %Y')],
+      [user.full_name.parameterize, project_name, reported_at.strftime('%d %B %Y'), SecureRandom.random_number(10)]
     ]
   end
 
