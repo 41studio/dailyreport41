@@ -20,9 +20,9 @@
 //= require flat-admin/app
 //= require vendor/simplemde.min
 //= require vendor/select2.full
-//= require vendor/picker
-//= require vendor/picker.date
 //= require vendor/jquery-ui.min
 //= require vendor/tag-it
+//= require vendor/moment
+//= require vendor/daterangepicker
 //= require reports
 //= require recaps

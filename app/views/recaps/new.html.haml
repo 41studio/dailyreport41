@@ -10,9 +10,9 @@
             = label_tag "Date"
           .col-md-9
             .input-group
-              = text_field_tag :start_date, formated_date(Date.today.beginning_of_month), class: "form-control recap-date text-center"
-              %span.input-group-addon To
-              = text_field_tag :end_date, formated_date(Date.today.end_of_month), class: "form-control recap-date text-center"
+              %span.input-group-addon
+                %i.fa.fa-calendar-o
+              = text_field_tag :daterange, nil, class: "form-control recap-date text-center"
 
       .card-body.no-padding
         .dataTables_wrapper

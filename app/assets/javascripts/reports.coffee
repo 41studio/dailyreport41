@@ -26,11 +26,17 @@ toggleEmailRecipients = ->
     $('#js-email-recipients').slideToggle('fast')
 
 pickerDate = ->
-  $('#report_reported_at').pickadate
-    firstDay: 1
-    format: 'd mmmm yyyy'
-    min: -1
-    max: true
+  $('#report-datepicker').daterangepicker {
+    singleDatePicker: true
+    locale:
+      format: 'D MMMM YYYY'
+      firstDay: 1
+    minDate: moment().subtract(1, 'days')
+    maxDate: moment()
+    parentEl: '#report-datepicker'
+  }, (start, end, label) ->
+    $('#report_reported_at').val(start.format('D MMMM YYYY'))
+    return
   return
 
 markdownEditor = ->

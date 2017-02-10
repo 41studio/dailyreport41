@@ -44,6 +44,7 @@ class Report < ActiveRecord::Base
   ##
   # validations
   validates :project_id, :body, :email_to, :reported_at, presence: true
+  validate :ensure_valid_date
 
   ##
   # delegate class method
@@ -80,8 +81,8 @@ class Report < ActiveRecord::Base
 
   def slug_candidates
     [
-      [user.full_name.parameterize, project_name, reported_at.strftime('%d %B %Y')],
-      [user.full_name.parameterize, project_name, reported_at.strftime('%d %B %Y'), SecureRandom.random_number(10)]
+      [user.full_name.parameterize, project_name, reported_at.try(:strftime, '%d %B %Y')],
+      [user.full_name.parameterize, project_name, reported_at.try(:strftime, '%d %B %Y'), SecureRandom.random_number(10)]
     ]
   end
 
@@ -102,5 +103,9 @@ class Report < ActiveRecord::Base
 
     def ensure_resend_report
       send_report if resend
+    end
+
+    def ensure_valid_date
+      errors.add("Reported at date", "is invalid.") unless reported_at.present? and (Time.now.yesterday.to_date..Time.now.to_date).include?(reported_at.to_date)
     end
 end
