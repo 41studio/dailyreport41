@@ -100,6 +100,12 @@ gem 'sinatra', require: false
 # webserver
 gem 'puma'
 
+# provides an easy-to-use interface for managing your data
+gem 'rails_admin'
+
+# authorization library
+gem 'cancancan'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

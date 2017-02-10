@@ -40,6 +40,12 @@
                   .icon
                     %i.fa.fa-clipboard{"aria-hidden" => "true"}
                   .title Reports
+              - if can?(:manage, Recap)
+                %li{:class => is_active_recaps?}
+                  %a{:href => recaps_path}
+                    .icon
+                      %i.fa.fa-clipboard{"aria-hidden" => "true"}
+                    .title Recap
               %li.dropdown
                 %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "/"}
                   .icon

@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :tasks
   root 'home#index'
   resources :reports
@@ -8,6 +10,14 @@ Rails.application.routes.draw do
     resources :reports
     member do
       get 'show_email'
+    end
+  end
+
+  resources :recaps
+
+  resources :projects do
+    resources :users do
+      resource :recap
     end
   end
 

@@ -25,3 +25,4 @@
 //= require vendor/jquery-ui.min
 //= require vendor/tag-it
 //= require reports
+//= require recaps

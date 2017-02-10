@@ -1,0 +1,39 @@
+= form_for @recap, html: {class: "form form-horizontal form-recap"} do |f|
+  - if @recap.errors.any?
+    .alert.alert-danger.alert-dismissible.fade.in{:role => "alert"}
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+      %h4{:id => "oh-snap!-you-got-an-error!"}
+        = "#{pluralize(@recap.errors.count, "error")} prohibited this recap from being saved:"
+      %ul
+        - @recap.errors.full_messages.each do |msg|
+          %li= msg
+
+  .section
+    .section-title Information
+    .section-body
+      .form-group
+        = f.label :project, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :project, class: "form-control"
+
+      .form-group
+        = f.label :user, class: "col-md-3 control-label"
+        .col-md-9
+          = f.text_field :user, class: "form-control"
+
+      .form-group
+        = f.label "Date", class: "col-md-3 control-label"
+        .col-md-9
+          .input-group
+            = f.text_field :start_date, class: "form-control recap-date", style: "border-right: 1px solid #c8d1d3;"
+            %span.input-group-addon To
+            = f.text_field :end_date, class: "form-control recap-date"
+
+
+
+  .form-footer
+    .form-group
+      .col-md-12
+        = f.submit 'Save', class: "btn btn-info"
+        = link_to 'Cancel', reports_path, class: "btn btn-default"

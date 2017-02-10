@@ -8,7 +8,7 @@
 #  reset_password_token   :string(255)
 #  reset_password_sent_at :datetime
 #  remember_created_at    :datetime
-#  sign_in_count          :integer          default("0"), not null
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
@@ -21,6 +21,7 @@
 #  refresh_token          :string(255)
 #  expires_at             :datetime
 #  full_name              :string(255)
+#  role                   :integer
 #
 # Indexes
 #
@@ -29,6 +30,10 @@
 #
 
 class User < ActiveRecord::Base
+  extend Enumerize
+
+  enumerize :role, in: {ceo: 1, manager: 2, bde: 3, web_developer: 4, web_designer: 5}, predicates: true
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

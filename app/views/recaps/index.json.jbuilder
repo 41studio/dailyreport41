@@ -1,0 +1,1 @@
+json.array! @recaps, partial: 'recaps/recap', as: :recap

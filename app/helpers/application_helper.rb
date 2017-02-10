@@ -24,4 +24,8 @@ module ApplicationHelper
   def is_active_reports?
     "active" if controller_name.eql?('reports')
   end
+
+  def is_active_recaps?
+    "active" if controller_name.eql?('recaps')
+  end
 end
