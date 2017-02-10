@@ -7,6 +7,13 @@ RailsAdmin.config do |config|
   #   warden.authenticate! scope: :user
   # end
   # config.current_user_method(&:current_user)
+  config.authorize_with do
+    authenticate_or_request_with_http_basic('Login required') do |username, password|
+      # user = User.where(email: username, password: password, admin: true).first
+      # user
+      [username, password] == [ ENV["ADMIN_USERNAME"], ENV["ADMIN_PASSWORD"] ]
+    end
+  end
 
   ## == Cancan ==
   # config.authorize_with :cancan
