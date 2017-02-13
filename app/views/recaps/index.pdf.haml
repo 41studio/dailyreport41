@@ -1,0 +1,35 @@
+%table.header
+  %tr
+    %td{rowspan: 3}
+      = wicked_pdf_image_tag "41studio-logo.png", width: 250
+    %th.align-right Project
+    %td= project_name
+  %tr
+    %th.align-right Date
+    %td= date_range
+  %tr
+    %th.align-right Reported by
+    %td= reported_by
+
+%table.table-report
+  %thead
+    %th.align-center{:style => "width: 5%;"} No.
+    %th{:style => "width: 15%"} Date
+    %th{:style => "width: 40%"} Completed
+    %th{:style => "width: 40%"} On Progress
+
+  %tbody
+    - @reports.each_with_index do |report, idx|
+      %tr
+        %td.align-center #{idx+=1}
+        %td
+          = formated_date(report.reported_at)
+        %td
+          %ol
+            - report.tasks.select{|task| task.completed? }.each do |task|
+              %li= task.title
+        %td
+          %ol
+            - report.tasks.select{|task| task.on_progress? }.each do |task|
+              %li= task.title
+

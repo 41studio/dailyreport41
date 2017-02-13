@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20170208064636) do
     t.string   "refresh_token",          limit: 255
     t.datetime "expires_at"
     t.string   "full_name",              limit: 255
-    t.integer  "role",                   limit: 4
+    t.integer  "role",                   limit: 4,   default: 4
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

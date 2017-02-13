@@ -21,7 +21,7 @@
 #  refresh_token          :string(255)
 #  expires_at             :datetime
 #  full_name              :string(255)
-#  role                   :integer
+#  role                   :integer          default(4)
 #
 # Indexes
 #

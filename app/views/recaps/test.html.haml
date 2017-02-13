@@ -1,0 +1,55 @@
+/ %h2 Test PDF
+
+/ .table
+/   .row
+/     .cell.align-center{:style => "width: 5%;"}
+/       .header No.
+/     .cell{:style => "width: 20%;"}
+/       .header Date
+/     .cell{:style => "width: 30%;"}
+/       .header Completed
+/     .cell{:style => "width: 30%;"}
+/       .header On Progress
+
+/   - @reports.each_with_index do |report, idx|
+/     .row
+/       .cell.align-center{:style => "width: 5%;"} #{idx+=1}
+/       .cell{:style => "width: 20%;"}
+/         = formated_date(report.reported_at)
+/       .cell{:style => "width: 30%;"}
+/         %ol
+/           - report.tasks.select{|task| task.completed? }.each do |task|
+/             %li= task.title
+/       .cell{:style => "width: 30%;"}
+/         %ol
+/           - report.tasks.select{|task| task.on_progress? }.each do |task|
+/             %li= task.title
+
+%h2 Test PDF
+
+%table
+  %thead
+    %th.align-center
+      .header No.
+    %th
+      .header Date
+    %th
+      .header Completed
+    %th
+      .header On Progress
+
+  %tbody
+    - @reports.each_with_index do |report, idx|
+      %tr
+        %td.align-center #{idx+=1}
+        %td
+          = formated_date(report.reported_at)
+        %td
+          %ol
+            - report.tasks.select{|task| task.completed? }.each do |task|
+              %li= task.title
+        %td
+          %ol
+            - report.tasks.select{|task| task.on_progress? }.each do |task|
+              %li= task.title
+

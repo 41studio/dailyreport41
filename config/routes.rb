@@ -13,14 +13,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :recaps
+  resources :recaps do
+    get 'download/:file_name', to: 'recaps#download', as: :download, on: :collection
+  end
 
   resources :projects do
     resources :users do
-      resource :recap
+      resources :recaps
     end
   end
-
+  get 'test', to: 'recaps#test'
   get 'profile', to: 'users#show', as: :profile_user
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }

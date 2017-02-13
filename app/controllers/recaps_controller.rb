@@ -5,6 +5,34 @@ class RecapsController < ApplicationController
   # GET /recaps.json
   def index
     @projects = Project.with_users.page(params[:page]).per(30)
+    respond_to do |format|
+      format.html
+      format.json do
+        @reports = Report.includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date])
+        project = Project.with_users.find_by(id: params[:project_id], user_id: params[:user_id])
+        start_date = Date.parse(params[:start_date]).strftime("%B #{Date.parse(params[:start_date]).day.ordinalize}, %Y") rescue nil
+        end_date = Date.parse(params[:end_date]).strftime("%B #{Date.parse(params[:end_date]).day.ordinalize}, %Y") rescue nil
+
+        pdf = WickedPdf.new.pdf_from_string(
+          render_to_string(template: 'recaps/index.pdf.haml', layout: 'layouts/pdf.html.haml', locals:  { project_name: project.name, date_range: "#{start_date} - #{end_date}", reported_by: project.user_name }),
+          orientation: 'Landscape'
+        )
+
+        file_name = "report_#{params[:project_id]}_#{params[:user_id]}.pdf"
+        save_path = Rails.root.join('tmp', file_name)
+        File.open(save_path, 'wb') do |file|
+          file << pdf
+        end
+
+        file_name = "report_#{params[:project_id]}_#{params[:user_id]}.pdf"
+        save_path = Rails.root.join('tmp', file_name)
+        File.open(save_path, 'wb') do |file|
+          file << pdf
+        end
+
+        render json: {file_name: file_name}
+      end
+    end
   end
 
   # GET /recaps/1
@@ -59,6 +87,32 @@ class RecapsController < ApplicationController
       format.html { redirect_to recaps_url, notice: 'Recap was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def test
+    @reports = Report.includes(:tasks).where(project_id: 1, user_id: 1, reported_at: "2017-02-01".."2017-02-28")
+    project = Project.with_users.find_by(id: 1, users: {id: 1})
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = WickedPdf.new.pdf_from_string(
+          render_to_string(template: 'recaps/index.pdf.haml', layout: 'layouts/pdf.html.haml', locals:  { project_name: project.name, date_range: "April 7th - 11th, 2014", reported_by: project.user_name }),
+          orientation: 'Landscape'
+        )
+
+        file_name = "report_#{params[:project_id]}_#{params[:user_id]}.pdf"
+        save_path = Rails.root.join('tmp', file_name)
+        File.open(save_path, 'wb') do |file|
+          file << pdf
+        end
+
+        send_data pdf, title: "test", filename: "test.pdf", type: 'application/pdf', disposition: 'inline'
+      end
+    end
+  end
+
+  def download
+    send_file Rails.root.join('tmp', "#{params[:file_name]}.pdf")
   end
 
   private

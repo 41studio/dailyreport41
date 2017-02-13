@@ -24,5 +24,6 @@
 //= require vendor/tag-it
 //= require vendor/moment
 //= require vendor/daterangepicker
+//= require vendor/jquery.loader
 //= require reports
 //= require recaps

@@ -13,9 +13,9 @@
               %span.input-group-addon
                 %i.fa.fa-calendar
               #div
-                = text_field_tag :recap_date, nil, class: "form-control recap-date text-center"
-                = hidden_field_tag :start_date
-                = hidden_field_tag :end_date
+                = text_field_tag :recap_range, nil, class: "form-control recap-date text-center"
+                = hidden_field_tag :recap_start_date
+                = hidden_field_tag :recap_end_date
 
       .card-body.no-padding
         .dataTables_wrapper
@@ -31,7 +31,7 @@
                   %td= project.name
                   %td= project.user_name
                   %td.text-right
-                    = link_to 'Recap', project_user_recap_path(project_id: project.slug, user_id: project.user_id, start_date: nil, end_date: nil), method: :post, class: "btn btn-xs btn-success"
+                    = link_to 'Recap', '#', data: {project: project.id, user: project.user_id}, class: "btn btn-xs btn-success btn-recap"
 
           .bottom.text-center
             = paginate @projects
