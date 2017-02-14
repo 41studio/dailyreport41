@@ -26,3 +26,5 @@
 //= require app
 //= require reports
 //= require recaps
+
+$('body').loader('hide');
