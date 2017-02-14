@@ -18,20 +18,19 @@
                 = hidden_field_tag :recap_end_date
 
       .card-body.no-padding
-        .dataTables_wrapper
-          %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
-            %thead
-              %tr{:role => "row"}
-                %th Project
-                %th User
-                %th
-            %tbody
-              - @projects.each do |project|
-                %tr
-                  %td= project.name
-                  %td= project.user_name
-                  %td.text-right
-                    = link_to 'Recap', '#', data: {project: project.id, user: project.user_id}, class: "btn btn-xs btn-success btn-recap"
+        %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
+          %thead
+            %tr{:role => "row"}
+              %th Project
+              %th User
+              %th
+          %tbody
+            - @projects.each do |project|
+              %tr
+                %td= project.name
+                %td= project.user_name
+                %td.text-right
+                  = link_to 'Recap', '#', data: {project: project.id, user: project.user_id}, class: "btn btn-xs btn-success btn-recap"
 
-          .bottom.text-center
-            = paginate @projects
+        .bottom.text-center
+          = paginate @projects

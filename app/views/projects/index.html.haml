@@ -4,25 +4,24 @@
       .card-header
         = link_to 'New Project', new_project_path, class: "btn btn-success"
 
-      .card-body.no-padding
-        .dataTables_wrapper
-          %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
-            %thead
-              %tr{:role => "row"}
-                %th Name
-                %th Email Client
-                %th Email Project Manager
-                %th
-            %tbody
-              - @projects.each_with_index do |project, index|
-                %tr
-                  %td= project.name
-                  %td= project.email_client
-                  %td= project.email_project_manager
-                  %td.text-right
-                    = link_to 'Show', project, class: "btn btn-xs btn-primary"
-                    = link_to 'Edit', edit_project_path(project), class: "btn btn-xs btn-info"
-                    = link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-xs btn-danger"
+      .card-body.no-padding.table-responsive
+        %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
+          %thead
+            %tr{:role => "row"}
+              %th Name
+              %th Email Client
+              %th Email Project Manager
+              %th
+          %tbody
+            - @projects.each_with_index do |project, index|
+              %tr
+                %td= project.name
+                %td= project.email_client
+                %td= project.email_project_manager
+                %td.text-right
+                  = link_to 'Show', project, class: "btn btn-xs btn-primary"
+                  = link_to 'Edit', edit_project_path(project), class: "btn btn-xs btn-info"
+                  = link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-xs btn-danger"
 
-          .bottom.text-center
-            = paginate @projects
+        .bottom.text-center
+          = paginate @projects

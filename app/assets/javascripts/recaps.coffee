@@ -6,8 +6,8 @@ pickDate = (start = moment().startOf('month'), end = moment().endOf('month')) ->
 
 $(document).on 'turbolinks:load', ->
   pickDate()
-
-  $('#recap-datepicker').daterangepicker {
+  $('html').loader('hide')
+  $('#recap_range').daterangepicker {
     locale:
       firstDay: 1
       format: 'DD/MM/YYYY'
@@ -25,7 +25,7 @@ $(document).on 'turbolinks:load', ->
 
   $('.btn-recap').on 'click', (event) ->
     event.preventDefault()
-    $('div.app').loader('show');
+    $('html').loader('show')
     $.ajax
       url: Routes.recaps_path()
       method: 'GET'
@@ -37,5 +37,6 @@ $(document).on 'turbolinks:load', ->
         end_date: $('#recap_end_date').val()
       success: (data) ->
         window.location.href = Routes.download_recaps_path(file_name: data.file_name)
-        $('div.app').loader('hide');
+        $('html').loader('hide')
+
     return

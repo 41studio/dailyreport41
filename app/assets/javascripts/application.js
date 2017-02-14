@@ -16,8 +16,6 @@
 //= require turbolinks
 //= require cocoon
 //= require js-routes
-//= require flat-admin/vendor
-//= require flat-admin/app
 //= require vendor/simplemde.min
 //= require vendor/select2.full
 //= require vendor/jquery-ui.min
@@ -25,5 +23,6 @@
 //= require vendor/moment
 //= require vendor/daterangepicker
 //= require vendor/jquery.loader
+//= require app
 //= require reports
 //= require recaps

@@ -8,7 +8,7 @@ class RecapsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @reports = Report.includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date])
+        @reports = Report.select(:id, :reported_at).includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date]).group("reports.id")
         project = Project.with_users.find_by(id: params[:project_id], user_id: params[:user_id])
         start_date = Date.parse(params[:start_date]).strftime("%B #{Date.parse(params[:start_date]).day.ordinalize}, %Y") rescue nil
         end_date = Date.parse(params[:end_date]).strftime("%B #{Date.parse(params[:end_date]).day.ordinalize}, %Y") rescue nil
@@ -112,7 +112,7 @@ class RecapsController < ApplicationController
   end
 
   def download
-    send_file Rails.root.join('tmp', "#{params[:file_name]}.pdf")
+    send_file Rails.root.join('tmp', "#{params[:file_name]}.pdf"), type: 'text/html'
   end
 
   private
