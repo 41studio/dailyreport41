@@ -77,7 +77,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      check_emails
       params.require(:report).permit(:subject, :body, :email_to, :email_cc, :email_bcc, :reported_at, :note, :project_id, :resend, tasks_attributes: [:id, :title, :status, :user_id, :_destroy])
     end
 
@@ -87,19 +86,6 @@ class ReportsController < ApplicationController
 
     def send_report
       @report.send_async! if params[:commit].eql?("Save & Send")
-    end
-
-    def check_emails
-      email_cc = params[:report][:email_to].to_s.split(',').select{|email| Validator.is_email?(email)}
-      params[:report][:email_to] = email_cc.join(",")
-
-      email_cc = params[:report][:email_cc].to_s.split(',').select{|email| Validator.is_email?(email)}
-      params[:report][:email_cc] = email_cc.join(",")
-
-      email_bcc = params[:report][:email_bcc].to_s.split(',').select{|email| Validator.is_email?(email)}
-      params[:report][:email_bcc] = email_bcc.join(",")
-
-      params
     end
 
     def set_project

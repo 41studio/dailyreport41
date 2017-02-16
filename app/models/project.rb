@@ -34,7 +34,7 @@ class Project < ActiveRecord::Base
   validates :name, :client_name, :project_manager_name, presence: true, length: { maximum: 200 }
   validates :description, presence: true, length: { maximum: 500 }
   validates :email_client, :email_project_manager, presence: true, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, length: { maximum: 200 }
-  validates :email_cc, :email_bcc, length: { maximum: 200 }
+  validates :email_cc, :email_bcc, length: { maximum: 200 }, email_addresses: true
 
   # scope
   scope :latest, -> { order(created_at: :desc) }
@@ -53,8 +53,5 @@ class Project < ActiveRecord::Base
     texts << email_project_manager unless email_client.eql?(email_project_manager)
     texts << email_cc if email_cc.present?
     text = texts.join(",")
-  end
-
-  def ensure_email_cc
   end
 end

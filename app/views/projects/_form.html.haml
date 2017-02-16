@@ -42,13 +42,16 @@
         .col-md-9
           = f.email_field :email_project_manager, class: "form-control"
       .form-group{:style => "margin-bottom: 15px;"}
-        = f.label :email_cc, class: "col-md-3 control-label"
+        = f.label :email_cc, "Cc", class: "col-md-3 control-label"
         .col-md-9
           = f.text_field :email_cc, value: @project.email_cc, class: "form-control tagging-email ui-widget-content ui-autocomplete-input"
       .form-group{:style => "margin-bottom: 15px;"}
-        = f.label :email_bcc, class: "col-md-3 control-label"
+        = f.label :email_bcc, "Bcc", class: "col-md-3 control-label"
         .col-md-9
           = f.text_field :email_bcc, value: @project.email_bcc, class: "form-control tagging-email ui-widget-content ui-autocomplete-input"
+      .form-group
+        .col-md-9.col-md-offset-3
+          .help-block Separate emails allowed by comma, space, or tab.
 
   .form-footer
     .form-group
