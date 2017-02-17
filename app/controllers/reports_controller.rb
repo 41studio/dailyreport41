@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-    @body_template = ReportTemplate.new(@report).render
+   @body_template = @report.template
   end
 
   # GET /reports/new
