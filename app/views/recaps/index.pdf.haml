@@ -24,6 +24,8 @@
         %td.align-center #{idx+=1}
         %td
           = formated_date(report.reported_at)
+          %br
+          Work Hour: #{report.work_hour.to_f}
         %td
           %ol
             - report.tasks.select{|task| task.completed? }.each do |task|

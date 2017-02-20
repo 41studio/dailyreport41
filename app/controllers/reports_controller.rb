@@ -77,7 +77,7 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:subject, :body, :email_to, :email_cc, :email_bcc, :reported_at, :note, :project_id, :resend, tasks_attributes: [:id, :title, :status, :user_id, :_destroy])
+      params.require(:report).permit(:subject, :body, :email_to, :email_cc, :email_bcc, :reported_at, :note, :project_id, :resend, :work_hour, tasks_attributes: [:id, :title, :status, :user_id, :_destroy])
     end
 
     def set_projects

@@ -17,6 +17,7 @@
 #  message_id  :string
 #  resend      :boolean          default(FALSE)
 #  slug        :string
+#  work_hour   :decimal(, )      default(8.0)
 #
 # Indexes
 #

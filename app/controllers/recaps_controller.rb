@@ -8,7 +8,7 @@ class RecapsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @reports = Report.select(:id, :reported_at).includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date]).group("reports.id")
+        @reports = Report.select(:id, :reported_at, :work_hour).includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date]).group("reports.id")
         project = Project.with_users.find_by(id: params[:project_id], user_id: params[:user_id])
         start_date = Date.parse(params[:start_date]).strftime("%B #{Date.parse(params[:start_date]).day.ordinalize}, %Y") rescue nil
         end_date = Date.parse(params[:end_date]).strftime("%B #{Date.parse(params[:end_date]).day.ordinalize}, %Y") rescue nil
@@ -18,13 +18,7 @@ class RecapsController < ApplicationController
           orientation: 'Landscape'
         )
 
-        file_name = "report_#{params[:project_id]}_#{params[:user_id]}.pdf"
-        save_path = Rails.root.join('tmp', file_name)
-        File.open(save_path, 'wb') do |file|
-          file << pdf
-        end
-
-        file_name = "report_#{params[:project_id]}_#{params[:user_id]}.pdf"
+        file_name = "[#{project.name}] #{start_date} - #{end_date} - #{project.user_name}.pdf"
         save_path = Rails.root.join('tmp', file_name)
         File.open(save_path, 'wb') do |file|
           file << pdf
