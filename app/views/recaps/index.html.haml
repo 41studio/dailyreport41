@@ -25,6 +25,10 @@
               %th User
               %th
           %tbody
+            - if @projects.empty?
+              %tr
+                %td{colspan: 4} No data available in table
+
             - @projects.each do |project|
               %tr
                 %td= project.name

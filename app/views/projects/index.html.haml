@@ -13,6 +13,10 @@
               %th Email Project Manager
               %th
           %tbody
+            - if @projects.empty?
+              %tr
+                %td{colspan: 4} No data available in table
+
             - @projects.each_with_index do |project, index|
               %tr
                 %td= project.name

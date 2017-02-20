@@ -13,6 +13,10 @@
               %th Reported at
               %th
           %tbody
+            - if @reports.empty?
+              %tr
+                %td{colspan: 4} No data available in table
+
             - @reports.each_with_index do |report, index|
               %tr
                 %td= report.project_name
