@@ -45,4 +45,10 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'User' do
+    list do
+      exclude_fields :role
+    end
+  end
 end
