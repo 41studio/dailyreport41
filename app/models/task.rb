@@ -3,8 +3,8 @@
 # Table name: tasks
 #
 #  id         :integer          not null, primary key
-#  title      :string(255)
-#  status     :string(255)
+#  title      :string
+#  status     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  report_id  :integer

@@ -3,20 +3,20 @@
 # Table name: reports
 #
 #  id          :integer          not null, primary key
-#  subject     :string(255)
-#  body        :text(65535)
-#  email_to    :string(255)
-#  email_cc    :string(255)
-#  email_bcc   :string(255)
+#  subject     :string
+#  body        :text
+#  email_to    :string
+#  email_cc    :string
+#  email_bcc   :string
 #  reported_at :datetime
-#  note        :text(65535)
+#  note        :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  project_id  :integer
 #  user_id     :integer
-#  message_id  :string(255)
+#  message_id  :string
 #  resend      :boolean          default(FALSE)
-#  slug        :string(255)
+#  slug        :string
 #
 # Indexes
 #
