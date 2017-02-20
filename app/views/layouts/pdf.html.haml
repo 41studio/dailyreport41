@@ -3,7 +3,87 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
-    = wicked_pdf_stylesheet_link_tag "pdf"
-    = wicked_pdf_javascript_include_tag "number_pages"
+    :css
+      body {
+        font-family: Arial, Verdana;
+        font-size: 9pt;
+      }
+
+      .align-center {
+        text-align: center;
+      }
+
+      .align-left {
+        text-align: left;
+      }
+
+      .align-right {
+        text-align: right;
+      }
+
+      .header {
+        margin-bottom: 20px;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      table.header {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table.header th, table.header td {
+        padding: 4px;
+      }
+      table.header th:after {
+        content: ":";
+      }
+
+      table.table-report {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table.table-report tr th {
+        padding: 8px 0;
+        border: thin solid #000;
+      }
+      table.table-report tr td {
+        border: thin solid #000;
+        padding: 5px;
+        vertical-align: top;
+        box-decoration-break: clone;
+      }
+      table.table-report tr td ol {
+        padding-left: 20px;
+        margin-top: 0;
+      }
+
+    :javascript
+      function number_pages() {
+        var x;
+        var i;
+        var i, j, vars, x, y, z;
+        vars = {};
+        x = document.location.search.substring(1).split('&');
+        for (i in x) {
+          z = x[i].split('=', 2);
+          vars[z[0]] = decodeURIComponent(z[1]);
+        }
+        x = ['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection'];
+        for (i in x) {
+          y = document.getElementsByClassName(x[i]);
+          j = 0;
+          while (j < y.length) {
+            y[j].textContent = vars[x[i]];
+            ++j;
+          }
+        }
+      };
+
   %body{:onload => "number_pages"}
     = yield

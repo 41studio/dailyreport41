@@ -1,39 +1,7 @@
 body {
   font-family: Arial, Verdana;
-  font-size: 11pt;
+  font-size: 9pt;
 }
-
-// .table {
-//   display:block;
-//   box-decoration-break: clone;
-
-//   .row {
-//     display:block;
-//     page-break-inside: avoid;
-//     // &:first-child > .cell {
-//     //   border-top: 1px solid #000;
-//     // }
-//   }
-
-//   .cell {
-//     &:not(:first-child) {
-//       margin-left: -4px;
-//       // border-left: 0;
-//     }
-//     padding: 10px;
-//     display:inline-block;
-//     border: 1px solid #000;
-//     // border-top: 0;
-//     .header {
-//       font-weight: bold;
-//       padding: 5px 0px;
-//     }
-
-//     ol {
-//       padding-left: 20px;
-//     }
-//   }
-// }
 
 .align-center {
   text-align: center;
