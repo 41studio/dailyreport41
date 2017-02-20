@@ -1,14 +1,17 @@
 %table.header
   %tr
     %td{rowspan: 3}
-      = wicked_pdf_image_tag "41studio-logo.png", width: 200
-    %th.align-right Project
+      = wicked_pdf_image_tag "41studio-logo.png", width: 180
+    %th.align-left Project
+    %th :
     %td= project_name
   %tr
-    %th.align-right Date
+    %th.align-left Date
+    %th :
     %td= date_range
   %tr
-    %th.align-right Reported by
+    %th.align-left Reported by
+    %th :
     %td= reported_by
 
 %table.table-report
