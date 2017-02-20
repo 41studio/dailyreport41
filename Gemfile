@@ -4,15 +4,18 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
 
-group :development do
-  # Use mysql as the database for Active Record
-  gem 'mysql2', '>= 0.3.13', '< 0.5'
-end
+# Use postgresql as the database for Active Record
+gem 'pg'
 
-group :production do
-  # Use postgresql as the database for Active Record
-  gem 'pg'
-end
+# group :development do
+#   # Use mysql as the database for Active Record
+#   gem 'mysql2', '>= 0.3.13', '< 0.5'
+# end
+
+# group :production do
+#   # Use postgresql as the database for Active Record
+#   gem 'pg'
+# end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

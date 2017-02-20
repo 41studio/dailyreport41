@@ -198,7 +198,6 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.0.0)
     mustache (1.0.3)
-    mysql2 (0.4.5)
     nested_form (0.3.2)
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
@@ -414,7 +413,6 @@ DEPENDENCIES
   js-routes
   kaminari
   mustache
-  mysql2 (>= 0.3.13, < 0.5)
   omniauth-google-oauth2
   pg
   pry-rails
