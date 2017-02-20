@@ -3,18 +3,18 @@
 # Table name: projects
 #
 #  id                    :integer          not null, primary key
-#  name                  :string(255)
-#  description           :text(65535)
-#  email_client          :string(255)
-#  client_name           :string(255)
-#  email_project_manager :string(255)
-#  project_manager_name  :string(255)
+#  name                  :string
+#  description           :text
+#  email_client          :string
+#  client_name           :string
+#  email_project_manager :string
+#  project_manager_name  :string
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  user_id               :integer
-#  email_cc              :string(255)
-#  email_bcc             :string(255)
-#  slug                  :string(255)
+#  email_cc              :string
+#  email_bcc             :string
+#  slug                  :string
 #
 # Indexes
 #
@@ -38,7 +38,7 @@ class Project < ActiveRecord::Base
 
   # scope
   scope :latest, -> { order(created_at: :desc) }
-  scope :with_users, -> { joins(reports: :user).select("projects.id, projects.name, projects.slug, users.full_name AS user_name, users.id AS user_id").group("projects.id").order(:name) }
+  scope :with_users, -> { joins(reports: :user).select("projects.id, projects.name, projects.slug, users.full_name AS user_name, users.id AS user_id").group("projects.id, users.full_name, users.id").order("projects.name ASC") }
 
   def client_first_name
     client_name.try(:split).try(:first)
