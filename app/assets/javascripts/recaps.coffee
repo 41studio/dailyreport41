@@ -21,3 +21,13 @@ $(document).on 'turbolinks:load', ->
   }, (start, end, label) ->
     pickDate(start, end)
     return
+
+  $('.btn-recap').on 'click', (event) ->
+    event.preventDefault()
+    params =
+      project_id: $(@).data('project')
+      user_id: $(@).data('user')
+      start_date: $('#recap_start_date').val()
+      end_date: $('#recap_end_date').val()
+    window.location.href = Routes.view_recaps_path(params)
+    return

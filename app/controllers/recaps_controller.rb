@@ -1,7 +1,6 @@
 class RecapsController < ApplicationController
   before_action :set_recap, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:view]
-  layout 'pdf', only: [:view]
 
   # GET /recaps
   # GET /recaps.json
@@ -71,11 +70,11 @@ class RecapsController < ApplicationController
     end_date = Date.parse(params[:end_date]).strftime("%B #{Date.parse(params[:end_date]).day.ordinalize}, %Y") rescue nil
     @date_range = "#{start_date} - #{end_date}"
     respond_to do |format|
-      format.html
+      format.html {render layout: false}
       format.pdf do
         pdf = WickedPdf.new.pdf_from_url(view_recaps_url(params.slice(:start_date, :end_date).merge({pdf: true})), {
           orientation: 'Landscape',
-          margin:  {
+          margin: {
             top:    10,
             bottom: 10,
             left:   10,

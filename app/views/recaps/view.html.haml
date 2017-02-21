@@ -1,46 +1,128 @@
-- unless params[:pdf]
-  .align-right
-    %ul.button-actions
-      %li= link_to "Back", recaps_path, class: "button"
-      %li= link_to "Print PDF", request.url + "&format=pdf", class: "button"
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{:charset => "utf-8"}/
+    :css
+      body {
+        font-family: Arial, Verdana;
+        font-size: 9pt;
+      }
 
-%table.header
-  %tr
-    %td{rowspan: 3}
-      = image_tag "41studio-logo.png", width: 180
-    %th.align-left Project
-    %th :
-    %td= @project.name
-  %tr
-    %th.align-left Date
-    %th :
-    %td= @date_range
-  %tr
-    %th.align-left Reported by
-    %th :
-    %td= @project.user_name
+      .align-center {
+        text-align: center;
+      }
 
-%table.table-report
-  %thead
-    %th.align-center{:style => "width: 5%;"} No.
-    %th{:style => "width: 15%"} Date
-    %th{:style => "width: 40%"} Completed
-    %th{:style => "width: 40%"} On Progress
+      .align-left {
+        text-align: left;
+      }
 
-  %tbody
-    - @reports.each_with_index do |report, idx|
-      %tr
-        %td.align-center #{idx+=1}
-        %td
-          = formated_date(report.reported_at)
-          %br
-          Work Hour: #{report.work_hour.to_f}
-        %td
-          %ol
-            - report.tasks.select{|task| task.completed? }.each do |task|
-              %li= task.title
-        %td
-          %ol
-            - report.tasks.select{|task| task.on_progress? }.each do |task|
-              %li= task.title
+      .align-right {
+        text-align: right;
+      }
+
+      .header {
+        margin-bottom: 20px;
+      }
+
+      .left {
+        float: left;
+      }
+
+      .right {
+        float: right;
+      }
+
+      table.header {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table.header th, table.header td {
+        padding: 4px;
+      }
+
+      table.table-report {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      table.table-report tr th {
+        padding: 8px 0;
+        border: thin solid #000;
+      }
+      table.table-report tr td {
+        border: thin solid #000;
+        padding: 5px;
+        vertical-align: top;
+        box-decoration-break: clone;
+      }
+      table.table-report tr td ol {
+        padding-left: 20px;
+        margin-top: 0;
+      }
+      .center {
+        margin: auto;
+        width: 80%;
+        padding: 10px;
+      }
+      .button-actions li {
+        display: inline-block;
+        padding: 5px;
+      }
+      a.button {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
+
+        text-decoration: none;
+        color: initial;
+        padding: 5px;
+      }
+
+  %body
+    %div{:class => ("center" unless params[:pdf])}
+      - unless params[:pdf]
+        .align-right
+          %ul.button-actions
+            %li= link_to "Back", recaps_path, class: "button"
+            %li= link_to "Print PDF", request.url + "&format=pdf", class: "button"
+
+      %table.header
+        %tr
+          %td{rowspan: 3}
+            = image_tag "41studio-logo.png", width: 180
+          %th.align-left Project
+          %th :
+          %td= @project.name
+        %tr
+          %th.align-left Date
+          %th :
+          %td= @date_range
+        %tr
+          %th.align-left Reported by
+          %th :
+          %td= @project.user_name
+
+      %table.table-report
+        %thead
+          %th.align-center{:style => "width: 5%;"} No.
+          %th{:style => "width: 15%"} Date
+          %th{:style => "width: 40%"} Completed
+          %th{:style => "width: 40%"} On Progress
+
+        %tbody
+          - @reports.each_with_index do |report, idx|
+            %tr
+              %td.align-center #{idx+=1}
+              %td
+                = formated_date(report.reported_at)
+                %br
+                Work Hour: #{report.work_hour.to_f}
+              %td
+                %ol
+                  - report.tasks.select{|task| task.completed? }.each do |task|
+                    %li= task.title
+              %td
+                %ol
+                  - report.tasks.select{|task| task.on_progress? }.each do |task|
+                    %li= task.title
 
