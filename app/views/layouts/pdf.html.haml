@@ -59,28 +59,24 @@
         padding-left: 20px;
         margin-top: 0;
       }
+      .center {
+        margin: auto;
+        width: 80%;
+        padding: 10px;
+      }
+      .button-actions li {
+        display: inline-block;
+        padding: 5px;
+      }
+      a.button {
+        -webkit-appearance: button;
+        -moz-appearance: button;
+        appearance: button;
 
-    :javascript
-      function number_pages() {
-        var x;
-        var i;
-        var i, j, vars, x, y, z;
-        vars = {};
-        x = document.location.search.substring(1).split('&');
-        for (i in x) {
-          z = x[i].split('=', 2);
-          vars[z[0]] = decodeURIComponent(z[1]);
-        }
-        x = ['frompage', 'topage', 'page', 'webpage', 'section', 'subsection', 'subsubsection'];
-        for (i in x) {
-          y = document.getElementsByClassName(x[i]);
-          j = 0;
-          while (j < y.length) {
-            y[j].textContent = vars[x[i]];
-            ++j;
-          }
-        }
-      };
+        text-decoration: none;
+        color: initial;
+        padding: 5px;
+      }
 
-  %body{:onload => "number_pages"}
-    = yield
+  %body
+    %div{:class => ("center" unless params[:pdf])}= yield

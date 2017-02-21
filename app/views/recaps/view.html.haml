@@ -1,18 +1,24 @@
+- unless params[:pdf]
+  .align-left
+    %ul.button-actions
+      %li= link_to "Back", recaps_path, class: "button"
+      %li= link_to "Print PDF", request.url + "&format=pdf", class: "button"
+
 %table.header
   %tr
     %td{rowspan: 3}
-      = wicked_pdf_image_tag "41studio-logo.png", width: 180
+      = image_tag "41studio-logo.png", width: 180
     %th.align-left Project
     %th :
-    %td= project_name
+    %td= @project.name
   %tr
     %th.align-left Date
     %th :
-    %td= date_range
+    %td= @date_range
   %tr
     %th.align-left Reported by
     %th :
-    %td= reported_by
+    %td= @project.user_name
 
 %table.table-report
   %thead

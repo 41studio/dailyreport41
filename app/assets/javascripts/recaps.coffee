@@ -21,21 +21,3 @@ $(document).on 'turbolinks:load', ->
   }, (start, end, label) ->
     pickDate(start, end)
     return
-
-  $('.btn-recap').on 'click', (event) ->
-    event.preventDefault()
-    $('body').loader('show')
-    $.ajax
-      url: Routes.recaps_path()
-      method: 'GET'
-      dataType: 'json'
-      data:
-        project_id: $(@).data('project')
-        user_id: $(@).data('user')
-        start_date: $('#recap_start_date').val()
-        end_date: $('#recap_end_date').val()
-      success: (data) ->
-        window.location.href = Routes.download_recaps_path(file_name: data.file_name)
-        $('body').loader('hide')
-
-    return
