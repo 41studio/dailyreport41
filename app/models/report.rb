@@ -50,7 +50,7 @@ class Report < ActiveRecord::Base
   validates :email_to, :email_cc, :email_bcc, email_addresses: true
   # validate :ensure_valid_date
 
-  scope :filter_by, -> (params) { select(:id, :reported_at, :work_hour).includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date].concat(" 00:00:00")..params[:end_date].concat(" 23:59:59")).group("reports.id").order("reports.reported_at ASC")}
+  scope :filter_by, -> (params) { select(:id, :reported_at, :work_hour).includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date]).group("reports.id").order("reports.reported_at ASC")}
   ##
   # delegate class method
   delegate :name, :client_name, :email_client, :email_project_manager, :email_cc, :email_bcc, to: :project, prefix: true, allow_nil: true
