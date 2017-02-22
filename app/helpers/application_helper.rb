@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
   def round_work_hour(work_hour)
-    work_hour % 1 == 0 ? work_hour.to_i : work_hour.to_f
+    work_hour % 1 == 0 ? work_hour.to_i : work_hour.to_f if work_hour.present?
   end
 
   def date_and_work_hour_text(date, work_hour)

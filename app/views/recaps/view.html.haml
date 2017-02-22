@@ -127,5 +127,5 @@
                     %li= task.title
           %tr
             %td{colspan: 4}
-              %b Total work hour #{round_work_hour(@reports.sum(:work_hour))} hrs
+              %b Total work hour: #{round_work_hour(@reports.map(&:work_hour).sum)} hrs
 
