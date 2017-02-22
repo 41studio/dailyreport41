@@ -29,13 +29,14 @@ pickerDate = ->
   $('#report-datepicker').daterangepicker {
     singleDatePicker: true
     locale:
-      format: 'D MMMM YYYY'
+      format: 'YYYY-MM-DD HH:mm:ss'
       firstDay: 1
     minDate: moment().subtract(2, 'days')
     maxDate: moment()
     parentEl: '#report-datepicker'
   }, (start, end, label) ->
-    $('#report_reported_at').val(start.format('D MMMM YYYY'))
+    $('#report_reported_date').val(start.format('D MMMM YYYY'))
+    $('#report_reported_at').val(start.format('YYYY-MM-DD HH:mm:ss'))
     return
   return
 

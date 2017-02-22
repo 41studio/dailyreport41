@@ -15,6 +15,7 @@
 #  email_cc              :string
 #  email_bcc             :string
 #  slug                  :string
+#  last_updated          :datetime
 #
 # Indexes
 #
@@ -38,7 +39,6 @@ class Project < ActiveRecord::Base
 
   # scope
   scope :latest, -> { order(created_at: :desc) }
-  scope :with_users, -> { joins(reports: :user).select("projects.id, projects.name, projects.slug, users.full_name AS user_name, users.id AS user_id").group("projects.id, users.full_name, users.id").order("projects.name ASC") }
 
   def client_first_name
     client_name.try(:split).try(:first)

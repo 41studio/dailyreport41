@@ -59,6 +59,9 @@
         padding-left: 20px;
         margin-top: 0;
       }
+      thead {
+        display: table-row-group;
+      }
       .center {
         margin: auto;
         width: 80%;
@@ -83,8 +86,8 @@
       - unless params[:pdf]
         .align-right
           %ul.button-actions
-            %li= link_to "Back", recaps_path, class: "button"
-            %li= link_to "Print PDF", request.url + "&format=pdf", class: "button"
+            %li= link_to "Back", recaps_path(params.slice(:start_date, :end_date)), class: "button"
+            %li= link_to "Save as PDF", request.url + "&format=pdf", class: "button"
 
       %table.header
         %tr
@@ -100,12 +103,12 @@
         %tr
           %th.align-left Reported by
           %th :
-          %td= @project.user_name
+          %td= @project.user.try(:full_name)
 
       %table.table-report
         %thead
           %th.align-center{:style => "width: 5%;"} No.
-          %th{:style => "width: 15%"} Date
+          %th{:style => "width: 18%"} Date
           %th{:style => "width: 40%"} Completed
           %th{:style => "width: 40%"} On Progress
 
@@ -113,10 +116,7 @@
           - @reports.each_with_index do |report, idx|
             %tr
               %td.align-center #{idx+=1}
-              %td
-                = formated_date(report.reported_at)
-                %br
-                Work Hour: #{report.work_hour.to_f}
+              %td= date_and_work_hour_text(report.reported_at, report.work_hour)
               %td
                 %ol
                   - report.tasks.select{|task| task.completed? }.each do |task|

@@ -7,21 +7,23 @@
       .card-body
         .row
           .col-md-6
-            = label_tag "Date"
-            .input-group#recap-datepicker
-              %span.input-group-addon
-                %i.fa.fa-calendar
-              #div
-                = text_field_tag :recap_range, nil, class: "form-control recap-date text-center"
-                = hidden_field_tag :recap_start_date
-                = hidden_field_tag :recap_end_date
+            = form_tag recaps_path, method: :get, class: "filter-range-recap" do
+              = label_tag "Date"
+              .input-group#recap-datepicker
+                %span.input-group-addon
+                  %i.fa.fa-calendar
+                #div
+                  = text_field_tag :recap_range, nil, class: "form-control recap-date text-center"
+                  = hidden_field_tag :start_date, params[:start_date], id: "recap_start_date"
+                  = hidden_field_tag :end_date, params[:end_date], id: "recap_end_date"
 
       .card-body.no-padding
         %table.table.table-striped.table-hover{:style => "margin-bottom: 0;"}
           %thead
             %tr{:role => "row"}
               %th Project
-              %th User
+              %th Reported by
+              %th Last updated
               %th
           %tbody
             - if @projects.empty?
@@ -31,9 +33,14 @@
             - @projects.each do |project|
               %tr
                 %td= project.name
-                %td= project.user_name
+                %td= project.user.try(:full_name)
+                %td
+                  - if project.last_updated.present? and project.last_updated.to_date < 2.days.ago.to_date
+                    = formated_date(project.last_updated)
+                  - else
+                    = timeago(project.last_updated)
                 %td.text-right
-                  = link_to 'Recap', '#', data: {project: project.id, user: project.user_id}, class: "btn btn-xs btn-success btn-recap"
+                  = link_to 'Recap', view_recaps_path(project_id: project.id, user_id: project.user_id, start_date: Time.zone.now.beginning_of_week.strftime("%Y-%m-%d"), end_date: Time.zone.now.end_of_week.strftime("%Y-%m-%d")), data: {project: project.id, user: project.user_id}, class: "btn btn-xs btn-success btn-recap", target: "_blank"
 
         .bottom.text-center
           = paginate @projects

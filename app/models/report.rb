@@ -32,6 +32,8 @@ class Report < ActiveRecord::Base
 
   friendly_id :slug_candidates, use: [:slugged, :finders, :scoped], scope: [:project]
 
+  attr_accessor :reported_date
+
   ##
   # relations
   belongs_to :user
@@ -48,6 +50,7 @@ class Report < ActiveRecord::Base
   validates :email_to, :email_cc, :email_bcc, email_addresses: true
   # validate :ensure_valid_date
 
+  scope :filter_by, -> (params) { select(:id, :reported_at, :work_hour).includes(:tasks).where(project_id: params[:project_id], user_id: params[:user_id], reported_at: params[:start_date].concat(" 00:00:00")..params[:end_date].concat(" 23:59:59")).group("reports.id").order("reports.reported_at ASC")}
   ##
   # delegate class method
   delegate :name, :client_name, :email_client, :email_project_manager, :email_cc, :email_bcc, to: :project, prefix: true, allow_nil: true

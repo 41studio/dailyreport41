@@ -23,6 +23,7 @@
 //= require vendor/moment
 //= require vendor/daterangepicker
 //= require vendor/jquery.loader
+//= require vendor/jquery.timeago
 //= require app
 //= require reports
 //= require recaps

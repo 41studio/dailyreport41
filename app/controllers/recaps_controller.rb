@@ -5,7 +5,7 @@ class RecapsController < ApplicationController
   # GET /recaps
   # GET /recaps.json
   def index
-    @projects = Project.with_users.page(params[:page]).per(30)
+    @projects = Project.includes(:user).select(:id, :name, :last_updated, :user_id).order(last_updated: :desc).page(params[:page]).per(20)
   end
 
   # GET /recaps/1
@@ -15,7 +15,7 @@ class RecapsController < ApplicationController
 
   # GET /recaps/new
   def new
-    @projects = Project.with_users.page(params[:page]).per(30)
+    @projects = Project.with_users.page(params[:page]).per(20)
   end
 
   # GET /recaps/1/edit
@@ -63,8 +63,8 @@ class RecapsController < ApplicationController
   end
 
   def view
-    @project = Project.with_users.find_by(id: params[:project_id], user_id: params[:user_id])
-    @reports = Report.select(:id, :reported_at, :work_hour).includes(:tasks).where(project_id: @project.id, user_id: params[:user_id], reported_at: params[:start_date]..params[:end_date]).group("reports.id")
+    @project = Project.find_by(id: params[:project_id])
+    @reports = Report.filter_by(params)
 
     start_date = Date.parse(params[:start_date]).strftime("%B #{Date.parse(params[:start_date]).day.ordinalize}, %Y") rescue nil
     end_date = Date.parse(params[:end_date]).strftime("%B #{Date.parse(params[:end_date]).day.ordinalize}, %Y") rescue nil
@@ -82,7 +82,7 @@ class RecapsController < ApplicationController
           }
         })
 
-        send_data(pdf, filename: "[#{@project.name}] #{start_date} - #{end_date} - #{@project.user_name}.pdf", type: "application/pdf")
+        send_data(pdf, filename: "[#{@project.name}] #{start_date} - #{end_date} - #{@project.user.try(:full_name)}.pdf", type: "application/pdf")
       end
     end
   end

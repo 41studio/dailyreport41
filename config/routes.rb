@@ -14,9 +14,7 @@ Rails.application.routes.draw do
   end
 
   resources :recaps do
-    get 'download/:file_name', to: 'recaps#download', as: :download, on: :collection
     get ':project_id/:user_id/view', to: 'recaps#view', as: :view, on: :collection
-    get 'print/:url', to: 'recaps#print', as: :print, on: :collection
   end
 
   resources :projects do

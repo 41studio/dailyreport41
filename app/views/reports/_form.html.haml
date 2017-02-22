@@ -18,7 +18,8 @@
             %span.input-group-addon
               %i.fa.fa-calendar
             %div
-              = f.text_field :reported_at, class: "form-control", value: formated_date(@report.reported_at)
+              = f.text_field :reported_date, class: "form-control", value: formated_date(@report.reported_at)
+              = f.hidden_field :reported_at, value: @report.reported_at
       .form-group
         = f.label :project_id, class: "col-md-3 control-label"
         .col-md-9

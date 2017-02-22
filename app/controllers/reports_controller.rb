@@ -16,7 +16,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = current_user.reports.new(reported_at: Date.today, project_id: @project.try(:id))
+    @report = current_user.reports.new(reported_at: Time.zone.now, project_id: @project.try(:id))
     @report.email_to = @project.try(:email_client)
     @report.email_cc = @project.try(:email_cc_text)
     @report.email_bcc = @project.try(:email_bcc)
