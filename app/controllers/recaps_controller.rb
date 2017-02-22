@@ -5,7 +5,7 @@ class RecapsController < ApplicationController
   # GET /recaps
   # GET /recaps.json
   def index
-    @projects = Project.includes(:user).select(:id, :name, :last_updated, :user_id).order(last_updated: :desc).page(params[:page]).per(20)
+    @projects = Project.includes(:user).where.not(last_updated: nil).select(:id, :name, :last_updated, :user_id).order(last_updated: :desc).page(params[:page]).per(20)
   end
 
   # GET /recaps/1

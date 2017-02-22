@@ -60,6 +60,7 @@ class Report < ActiveRecord::Base
   after_initialize :set_default_message_body
   before_create :set_subject
   after_update  :ensure_resend_report
+  after_save    :set_last_updated
 
   ##
   # sending report with Gmail API
@@ -111,5 +112,9 @@ class Report < ActiveRecord::Base
 
     def ensure_valid_date
       errors.add("Reported at date", "is invalid.") unless reported_at.present? and (Time.now.yesterday.to_date..Time.now.to_date).include?(reported_at.to_date)
+    end
+
+    def set_last_updated
+      self.project.update_attributes(last_updated: reported_at)
     end
 end
