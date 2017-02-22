@@ -31,7 +31,7 @@ pickerDate = ->
     locale:
       format: 'D MMMM YYYY'
       firstDay: 1
-    minDate: moment().subtract(1, 'days')
+    minDate: moment().subtract(2, 'days')
     maxDate: moment()
     parentEl: '#report-datepicker'
   }, (start, end, label) ->
