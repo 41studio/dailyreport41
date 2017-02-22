@@ -46,7 +46,7 @@ class Report < ActiveRecord::Base
   # validations
   validates :project_id, :body, :email_to, :reported_at, presence: true
   validates :email_to, :email_cc, :email_bcc, email_addresses: true
-  validate :ensure_valid_date
+  # validate :ensure_valid_date
 
   ##
   # delegate class method
