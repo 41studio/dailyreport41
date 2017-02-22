@@ -126,5 +126,6 @@
                   - report.tasks.select{|task| task.on_progress? }.each do |task|
                     %li= task.title
           %tr
-            %td{colspan: 4} Total work hour #{round_work_hour(@reports.sum(:work_hour))}
+            %td{colspan: 4}
+              %b Total work hour #{round_work_hour(@reports.sum(:work_hour))} hrs
 
