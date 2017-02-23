@@ -75,7 +75,6 @@ class RecapsController < ApplicationController
         pdf = WickedPdf.new.pdf_from_url(view_recaps_url(params.slice(:start_date, :end_date).merge({pdf: true})), {
           orientation: 'Landscape',
           page_size: 'A4',
-          zoom: 0,
           margin: {
             top:    10,
             bottom: 10,
