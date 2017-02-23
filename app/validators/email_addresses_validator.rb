@@ -4,6 +4,6 @@ class EmailAddressesValidator < ActiveModel::EachValidator
       unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
         record.errors[email.downcase] << (options[:message] || "is not an email")
       end
-    end
+    end if value.present?
   end
 end
