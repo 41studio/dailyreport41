@@ -23,7 +23,7 @@ selectProject = ->
 
 toggleEmailRecipients = ->
   $('#toggle-email-recipients').on 'click', ->
-    $('#js-email-recipients').slideToggle('fast')
+    $('#js-email-recipients').slideToggle()
 
 pickerDate = ->
   $('#report-datepicker').daterangepicker {
@@ -97,13 +97,15 @@ disbaleSubmitOnEnter = ->
   $('.form-report').on 'keypress', (e) ->
     return false if e.keyCode == 13
 
+isLoaded = false
 $(document).on 'turbolinks:load', ->
-  selectProject()
-  toggleEmailRecipients()
-  pickerDate()
-  markdownEditor()
-  taggingEmail()
-  styleTaskList()
-  disbaleSubmitOnEnter()
+  unless isLoaded
+    selectProject()
+    toggleEmailRecipients()
+    pickerDate()
+    markdownEditor()
+    taggingEmail()
+    styleTaskList()
+    disbaleSubmitOnEnter()
   return
 
