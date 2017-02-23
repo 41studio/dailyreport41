@@ -37,6 +37,9 @@
         width: 100%;
         border-collapse: collapse;
       }
+      table.header th {
+        font-weight: 900;
+      }
       table.header th, table.header td {
         padding: 4px;
       }
@@ -47,7 +50,7 @@
       }
       table.table-report tr th {
         padding: 8px 0;
-        border: thin solid #000;
+        border: thin solid #202020;
       }
       table.table-report tr td {
         border: thin solid #000;
@@ -59,8 +62,10 @@
         padding-left: 20px;
         margin-top: 0;
       }
-      thead {
+      thead.table-report {
         display: table-row-group;
+        page-break-before: always;
+        page-break-inside: always;
       }
       .center {
         margin: auto;
@@ -80,7 +85,10 @@
         color: initial;
         padding: 5px;
       }
-
+      .green {
+        background: #18aa4a;
+        color: #fff;
+      }
   %body
     %div{:class => ("center" unless params[:pdf])}
       - unless params[:pdf]
@@ -89,43 +97,43 @@
             %li= link_to "Back", recaps_path(params.slice(:start_date, :end_date)), class: "button"
             %li= link_to "Save as PDF", request.url + "&format=pdf", class: "button"
 
-      %table.header
-        %tr
-          %td{rowspan: 3}
-            = image_tag "41studio-logo.png", width: 180
-          %th.align-left Project
-          %th :
-          %td= @project.name
-        %tr
-          %th.align-left Date
-          %th :
-          %td= @date_range
-        %tr
-          %th.align-left Reported by
-          %th :
-          %td= @project.user.try(:full_name)
-
-      %table.table-report
-        %thead
-          %th.align-center{:style => "width: 5%;"} No.
-          %th{:style => "width: 18%"} Date
-          %th{:style => "width: 40%"} Completed
-          %th{:style => "width: 40%"} On Progress
-
-        %tbody
-          - @reports.each_with_index do |report, idx|
-            %tr
-              %td.align-center #{idx+=1}
-              %td= date_and_work_hour_text(report.reported_at, report.work_hour)
-              %td
-                %ol
-                  - report.tasks.select{|task| task.completed? }.each do |task|
-                    %li= task.title
-              %td
-                %ol
-                  - report.tasks.select{|task| task.on_progress? }.each do |task|
-                    %li= task.title
+      #wrapper
+        %table.header
           %tr
-            %td{colspan: 4}
-              %b Total work hour: #{round_work_hour(@reports.map(&:work_hour).sum)} hrs
+            %td{rowspan: 3}
+              = image_tag "41studio-logo.png", width: 180
+            %th.align-left Project
+            %th :
+            %td= @project.name
+          %tr
+            %th.align-left Date
+            %th :
+            %td= @date_range
+          %tr
+            %th.align-left Reported by
+            %th :
+            %td= @project.user.try(:full_name)
 
+        %table.table-report
+          %thead.green
+            %th.align-center{:style => "width: 5%;"} No.
+            %th{:style => "width: 18%"} Date
+            %th{:style => "width: 40%"} Completed
+            %th{:style => "width: 40%"} On Progress
+
+          %tbody
+            - @reports.each_with_index do |report, idx|
+              %tr
+                %td.align-center #{idx+=1}
+                %td= date_and_work_hour_text(report.reported_at, report.work_hour)
+                %td
+                  %ol
+                    - report.tasks.select{|task| task.completed? }.each do |task|
+                      %li= task.title
+                %td
+                  %ol
+                    - report.tasks.select{|task| task.on_progress? }.each do |task|
+                      %li= task.title
+            %tr
+              %td{colspan: 4}
+                %b Total work hour: #{round_work_hour(@reports.map(&:work_hour).sum)} hrs
