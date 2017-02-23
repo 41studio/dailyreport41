@@ -13,7 +13,7 @@
                 %span.input-group-addon
                   %i.fa.fa-calendar
                 #div
-                  = text_field_tag :recap_range, nil, class: "form-control recap-date text-center"
+                  = text_field_tag :recap_range, default_range_recap, class: "form-control recap-date text-center"
                   = hidden_field_tag :start_date, params[:start_date], id: "recap_start_date"
                   = hidden_field_tag :end_date, params[:end_date], id: "recap_end_date"
 

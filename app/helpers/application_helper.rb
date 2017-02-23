@@ -43,4 +43,12 @@ module ApplicationHelper
     options[:class] ||= "timeago"
     content_tag(:time, time.to_s, options.merge(datetime: time.iso8601)) if time
   end
+
+  def default_range_recap
+    if params.key?(:start_date) and params.key?(:end_date)
+      start_date = formated_date(Date.parse(params[:start_date]))
+      end_date = formated_date(Date.parse(params[:end_date]))
+      [start_date, end_date].join(" - ")
+    end
+  end
 end

@@ -1,7 +1,7 @@
-pickDate = (start = moment().weekday(1), end = moment().weekday(5)) ->
-  $('#recap_range').val("#{start.format('D MMMM YYYY')} - #{end.format('D MMMM YYYY')}")
-  $('#recap_start_date').val(start.format('YYYY-MM-DD'))
-  $('#recap_end_date').val(end.format('YYYY-MM-DD'))
+pickDate = (startDate, endDate) ->
+  $('#recap_range').val("#{startDate.format('D MMMM YYYY')} - #{endDate.format('D MMMM YYYY')}")
+  $('#recap_start_date').val(startDate.format('YYYYMMDD'))
+  $('#recap_end_date').val(endDate.format('YYYYMMDD'))
   $('.btn-recap').each ->
     params =
       project_id: $(@).data('project')
@@ -13,11 +13,18 @@ pickDate = (start = moment().weekday(1), end = moment().weekday(5)) ->
 
 $(document).on 'turbolinks:load', ->
   $('time.timeago').timeago()
-  pickDate()
+  if $('#recap_start_date').val() and $('#recap_end_date').val()
+    startDate = moment($('#recap_start_date').val())
+    endDate = moment($('#recap_end_date').val())
+  else
+    startDate = moment().weekday(1)
+    endDate = moment().weekday(5)
+
+  pickDate(startDate, endDate)
   $('#recap_range').daterangepicker {
     locale:
       firstDay: 1
-      format: 'DD/MM/YYYY'
+      format: 'YYYYMMDD'
       separator: '-'
     alwaysShowCalendars: false
     autoUpdateInput: false
@@ -26,7 +33,8 @@ $(document).on 'turbolinks:load', ->
     endDate: moment().weekday(5)
     parentEl: '#recap-datepicker'
     buttonClasses: 'btn btn-xs'
-  }, (start, end, label) ->
-    pickDate(start, end)
+  }, (startDate, endDate, label) ->
+    pickDate(startDate, endDate)
+    $('.filter-range-recap').submit()
     return
   return

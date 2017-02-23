@@ -94,8 +94,8 @@
       - unless params[:pdf]
         .align-right
           %ul.button-actions
-            %li= link_to "Back", recaps_path(params.slice(:start_date, :end_date)), class: "button"
-            %li= link_to "Save as PDF", request.url + "&format=pdf", class: "button"
+            %li= link_to "Back", range_recaps_path, class: "button"
+            %li= link_to "Save as PDF", request.url + ".pdf", class: "button"
 
       #wrapper
         %table.header

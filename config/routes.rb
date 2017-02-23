@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   end
 
   resources :recaps do
-    get ':project_id/:user_id/view', to: 'recaps#view', as: :view, on: :collection
+    collection do
+      get ':start_date/:end_date', to: 'recaps#index', as: :range
+      get ':project_id/:user_id/:start_date/:end_date/view', to: 'recaps#view', as: :view
+    end
   end
 
   resources :projects do
