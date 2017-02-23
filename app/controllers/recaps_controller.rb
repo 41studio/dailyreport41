@@ -6,7 +6,14 @@ class RecapsController < ApplicationController
   # GET /recaps.json
   def index
     @projects = Project.includes(:user).where.not(last_updated: nil).select(:id, :name, :last_updated, :user_id).order(last_updated: :desc)
-    @projects = @projects.where(last_updated: params[:start_date]..params[:end_date]) if params.key?(:start_date) and params.key?(:end_date)
+    @projects =
+      if params.key?(:start_date) and params.key?(:end_date)
+        @projects.where(last_updated: params[:start_date]..params[:end_date])
+      else
+        current_date = Time.zone.now
+        recap_range  = current_date.beginning_of_week.strftime("%Y%m%d")..current_date.end_of_week.strftime("%Y%m%d")
+        @projects.where(last_updated: recap_range)
+      end
     @projects = @projects.page(params[:page]).per(20)
   end
 
