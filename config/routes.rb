@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :tasks
   root 'home#index'
-  resources :reports
+  resources :reports do
+    get 'view', to: 'reports#view', as: :view, on: :member
+  end
+
   resources :projects do
     resources :reports
     member do

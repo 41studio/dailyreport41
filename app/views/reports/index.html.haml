@@ -24,6 +24,7 @@
                 %td= formated_date(report.reported_at)
                 %td.text-right
                   = link_to 'Show', report, class: "btn btn-xs btn-primary"
+                  = link_to 'Message', view_report_path(report), class: "btn btn-xs btn-success", data: {turbolinks: false}, target: "_blank"
                   = link_to 'Edit', edit_report_path(report), class: "btn btn-xs btn-info"
                   = link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-xs btn-danger"
 

@@ -1,14 +1,33 @@
 class ReportTemplate < Mustache
+  include ActionView::Helpers::AssetUrlHelper
   self.template_extension = 'html'
-  self.template_file = File.join(Rails.root.join('app/views/templates'), 'report.html')
+  self.template_file = File.join(Rails.root.join('app/views/templates'), 'report_themed.html')
 
   def initialize(report)
     @report = report
     @tasks = report.tasks.order(:id)
+    @full_name = report.user.full_name
+    @role = report.user.role
   end
 
   def greeting
     "Hi #{@report.try(:project).try(:client_first_name)},"
+  end
+
+  def first_name
+    @full_name.split[0] rescue nil
+  end
+
+  def full_name
+    @full_name
+  end
+
+  def role
+    ['ceo', 'bde'].include?(@role) ? @role.upcase : @role.titleize rescue nil
+  end
+
+  def subject
+    @report.subject_text
   end
 
   def body
@@ -41,5 +60,37 @@ class ReportTemplate < Mustache
 
   def note?
     @report.note.present?
+  end
+
+  def host_url
+    Rails.env.development? ? "http://localhost:4000" : "http://dailyreport41.herokuapp.com"
+  end
+
+  def logo
+    "#{host_url}/images/logo.jpg"
+  end
+
+  def header_logo
+    "#{host_url}/images/header-logo.png"
+  end
+
+  def signature_full
+    "#{host_url}/images/signature-full.png"
+  end
+
+  def border_top_footer
+    "#{host_url}/images/border-top-footer.png"
+  end
+
+  def icon_marker
+    "#{host_url}/images/icon-marker.png"
+  end
+
+  def icon_phone
+    "#{host_url}/images/icon-phone.png"
+  end
+
+  def icon_envelope
+    "#{host_url}/images/icon-envelop.png"
   end
 end

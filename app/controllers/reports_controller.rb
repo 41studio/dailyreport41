@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: [:show, :edit, :update, :destroy, :view]
   before_action :set_project, only: [:new, :edit, :create, :update]
 
   # GET /reports
@@ -11,7 +11,6 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
-   @body_template = @report.template
   end
 
   # GET /reports/new
@@ -67,6 +66,11 @@ class ReportsController < ApplicationController
       format.html { redirect_to reports_url, notice: 'Report was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def view
+   @body_template = @report.template
+   render layout: false
   end
 
   private

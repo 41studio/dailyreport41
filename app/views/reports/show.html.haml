@@ -32,4 +32,7 @@
         .section
           .section-title Message
           .section-body
-            = @body_template.html_safe
+            = link_to view_report_path(@report), class: "btn btn-info", data: {turbolinks: false}, target: "_blank" do
+              .info
+                View message
+                = fa_icon "arrow-right"

@@ -1,0 +1,5 @@
+.wrapper{data: {turbolinks_track: false}}
+  .header-top{:style => "background-color: #f6f6f6; padding: 20px;"}
+    = link_to "Back to detail report", report_path(@report), style: "color: #1fb8ff; text-decoration: none;"
+
+  = @body_template.html_safe
