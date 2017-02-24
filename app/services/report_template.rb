@@ -23,7 +23,13 @@ class ReportTemplate < Mustache
   end
 
   def role
-    ['ceo', 'bde'].include?(@role) ? @role.upcase : @role.titleize rescue nil
+    if @role.eql?('ios_developer')
+      "iOS Developer"
+    else
+      ['ceo', 'bde'].include?(@role) ? @role.upcase : @role.titleize
+    end
+  rescue
+    nil
   end
 
   def subject
