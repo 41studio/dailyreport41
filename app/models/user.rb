@@ -32,7 +32,7 @@
 class User < ActiveRecord::Base
   extend Enumerize
 
-  enumerize :role, in: {ceo: 1, manager: 2, bde: 3, web_developer: 4, web_designer: 5}, predicates: true
+  enumerize :role, in: {ceo: 1, manager: 2, bde: 3, web_developer: 4, web_designer: 5, ios_developer: 6}, predicates: true
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
