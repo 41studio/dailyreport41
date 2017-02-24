@@ -78,10 +78,11 @@ class RecapsController < ApplicationController
     start_date = Date.parse(params[:start_date]).strftime("%B #{Date.parse(params[:start_date]).day.ordinalize}, %Y") rescue nil
     end_date = Date.parse(params[:end_date]).strftime("%B #{Date.parse(params[:end_date]).day.ordinalize}, %Y") rescue nil
     @date_range = "#{start_date} - #{end_date}"
+    @title_recap = "[#{@project.name}] #{@date_range} - #{@project.user.try(:full_name)}"
     respond_to do |format|
       format.html {render layout: false}
       format.pdf do
-        pdf = WickedPdf.new.pdf_from_url(view_recaps_url(params.slice(:start_date, :end_date).merge({pdf: true})), {
+        pdf = WickedPdf.new.pdf_from_url(view_recaps_url(pdf: true), {
           orientation: 'Landscape',
           page_size: 'A4',
           margin: {
@@ -92,7 +93,7 @@ class RecapsController < ApplicationController
           }
         })
 
-        send_data(pdf, filename: "[#{@project.name}] #{start_date} - #{end_date} - #{@project.user.try(:full_name)}.pdf", type: "application/pdf")
+        send_data(pdf, filename: "#{@title_recap}.pdf", type: "application/pdf")
       end
     end
   end

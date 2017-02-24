@@ -3,6 +3,7 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
+    %title= @title_recap
     :css
       body {
         font-family: Arial, Verdana;
@@ -44,32 +45,42 @@
         padding: 4px;
       }
 
-      table.table-report {
-        width: 100%;
-        border-collapse: collapse;
+      .table-report {
+        display: block;
+        font-family: sans-serif;
+        -webkit-font-smoothing: antialiased;
+        overflow: auto;
+        width: auto;
       }
-      table.table-report tr th {
-        padding: 8px 0;
-        border: thin solid #202020;
+      .table-report th {
+        background-color: #18aa4a;
+        color: white;
+        font-weight: bold;
+        padding: 20px 30px;
+        text-align: center;
       }
-      table.table-report tr td {
-        border: thin solid #000;
-        padding: 5px;
+      .table-report td {
+        background-color: #f2f2f2;
+        color: #333;
+        padding: 8px 5px;
         vertical-align: top;
         box-decoration-break: clone;
       }
-      table.table-report tr td ol {
+      .table-report td ol {
         padding-left: 20px;
-        margin-top: 0;
+        margin: 0;
       }
-      thead.table-report {
-        display: table-row-group;
-        page-break-before: always;
-        page-break-inside: always;
+      @media print {
+        .table-report tr {
+          page-break-inside: avoid;
+        }
+        .table-report thead {
+          display: table-header-group;
+        }
       }
       .center {
         margin: auto;
-        width: 80%;
+        width: 54%;
         padding: 10px;
       }
       .button-actions li {
@@ -116,10 +127,11 @@
 
         %table.table-report
           %thead.green
-            %th.align-center{:style => "width: 5%;"} No.
-            %th{:style => "width: 18%"} Date
-            %th{:style => "width: 40%"} Completed
-            %th{:style => "width: 40%"} On Progress
+            %tr
+              %th.align-center{:style => "width: 5%;"} No.
+              %th{:style => "width: 18%"} Date
+              %th{:style => "width: 40%"} Completed
+              %th{:style => "width: 40%"} On Progress
 
           %tbody
             - @reports.each_with_index do |report, idx|
