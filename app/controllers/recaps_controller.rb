@@ -5,7 +5,7 @@ class RecapsController < ApplicationController
   # GET /recaps
   # GET /recaps.json
   def index
-    @projects = Project.includes(:user).where.not(last_updated: nil).select(:id, :name, :last_updated, :user_id).order(last_updated: :desc)
+    @projects = Project.joins(:user).where.not(last_updated: nil).select("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name AS user_name").order(last_updated: :desc)
     @projects =
       if params.key?(:start_date) and params.key?(:end_date)
         @projects.where(last_updated: params[:start_date].concat('T00:00:00')..params[:end_date].concat('T23:59:59'))
@@ -14,6 +14,9 @@ class RecapsController < ApplicationController
         recap_range  = current_date.beginning_of_week.strftime("%Y%m%d").concat('T00:00:00')..current_date.end_of_week.strftime("%Y%m%d").concat('T23:59:59')
         @projects.where(last_updated: recap_range)
       end
+
+    @projects = @projects.where("projects.name ILIKE ?", "%#{params[:project]}%") if params[:project].present?
+    @projects = @projects.where("users.full_name ILIKE ?", "%#{params[:reported_by]}%") if params[:reported_by].present?
     @projects = @projects.page(params[:page]).per(20)
   end
 
