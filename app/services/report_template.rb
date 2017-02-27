@@ -69,7 +69,7 @@ class ReportTemplate < Mustache
   end
 
   def host_url
-    Rails.env.development? ? "http://localhost:4000" : "http://dailyreport41.herokuapp.com"
+    "http://dailyreport41.herokuapp.com"
   end
 
   def logo
@@ -77,7 +77,7 @@ class ReportTemplate < Mustache
   end
 
   def header_logo
-    "#{host_url}/images/header-logo.jpg"
+    "#{host_url}/images/header-logo.png"
   end
 
   def signature_full
