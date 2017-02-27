@@ -55,6 +55,7 @@
   .form-footer
     .form-group
       .col-md-12
-        = f.submit 'Save & Send', class: "btn btn-primary"
+        - unless @report.message_id?
+          = f.submit 'Save & Send', class: "btn btn-primary", data: {confirm: "Are you sure?"}
         = f.submit 'Save', class: "btn btn-info"
         = link_to 'Cancel', reports_path, class: "btn btn-default"
