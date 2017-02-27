@@ -24,7 +24,7 @@ $(document).on 'turbolinks:load', ->
   $('#recap_range').daterangepicker {
     locale:
       firstDay: 1
-      format: 'YYYYMMDD'
+      format: 'DD-MM-YYYY'
       separator: '-'
     alwaysShowCalendars: false
     autoUpdateInput: false

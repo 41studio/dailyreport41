@@ -8,10 +8,10 @@ class RecapsController < ApplicationController
     @projects = Project.includes(:user).where.not(last_updated: nil).select(:id, :name, :last_updated, :user_id).order(last_updated: :desc)
     @projects =
       if params.key?(:start_date) and params.key?(:end_date)
-        @projects.where(last_updated: params[:start_date]..params[:end_date])
+        @projects.where(last_updated: params[:start_date].concat('T00:00:00')..params[:end_date].concat('T23:59:59'))
       else
         current_date = Time.zone.now
-        recap_range  = current_date.beginning_of_week.strftime("%Y%m%d")..current_date.end_of_week.strftime("%Y%m%d")
+        recap_range  = current_date.beginning_of_week.strftime("%Y%m%d").concat('T00:00:00')..current_date.end_of_week.strftime("%Y%m%d").concat('T23:59:59')
         @projects.where(last_updated: recap_range)
       end
     @projects = @projects.page(params[:page]).per(20)
