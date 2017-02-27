@@ -1,6 +1,7 @@
 class RecapsController < ApplicationController
   before_action :set_recap, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:view]
+  load_and_authorize_resource
 
   # GET /recaps
   # GET /recaps.json
