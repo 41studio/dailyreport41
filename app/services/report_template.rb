@@ -77,7 +77,7 @@ class ReportTemplate < Mustache
   end
 
   def header_logo
-    "#{host_url}/images/header-logo.png"
+    "#{host_url}/images/header-logo-update.png"
   end
 
   def signature_full
