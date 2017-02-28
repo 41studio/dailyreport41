@@ -3,7 +3,7 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:charset => "utf-8"}/
-    %title= @title_recap
+    %title= @results[:title_recap]
     :css
       body {
         font-family: Arial, Verdana;
@@ -116,15 +116,15 @@
               = image_tag "41studio-logo.png", width: 180
             %th.align-left Project
             %th :
-            %td= @project.name
+            %td= @results[:project_name]
           %tr
             %th.align-left Date
             %th :
-            %td= @date_range
+            %td= @results[:date_range]
           %tr
             %th.align-left Reported by
             %th :
-            %td= @project.user.try(:full_name)
+            %td= @results[:project_user_name]
 
         %table.table-report
           %thead.green
@@ -135,7 +135,7 @@
               %th{:style => "width: 40%"} On Progress
 
           %tbody
-            - @reports.each_with_index do |report, idx|
+            - @results[:reports].each_with_index do |report, idx|
               %tr
                 %td.align-center #{idx+=1}
                 %td= date_and_work_hour_text(report.reported_at, report.work_hour)
@@ -149,4 +149,4 @@
                       %li= task.title
             %tr
               %td{colspan: 4}
-                %b Total work hour: #{round_work_hour(@reports.map(&:work_hour).sum)} hrs
+                %b Total work hour: #{round_work_hour(@results[:total_work_hour])} hrs
