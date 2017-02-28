@@ -67,8 +67,12 @@ styleTaskList = ->
         date = new Date
         template = $('a.add_fields').data('association-insertion-template')
         new_task = template.replace(/new_tasks/g, date.getTime())
-        $(new_task).insertBefore('#add-task')
+        newItem  = $(new_task).insertBefore('#add-task')
         $(@).parent().closest('.nested-fields').nextAll().first().find('input.task-title').focus()
+
+        # set checked based previous item
+        isItemChecked = nestedField.find('input[type="checkbox"]').is(':checked')
+        newItem.find('input[type="checkbox"]').prop('checked', isItemChecked)
       # down
       when 40
         element = nestedField.nextAll().closest('.nested-fields').first().find('input.task-title').get(0)
@@ -90,6 +94,11 @@ styleTaskList = ->
         unless nestedField.find('input.task-title').val()
           nestedField.prevAll().closest('.nested-fields').last().find('input.task-title').focus()
           nestedField.remove()
+    return
+
+  $('body').on 'cocoon:after-insert', '#tasks', (e, insertedItem) ->
+    isPrevItemChecked = insertedItem.prevAll().closest('.nested-fields').last().find('input[type="checkbox"]').is(':checked')
+    insertedItem.find('input[type="checkbox"]').prop('checked', isPrevItemChecked)
     return
   return
 
