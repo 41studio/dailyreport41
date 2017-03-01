@@ -11,6 +11,9 @@ class ReportsController < ApplicationController
   # GET /reports/1
   # GET /reports/1.json
   def show
+    tasks = @report.tasks.order(:id)
+    @completed_tasks   = tasks.select{|task| task.completed?}
+    @on_progress_tasks = tasks.order(:id).select{|task| task.on_progress?}
   end
 
   # GET /reports/new

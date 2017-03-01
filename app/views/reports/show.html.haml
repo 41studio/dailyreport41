@@ -30,6 +30,20 @@
           .section-body
             = @report.subject_text
         .section
+          .section-title Tasks
+          .section-body
+            - if @completed_tasks.present?
+              %b Completed
+              %ol.tasks
+                - @completed_tasks.each do |task|
+                  %li.task-list= task.title
+            - if @on_progress_tasks.present?
+              %b On Progress
+              %ol.tasks
+                - @on_progress_tasks.each do |task|
+                  %li.task-list= task.title
+
+        .section
           .section-title Message
           .section-body
             = link_to view_report_path(@report), class: "btn btn-info", data: {turbolinks: false}, target: "_blank" do
