@@ -23,6 +23,7 @@
                 %td= project.email_client
                 %td= project.email_project_manager
                 %td.text-right
+                  = link_to 'New Report', new_project_report_path(project), class: "btn btn-xs btn-success"
                   = link_to 'Show', project, class: "btn btn-xs btn-primary"
                   = link_to 'Edit', edit_project_path(project), class: "btn btn-xs btn-info"
                   = link_to 'Destroy', project, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: "btn btn-xs btn-danger"

@@ -4,7 +4,18 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @projects = current_user.projects.all.page(params[:page]).per(30)
+    projects = current_user.projects.ordered
+    respond_to do |format|
+      format.html do
+        @projects = projects.page(params[:page]).per(30)
+      end
+      format.json do
+        projects = projects.select("id, name AS text")
+        projects = projects.where("name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+        projects = projects.page(params[:page]).per(30)
+        render json: { projects: projects, total_count: projects.total_count }
+      end
+    end
   end
 
   # GET /projects/1

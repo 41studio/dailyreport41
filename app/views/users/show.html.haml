@@ -2,7 +2,7 @@
   .col-lg-12
     .card
       .card-body.app-heading
-        %img.profile-img{:src => image_path("profile.png")}/
+        = image_tag "profile.png", class: "profile-img"
         .app-title
           .title
             %span.highlight= @user.full_name

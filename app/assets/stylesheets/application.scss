@@ -11,12 +11,14 @@
  * file per style scope.
  *
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
 @import "font-awesome";
-@import "flat-admin/vendor";
-@import "flat-admin/flat-admin";
 @import "vendor/simplemde.min";
 @import "vendor/jquery.tagit";
 @import "vendor/tagit.ui-zendesk";
 @import "vendor/daterangepicker";
 @import "vendor/jquery.loader";
+@import "vendor/select2";
+@import "flat-admin/flat-admin";
 @import "customs";

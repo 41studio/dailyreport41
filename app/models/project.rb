@@ -39,6 +39,7 @@ class Project < ActiveRecord::Base
 
   # scope
   scope :latest, -> { order(created_at: :desc) }
+  scope :ordered, -> { order(name: :asc) }
 
   def client_first_name
     client_name.try(:split).try(:first)

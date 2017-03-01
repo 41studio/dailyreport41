@@ -3,7 +3,26 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 selectProject = ->
-  $('select#report_project_id').select2();
+  $('select#report_project_id').select2
+    ajax:
+      url: '/projects'
+      dataType: 'json'
+      delay: 250
+      data: (params) ->
+        {
+          q: params.term
+          page: params.page
+        }
+      processResults: (data, params) ->
+        params.page = params.page or 1
+        {
+          results: data.projects
+          pagination:
+            more: params.page * 30 < data.total_count
+        }
+      cache: true
+    minimumInputLength: 0
+
   $('select#report_project_id').on 'select2:select', ->
     # console.log $(@).val()
     projectId = $(@).val()
