@@ -7,7 +7,8 @@ class ProjectsController < ApplicationController
     projects = current_user.projects.ordered
     respond_to do |format|
       format.html do
-        @projects = projects.page(params[:page]).per(30)
+        @projects = params[:q].present? ? projects.filter(params[:q]) : projects
+        @projects = @projects.page(params[:page]).per(30)
       end
       format.json do
         projects = projects.select("id, name AS text")

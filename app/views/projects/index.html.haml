@@ -1,6 +1,17 @@
 .row
   .col-xs-12
     .card
+      .card-body
+        .row
+          = form_tag projects_path, method: :get, class: "filter-project" do
+            .col-lg-4.col-md-4.col-sm-12
+              = label_tag "Filter"
+              = text_field_tag :q, params[:q], class: "form-control"
+              .text-right
+                = submit_tag "Filter", class: "btn btn-xs btn-primary"
+.row
+  .col-xs-12
+    .card
       .card-header
         = link_to 'New Project', new_project_path, class: "btn btn-success"
 

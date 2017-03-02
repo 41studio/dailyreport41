@@ -1,11 +1,15 @@
 class ReportsController < ApplicationController
+  include DateRange
   before_action :set_report, only: [:show, :edit, :update, :destroy, :view]
   before_action :set_project, only: [:new, :edit, :create, :update]
 
   # GET /reports
   # GET /reports.json
   def index
-    @reports = current_user.reports.includes(:project).order("created_at DESC").page(params[:page]).per(30)
+    @reports = current_user.reports.joins(:project).where(reported_at: date_range).select("reports.id, reports.email_to, reports.reported_at, reports.slug, projects.name AS name_project")
+    @reports = @reports.where("projects.name ILIKE ?",    "%#{params[:project]}%")      if params[:project].present?
+    @reports = @reports.where("reports.email_to ILIKE ?", "%#{params[:email_to]}%")     if params[:email_to].present?
+    @reports = @reports.order("reports.created_at DESC").group("reports.id, reports.email_to, reports.reported_at, projects.name").page(params[:page]).per(30)
   end
 
   # GET /reports/1

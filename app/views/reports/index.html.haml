@@ -1,6 +1,30 @@
 .row
   .col-xs-12
     .card
+      .card-body
+        .row
+          = form_tag reports_path, method: :get, class: "filter-range-report" do
+            .col-lg-4.col-md-4.col-sm-12
+              = label_tag "Reported at"
+              .input-group
+                %span.input-group-addon
+                  %i.fa.fa-calendar
+                %div#report-daterange-picker
+                  = text_field_tag :report_range, default_range_recap, class: "form-control report-date text-center"
+                  = hidden_field_tag :start_date, params[:start_date], id: "report_start_date"
+                  = hidden_field_tag :end_date, params[:end_date], id: "report_end_date"
+            .col-lg-4.col-md-4.col-sm-12
+              = label_tag "Project"
+              = text_field_tag :project, params[:project], class: "form-control"
+            .col-lg-4.col-md-4.col-sm-12
+              = label_tag "Email to"
+              = text_field_tag :email_to, params[:email_to], class: "form-control"
+            .col-lg-12.col-md-12.col-sm-12.text-right
+              = submit_tag "Filter", class: "btn btn-xs btn-primary"
+
+.row
+  .col-xs-12
+    .card
       .card-header
         = link_to 'New Report', new_report_path, class: "btn btn-success"
 
@@ -19,7 +43,7 @@
 
             - @reports.each_with_index do |report, index|
               %tr
-                %td= report.project_name
+                %td= report.name_project
                 %td= report.email_to
                 %td= formated_date(report.reported_at)
                 %td.text-right

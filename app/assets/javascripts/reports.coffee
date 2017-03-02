@@ -125,6 +125,12 @@ disbaleSubmitOnEnter = ->
   $('.form-report').on 'keypress', (e) ->
     return false if e.keyCode == 13
 
+pickDate = (startDate, endDate) ->
+  $('#report_range').val("#{startDate.format('D MMMM YYYY')} - #{endDate.format('D MMMM YYYY')}")
+  $('#report_start_date').val(startDate.format('YYYYMMDD'))
+  $('#report_end_date').val(endDate.format('YYYYMMDD'))
+  return
+
 isLoaded = false
 $(document).on 'turbolinks:load', ->
   unless isLoaded
@@ -135,5 +141,33 @@ $(document).on 'turbolinks:load', ->
     taggingEmail()
     styleTaskList()
     disbaleSubmitOnEnter()
+
+    if $('#report_start_date').val() and $('#report_end_date').val()
+      startDate = moment($('#report_start_date').val())
+      endDate = moment($('#report_end_date').val())
+    else
+      startDate = moment().weekday(1)
+      endDate = moment().weekday(5)
+
+    pickDate(startDate, endDate)
+    $('#report_range').daterangepicker {
+      locale:
+        firstDay: 1
+        format: 'DD-MM-YYYY'
+        separator: '-'
+      alwaysShowCalendars: false
+      autoUpdateInput: false
+      autoApply: true
+      startDate: moment().weekday(1)
+      endDate: moment().weekday(5)
+      parentEl: '#report-daterange-picker'
+      buttonClasses: 'btn btn-xs'
+    }, (startDate, endDate, label) ->
+      pickDate(startDate, endDate)
+      $('.filter-range-report').submit()
+      return
+    return
+
+
   return
 

@@ -1,4 +1,5 @@
 class RecapsController < ApplicationController
+  include DateRange
   before_action :set_recap, only: [:show, :edit, :update, :destroy]
   skip_before_action :authenticate_user!, only: [:view]
   load_and_authorize_resource
@@ -6,15 +7,7 @@ class RecapsController < ApplicationController
   # GET /recaps
   # GET /recaps.json
   def index
-    recap_range =
-      if params.key?(:start_date) and params.key?(:end_date)
-        date_to_range(params[:start_date], params[:end_date])
-      else
-        current_date = Time.zone.now
-        date_to_range(current_date.beginning_of_week.strftime("%Y%m%d"), current_date.end_of_week.strftime("%Y%m%d"))
-      end
-
-    @projects = Project.joins(user: :reports).where.not(last_updated: nil).where(reports: {reported_at: recap_range}).select("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name AS user_name").order(last_updated: :desc).group("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name")
+    @projects = Project.joins(user: :reports).where.not(last_updated: nil).where(reports: {reported_at: date_range}).select("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name AS user_name").order(last_updated: :desc).group("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name")
     @projects = @projects.where("projects.name ILIKE ?",   "%#{params[:project]}%")       if params[:project].present?
     @projects = @projects.where("users.full_name ILIKE ?", "%#{params[:reported_by]}%")   if params[:reported_by].present?
     @projects = @projects.page(params[:page]).per(20)
@@ -98,10 +91,6 @@ class RecapsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def recap_params
       params.require(:recap).permit(:project_id, :user_id, :start_date, :end_date)
-    end
-
-    def date_to_range(start_date, end_date)
-      start_date.concat('T00:00:00')..end_date.concat('T23:59:59')
     end
 
     def respond_to_pdf(filename)

@@ -40,6 +40,7 @@ class Project < ActiveRecord::Base
   # scope
   scope :latest, -> { order(created_at: :desc) }
   scope :ordered, -> { order(name: :asc) }
+  scope :filter, -> (query) { where("name ILIKE :query OR client_name ILIKE :query OR email_client ILIKE :query OR project_manager_name ILIKE :query OR email_project_manager ILIKE :query OR email_cc ILIKE :query OR email_bcc ILIKE :query", query: "%#{query}%") }
 
   def client_first_name
     client_name.try(:split).try(:first)

@@ -3,7 +3,7 @@
   %head
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
     %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}/
-
+    = favicon_link_tag "favicon.ico"
     %title DailyReport41
     - if user_signed_in?
       = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
@@ -20,7 +20,7 @@
         %aside#sidebar.app-sidebar
           .sidebar-header
             %a.sidebar-brand{:href => root_path}
-              DailyReport41
+              = image_tag "41studio-logo.png", alt: "41studio", width: "120"
             %button.sidebar-toggle{:type => "button"}
               %i.fa.fa-times
           .sidebar-menu
@@ -83,7 +83,7 @@
             .row
               .col-xs-12
                 .footer-copyright
-                  Copyright © #{Time.now.year} DailyReport41
+                  Copyright © #{Time.now.year} 41studio.com
 
     - else
       .app.app-default
