@@ -12,6 +12,10 @@ module DateRange
 
   private
     def date_to_range(start_date, end_date)
-      start_date.concat('T00:00:00')..end_date.concat('T23:59:59')
+      if start_date =~ /T00:00:00/ || end_date =~ /T00:00:00/
+        start_date..end_date
+      else
+        start_date.concat('T00:00:00')..end_date.concat('T23:59:59')
+      end
     end
 end
