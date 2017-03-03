@@ -3,7 +3,7 @@
 # Table name: tasks
 #
 #  id         :integer          not null, primary key
-#  title      :string
+#  title      :text
 #  status     :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -26,7 +26,7 @@ class Task < ActiveRecord::Base
   belongs_to :report
 
   # validations
-  validates :title, presence: true, length: { maximum: 200 }
+  validates :title, presence: true
   validates :status, presence: true
 
   # scope
