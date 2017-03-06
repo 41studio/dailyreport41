@@ -17,8 +17,8 @@ $(document).on 'turbolinks:load', ->
     startDate = moment($('#recap_start_date').val())
     endDate = moment($('#recap_end_date').val())
   else
-    startDate = moment().weekday(1)
-    endDate = moment().weekday(5)
+    startDate = moment().subtract(1, 'week').weekday(1)
+    endDate = moment().subtract(1, 'week').weekday(5)
 
   pickDate(startDate, endDate)
   $('#recap_range').daterangepicker {
@@ -29,8 +29,8 @@ $(document).on 'turbolinks:load', ->
     alwaysShowCalendars: false
     autoUpdateInput: false
     autoApply: true
-    startDate: moment().weekday(1)
-    endDate: moment().weekday(5)
+    startDate: startDate
+    endDate: endDate
     parentEl: '#recap-datepicker'
     buttonClasses: 'btn btn-xs'
   }, (startDate, endDate, label) ->

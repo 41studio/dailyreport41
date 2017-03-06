@@ -5,8 +5,8 @@ module DateRange
     if params.key?(:start_date) and params.key?(:end_date)
       date_to_range(params[:start_date], params[:end_date])
     else
-      current_date = Time.zone.now
-      date_to_range(current_date.beginning_of_week.strftime("%Y%m%d"), current_date.end_of_week.strftime("%Y%m%d"))
+      last_week = 1.week.ago
+      date_to_range(last_week.beginning_of_week.strftime("%Y%m%d"), last_week.end_of_week.strftime("%Y%m%d"))
     end
   end
 
