@@ -18,7 +18,7 @@ $(document).on 'turbolinks:load', ->
     endDate = moment($('#recap_end_date').val())
   else
     startDate = moment().subtract(1, 'week').weekday(1)
-    endDate = moment().subtract(1, 'week').weekday(5)
+    endDate = moment().subtract(1, 'week').weekday(7)
 
   pickDate(startDate, endDate)
   $('#recap_range').daterangepicker {

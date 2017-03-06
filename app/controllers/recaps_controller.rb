@@ -7,7 +7,7 @@ class RecapsController < ApplicationController
   # GET /recaps
   # GET /recaps.json
   def index
-    @projects = Project.joins(user: :reports).where.not(last_updated: nil).where(reports: {reported_at: date_range}).select("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name AS user_name").order(last_updated: :desc).group("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name")
+    @projects = Project.joins(:reports, :user).where(reports: {reported_at: date_range}).select("projects.id, projects.name, projects.last_updated, projects.user_id, users.full_name AS user_name").group("projects.id, users.full_name").order(last_updated: :desc)
     @projects = @projects.where("projects.name ILIKE ?",   "%#{params[:project]}%")       if params[:project].present?
     @projects = @projects.where("users.full_name ILIKE ?", "%#{params[:reported_by]}%")   if params[:reported_by].present?
     @projects = @projects.page(params[:page]).per(20)
