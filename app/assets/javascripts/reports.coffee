@@ -147,7 +147,7 @@ $(document).on 'turbolinks:load', ->
       endDate = moment($('#report_end_date').val())
     else
       startDate = moment().weekday(1)
-      endDate = moment().weekday(5)
+      endDate = moment().weekday(7)
 
     pickDate(startDate, endDate)
     $('#report_range').daterangepicker {
@@ -158,8 +158,8 @@ $(document).on 'turbolinks:load', ->
       alwaysShowCalendars: false
       autoUpdateInput: false
       autoApply: true
-      startDate: moment().weekday(1)
-      endDate: moment().weekday(5)
+      startDate: startDate
+      endDate: endDate
       parentEl: '#report-daterange-picker'
       buttonClasses: 'btn btn-xs'
     }, (startDate, endDate, label) ->
