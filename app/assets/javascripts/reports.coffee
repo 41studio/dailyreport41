@@ -146,8 +146,8 @@ $(document).on 'turbolinks:load', ->
       startDate = moment($('#report_start_date').val())
       endDate = moment($('#report_end_date').val())
     else
-      startDate = moment().weekday(1)
-      endDate = moment().weekday(7)
+      startDate = moment().subtract(1, 'week').weekday(1)
+      endDate = moment().subtract(1, 'week').weekday(7)
 
     pickDate(startDate, endDate)
     $('#report_range').daterangepicker {
