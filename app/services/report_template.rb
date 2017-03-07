@@ -1,5 +1,6 @@
 class ReportTemplate < Mustache
   include ActionView::Helpers::AssetUrlHelper
+  include ApplicationHelper
   self.template_extension = 'html'
   self.template_file = File.join(Rails.root.join('app/views/templates'), 'report_themed.html')
 
@@ -100,5 +101,9 @@ class ReportTemplate < Mustache
 
   def icon_envelope
     "#{host_url}/images/icon-envelop.png"
+  end
+
+  def work_hour
+    round_work_hour(@report.work_hour)
   end
 end

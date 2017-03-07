@@ -117,4 +117,8 @@ class Report < ActiveRecord::Base
     def set_last_updated
       self.project.update_attributes(last_updated: reported_at)
     end
+
+    def generate_body
+      ["Today I have worked on this following tasks,", "Today I did a great job at:"]
+    end
 end
