@@ -106,4 +106,8 @@ class ReportTemplate < Mustache
   def work_hour
     round_work_hour(@report.work_hour)
   end
+
+  def end_letter
+    @report.end_letter
+  end
 end

@@ -18,6 +18,7 @@
 #  resend      :boolean          default(FALSE)
 #  slug        :string
 #  work_hour   :decimal(, )      default(8.0)
+#  end_letter  :text             default("If you have any question, feel free to contact me directly and I'll try my best to help.<br><br>Have a wonderful day ;)")
 #
 # Indexes
 #
@@ -46,7 +47,7 @@ class Report < ActiveRecord::Base
 
   ##
   # validations
-  validates :project_id, :body, :email_to, :reported_at, presence: true
+  validates :project_id, :email_to, :reported_at, presence: true
   validates :email_to, :email_cc, :email_bcc, email_addresses: true
   # validate :ensure_valid_date
 
@@ -57,8 +58,8 @@ class Report < ActiveRecord::Base
 
   ##
   # callbacks
-  after_initialize :set_default_message_body
-  before_create :set_subject
+  # after_initialize :set_default_message_body
+  before_create :set_subject, :set_default_message_body, :set_default_end_letter
   after_update  :ensure_resend_report
   after_save    :set_last_updated
 
@@ -82,7 +83,7 @@ class Report < ActiveRecord::Base
   end
 
   def template
-    ReportTemplate.new(self).render
+    CGI.unescapeHTML ReportTemplate.new(self).render
   end
 
   def slug_candidates
@@ -103,7 +104,11 @@ class Report < ActiveRecord::Base
     end
 
     def set_default_message_body
-      self.body = "Today I have worked on this following tasks,"
+      self.body = generate_body
+    end
+
+    def set_default_end_letter
+      self.end_letter = generate_end_letter
     end
 
     def ensure_resend_report
@@ -119,6 +124,16 @@ class Report < ActiveRecord::Base
     end
 
     def generate_body
-      ["Today I have worked on this following tasks,", "Today I did a great job at:"]
+      [
+        "Today I have worked on these following tasks,",
+        "Hope all things are good on your side.<br>Below are what I have done for today:"
+      ].sample
+    end
+
+    def generate_end_letter
+      [
+        "If you have any question, feel free to contact me directly and I'll try my best to help.<br><br>Have a wonderful day ;)",
+        "Please let me know if you have any feedback.<br><br>Have a nice day :)"
+      ].sample
     end
 end
