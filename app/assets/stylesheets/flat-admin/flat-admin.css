@@ -2958,7 +2958,7 @@ aside.app-sidebar {
       border-bottom-color: #29c75f; }
 
 .app-login {
-  background: #29c75f;
+  // background: #29c75f;
   padding: 0 !important; }
   .app-login .app-body {
     position: relative;
