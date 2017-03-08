@@ -29,6 +29,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 
+require 'net/http'
+
 class User < ActiveRecord::Base
   extend Enumerize
 
@@ -96,7 +98,8 @@ class User < ActiveRecord::Base
 
   # Returns true if your access token smells like spoiled milk.
   def token_expired?
-    expires_at < Time.now
+    return true
+    expires_at < Time.now if expires_at?
   end
 
   # A convenience method to return a valid access token, refreshing if necessary.
