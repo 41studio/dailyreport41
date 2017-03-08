@@ -29,6 +29,7 @@ Create daily report easier with simple interface.
 $ git clone git@github.com:41studio/dailyreport41.git
 ```
 * Rename database config in **config/database.yml.example** to **database.yml** and change config username, password and database name.
+* Rename env variable config in **.env.example** to **.env** and set your variables.
 * Then bundle install
 ```bash
 $ bundle install
