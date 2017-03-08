@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170303095132) do
+ActiveRecord::Schema.define(version: 20170308073121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,14 +68,15 @@ ActiveRecord::Schema.define(version: 20170303095132) do
     t.string   "email_bcc"
     t.datetime "reported_at"
     t.text     "note"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                                                                                                                      null: false
+    t.datetime "updated_at",                                                                                                                                      null: false
     t.integer  "project_id"
     t.integer  "user_id"
     t.string   "message_id"
     t.boolean  "resend",      default: false
     t.string   "slug"
     t.decimal  "work_hour",   default: 8.0
+    t.text     "end_letter",  default: "If you have any question, feel free to contact me directly and I'll try my best to help.<br><br>Have a wonderful day ;)"
   end
 
   add_index "reports", ["project_id"], name: "index_reports_on_project_id", using: :btree
