@@ -33,12 +33,12 @@
                   {{ body }}
                   <br><br>
                   {{#is_completed_tasks?}}
-                  <strong>Completed:</strong>
-                  <ol>
-                    {{#completed_tasks}}
-                      <li>{{title}}</li>
-                    {{/completed_tasks}}
-                  </ol>
+                    <strong>Completed:</strong>
+                    <ol>
+                      {{#completed_tasks}}
+                        <li>{{title}}</li>
+                      {{/completed_tasks}}
+                    </ol>
                   {{/is_completed_tasks?}}
                   {{#is_on_progress_tasks?}}
                     <strong>On Progress:</strong>

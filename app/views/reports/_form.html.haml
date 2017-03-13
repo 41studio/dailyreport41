@@ -32,8 +32,10 @@
 
 
   .section
-    .section-title Tasks
+    .section-title
+      Tasks
     .section-body
+      %small.help-block Enter for new task; Shift+Enter for new line
       #tasks
         = f.fields_for :tasks, (@report.new_record? ? @report.tasks : f.object.tasks.order(:id)) do |task|
           = render 'task_fields', f: task

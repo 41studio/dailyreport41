@@ -24,6 +24,7 @@
 //= require vendor/daterangepicker
 //= require vendor/jquery.loader
 //= require vendor/jquery.timeago
+//= require vendor/expanding.jquery
 //= require app
 //= require reports
 //= require recaps

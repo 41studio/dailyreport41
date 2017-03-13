@@ -32,4 +32,11 @@ class Task < ActiveRecord::Base
   # scope
   scope :completed, -> { with_status(:completed) }
   scope :on_progress, -> { with_status(:on_progress) }
+
+  before_save :convert_to_new_line
+
+  private
+    def convert_to_new_line
+      self.title = title.gsub(/\n/, '<br>')
+    end
 end

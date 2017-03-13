@@ -1,14 +1,11 @@
 .nested-fields
   .form-group
-    .col-md-12{:style => "height: 42px;"}
-      .task-list
-        .checkbox
-          = f.check_box :status, {}, "completed", "on_progress"
+    .col-md-12
+      .row.container-task{style: "padding-left: 15px;"}
+        .col-md-11.checkbox
+          = f.check_box :status, {class: "task-status"}, "completed", "on_progress"
           = f.label :status, class: "task-label" do
-            = f.text_field :title, class: "task-label task-title", placeholder: "List task", autocomplete: "off"
-      .task-remove
-        -# TODO
-        -# show hide button remove on focus and hover the task
-        -#{:style => "display: none;"}
-        = link_to_remove_association f, title: "Remove task", class: "btn-remove" do
-          %i.fa.fa-times-circle.fa-2x{:style => "color: #d73727;"}
+            = f.text_area :title, class: "task-title", placeholder: "List task", autocomplete: "off", rows: 1, value: f.object.title.to_s.gsub(/<br>/, "\n")
+        .col-md-1.remove.text-right
+          = link_to_remove_association f, title: "Remove task", class: "btn-remove" do
+            %i.fa.fa-times-circle.fa-2x{:style => "color: #d73727;"}

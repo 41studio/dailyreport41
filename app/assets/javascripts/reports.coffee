@@ -69,35 +69,39 @@ taggingEmail = ->
   return
 
 addTopBottomBorderToInput = (selector) ->
-  $(selector).parent().closest('.task-list').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
+  $(selector).parent().parent().parent().parent('.container-task').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
 
 styleTaskList = ->
-  $('input.task-title').focus()
-  addTopBottomBorderToInput('input.task-title')
-  $('body').on 'focus', 'input.task-title', ->
-    $('.task-list').css('border', 'none')
+  $('textarea.task-title').focus()
+  addTopBottomBorderToInput('textarea.task-title')
+  $('body').on 'focus', 'textarea.task-title', ->
+    $('.container-task').css('border', 'none')
     addTopBottomBorderToInput(@)
+    $(@).parent().parent().parent('.container-task').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
     $(@).parent().closest('.task-list').next().show()
     return
 
-  $('body').on 'keyup', 'input.task-title', (e) ->
+  $('body').on 'change', -> $('textarea.task-title').expanding()
+
+  $('body').on 'keyup', 'textarea.task-title', (e) ->
     # console.log e.keyCode
     nestedField = $(@).parent().closest('.nested-fields')
     switch e.keyCode
       # enter
       when 13
-        date = new Date
-        template = $('a.add_fields').data('association-insertion-template')
-        new_task = template.replace(/new_tasks/g, date.getTime())
-        newItem  = $(new_task).insertBefore('#add-task')
-        $(@).parent().closest('.nested-fields').nextAll().first().find('input.task-title').focus()
+        unless e.shiftKey
+          date = new Date
+          template = $('a.add_fields').data('association-insertion-template')
+          new_task = template.replace(/new_tasks/g, date.getTime())
+          newItem  = $(new_task).insertBefore('#add-task')
+          $(@).parent().closest('.nested-fields').nextAll().first().find('textarea.task-title').focus()
 
-        # set checked based previous item
-        isItemChecked = nestedField.find('input[type="checkbox"]').is(':checked')
-        newItem.find('input[type="checkbox"]').prop('checked', isItemChecked)
+          # set checked based previous item
+          isItemChecked = nestedField.find('input[type="checkbox"]').is(':checked')
+          newItem.find('input[type="checkbox"]').prop('checked', isItemChecked)
       # down
       when 40
-        element = nestedField.nextAll().closest('.nested-fields').first().find('input.task-title').get(0)
+        element = nestedField.nextAll().closest('.nested-fields').first().find('textarea.task-title').get(0)
         if element
           valueLength = element.value.length
           if valueLength > 0
@@ -106,7 +110,7 @@ styleTaskList = ->
           element.focus()
       # up
       when 38
-        element = nestedField.prevAll().closest('.nested-fields').last().find('input.task-title').get(0)
+        element = nestedField.prevAll().closest('.nested-fields').last().find('textarea.task-title').get(0)
         if element
           element.selectionStart = 0
           element.selectionEnd = 0
@@ -114,13 +118,13 @@ styleTaskList = ->
       # backspace
       when 8
         prevTasks = nestedField.prevAll()
-        unless nestedField.find('input.task-title').val()
-          prevTasks.closest('.nested-fields').last().find('input.task-title').focus()
+        unless nestedField.find('textarea.task-title').val()
+          prevTasks.closest('.nested-fields').last().find('textarea.task-title').focus()
           nestedField.remove() if prevTasks.length > 0
       # delete
       when 46
         nextTasks = nestedField.nextAll()
-        window.nextInputTask = nextTasks.closest('.nested-fields').first().find('input.task-title')
+        window.nextInputTask = nextTasks.closest('.nested-fields').first().find('textarea.task-title')
         if nextInputTask.val()
           nextInputTask.focus()
         else
@@ -137,13 +141,15 @@ styleTaskList = ->
     prevItemStatus = insertedItem.prevAll().closest('.nested-fields').last().find('input[type="checkbox"]')
     isPrevItemChecked = if prevItemStatus.length == 0 then true else prevItemStatus.is(':checked')
     insertedItem.find('input[type="checkbox"]').prop('checked', isPrevItemChecked)
-    insertedItem.find('input.task-title').focus()
+    insertedItem.find('textarea.task-title').focus()
     return
   return
 
 disbaleSubmitOnEnter = ->
   $('.form-report').on 'keypress', (e) ->
+    return true if e.keyCode == 13 && e.shiftKey
     return false if e.keyCode == 13
+
 
 pickDate = (startDate, endDate) ->
   $('#report_range').val("#{startDate.format('D MMMM YYYY')} - #{endDate.format('D MMMM YYYY')}")
@@ -154,13 +160,14 @@ pickDate = (startDate, endDate) ->
 isLoaded = false
 $(document).on 'turbolinks:load', ->
   unless isLoaded
+    disbaleSubmitOnEnter()
+    $('textarea.task-title').expanding()
     selectProject()
     toggleEmailRecipients()
     pickerDate()
     markdownEditor()
     taggingEmail()
     styleTaskList()
-    disbaleSubmitOnEnter()
 
     if $('#report_start_date').val() and $('#report_end_date').val()
       startDate = moment($('#report_start_date').val())

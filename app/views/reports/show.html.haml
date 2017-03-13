@@ -36,12 +36,12 @@
               %b Completed
               %ol.tasks
                 - @completed_tasks.each do |task|
-                  %li.task-list= task.title
+                  %li.task-list= task.title.to_s.html_safe
             - if @on_progress_tasks.present?
               %b On Progress
               %ol.tasks
                 - @on_progress_tasks.each do |task|
-                  %li.task-list= task.title
+                  %li.task-list= task.title.to_s.html_safe
 
         .section
           .section-title Message

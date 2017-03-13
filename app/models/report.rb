@@ -17,7 +17,7 @@
 #  message_id  :string
 #  resend      :boolean          default(FALSE)
 #  slug        :string
-#  work_hour   :decimal(, )      default(8.0)
+#  work_hour   :float            default(8.0)
 #  end_letter  :text             default("If you have any question, feel free to contact me directly and I'll try my best to help.<br><br>Have a wonderful day ;)")
 #
 # Indexes
