@@ -68,12 +68,15 @@ taggingEmail = ->
   $('.tagging-email').tagit()
   return
 
+addTopBottomBorderToInput = (selector) ->
+  $(selector).parent().closest('.task-list').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
+
 styleTaskList = ->
   $('input.task-title').focus()
-
+  addTopBottomBorderToInput('input.task-title')
   $('body').on 'focus', 'input.task-title', ->
     $('.task-list').css('border', 'none')
-    $(@).parent().closest('.task-list').css('border-top', '1px solid silver').css('border-bottom', '1px solid silver')
+    addTopBottomBorderToInput(@)
     $(@).parent().closest('.task-list').next().show()
     return
 
@@ -110,14 +113,31 @@ styleTaskList = ->
           element.focus()
       # backspace
       when 8
+        prevTasks = nestedField.prevAll()
         unless nestedField.find('input.task-title').val()
-          nestedField.prevAll().closest('.nested-fields').last().find('input.task-title').focus()
-          nestedField.remove()
+          prevTasks.closest('.nested-fields').last().find('input.task-title').focus()
+          nestedField.remove() if prevTasks.length > 0
+      # delete
+      when 46
+        nextTasks = nestedField.nextAll()
+        window.nextInputTask = nextTasks.closest('.nested-fields').first().find('input.task-title')
+        if nextInputTask.val()
+          nextInputTask.focus()
+        else
+          $(@).focus()
+          if $(@).val() == ""
+            nestedField.remove() if nextTasks.length > 1
+            nextInputTask.focus() if nextInputTask.length > 0
+          else if $(@).get(0).selectionStart == $(@).val().length and nextInputTask.val() == ""
+            nextInputTask.parent().closest('.nested-fields').remove()
+            nextInputTask.focus() if nextInputTask.length > 0
     return
 
   $('body').on 'cocoon:after-insert', '#tasks', (e, insertedItem) ->
-    isPrevItemChecked = insertedItem.prevAll().closest('.nested-fields').last().find('input[type="checkbox"]').is(':checked')
+    prevItemStatus = insertedItem.prevAll().closest('.nested-fields').last().find('input[type="checkbox"]')
+    isPrevItemChecked = if prevItemStatus.length == 0 then true else prevItemStatus.is(':checked')
     insertedItem.find('input[type="checkbox"]').prop('checked', isPrevItemChecked)
+    insertedItem.find('input.task-title').focus()
     return
   return
 
