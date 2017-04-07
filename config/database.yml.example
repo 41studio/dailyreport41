@@ -48,7 +48,7 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: dailyreport41_production
-  username: dailyreport41
-  password: <%= ENV['DAILYREPORT41_DATABASE_PASSWORD'] %>
+  <staging:
+  url: <%= ENV['DATABASE_URL'] %>
+  encoding: utf8
+  pool: 15
